@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from ..models import Question
-from django.db.models import Q
+from django.db.models import Q, Count
 
 def index(request):
     """
@@ -10,9 +10,18 @@ def index(request):
     #입력 파라미터
     page = request.GET.get('page', '1') #페이지
     kw = request.GET.get('kw', '') #검색어
+    so = request.GET.get('so', 'recent')  # 정렬기준
+
+    # 정렬
+    if so == 'recommend':
+        question_list = Question.objects.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
+    elif so == 'popular':
+        question_list = Question.objects.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
+    else:  # recent
+        question_list = Question.objects.order_by('-create_date')
 
     #조회
-    question_list = Question.objects.order_by('-create_date')
+    #question_list = Question.objects.order_by('-create_date') 정렬 붙이기전 코드
     if kw:
         question_list = question_list.filter(
             Q(subject__icontains=kw) | #제목검색
@@ -27,9 +36,9 @@ def index(request):
     page_obj = pagintor.get_page(page)
 
     # context = {'question_list': question_list}
-    context = {'question_list': page_obj, 'page': page, 'kw': kw}
+    context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so}
     return render(request, 'pybo/question_list.html', context)
-
+#--------------------------------------------------------------------------------------------------------------------
 # page = request.GET.get('page', '1')은 http://localhost:8000/pybo/?page=1
 # 처럼 GET 방식으로 호출된 URL에서 page값을 가져올 때 사용한다.
 # 만약 http://localhost:8000/pybo/ 처럼 page값 없이 호출된 경우에는 디폴트로 1이라는 값을 설정한다.
@@ -38,7 +47,21 @@ def index(request):
 # page_obj = paginator.get_page(page)
 # 그리고 paginator를 이용하여 요청된 페이지(page)에 해당되는 페이징 객체(page_obj)를 생성했다.
 # 이렇게 하면 장고 내부적으로는 데이터 전체를 조회하지 않고 해당 페이지의 데이터만 조회하도록 쿼리가 변경된다.
-
+#--------------------------------------------------------------------------------------------------------------------
+# 정렬기준이 추천순(recommend)인 경우는 추천수가 큰것부터 정렬해야 하므로 order_by에 추천수에 해당되는 -num_voter가 추가 되었다.
+# 추천수는 장고의 annotate를 이용하여 Count함수를 사용하여 구할 수 있다.
+#
+# Question.objects.annotate(num_voter=Count('voter'))는 Question의 기존 속성인
+# author, subject, content, create_date, modify_date, voter에 num_voter라는 속성을 하나 더 추가한다고 생각하면 쉽다.
+# 이렇게 annotate로 num_voter를 지정하면 filter나 order_by에서 num_voter를 사용할 수 있게 된다.
+# 여기서 질문의 추천수인 num_voter는 Count('voter') 처럼 Count 함수를 사용하여 얻을 수 있다.
+# Count('voter') 는 이 질문의 추천수를 의미한다.
+#
+# order_by('-num_voter', '-create_date') 처럼 order_by 함수에 1개 이상의 파라미터가 전달될 때에는 앞의 항목부터 우선순위를
+# 갖게 되어 추천수로 먼저 정렬하고 추천수가 같을경우에는 최신순으로 정렬하게 된다.
+#
+# 그리고 page, kw와 마찬가지로 템플릿에 so값을 전달하기 위해 context에 so를 추가했다.
+#--------------------------------------------------------------------------------------------------------------------
 def detail(request, question_id):
     """
     pybo 내용 출력
