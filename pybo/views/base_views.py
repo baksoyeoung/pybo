@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from ..models import Question
+from django.db.models import Q
 
 def index(request):
     """
@@ -8,16 +9,25 @@ def index(request):
     """
     #입력 파라미터
     page = request.GET.get('page', '1') #페이지
+    kw = request.GET.get('kw', '') #검색어
 
     #조회
     question_list = Question.objects.order_by('-create_date')
+    if kw:
+        question_list = question_list.filter(
+            Q(subject__icontains=kw) | #제목검색
+            Q(content__icontains=kw) | #내용검색
+            Q(author__username__icontains=kw) | #질문 글쓴이 검색
+            Q(answer__author__username__icontains=kw) #답변 글쓴이검색
+        ).distinct()
+        # subject__contains = kw 대신 subject__icontains = kw 을 사용하면 대소문자를 가리지 않고 찾아준다.
 
     #페이징처리
     pagintor = Paginator(question_list, 10) #페이지당 10개씩 보여주기
     page_obj = pagintor.get_page(page)
 
     # context = {'question_list': question_list}
-    context = {'question_list': page_obj}
+    context = {'question_list': page_obj, 'page': page, 'kw': kw}
     return render(request, 'pybo/question_list.html', context)
 
 # page = request.GET.get('page', '1')은 http://localhost:8000/pybo/?page=1
