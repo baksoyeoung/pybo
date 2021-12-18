@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,8 +25,7 @@ SECRET_KEY = '0#&*pm9#n&#gl-nkeq0#ioleu!i4m&&5+34**sb_n4-vsj-u^1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['15.164.63.184']
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
