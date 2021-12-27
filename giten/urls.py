@@ -14,4 +14,5 @@ urlpatterns = [
     # path('question/delete/<int:question_id>/', question_views.question_delete, name='question_delete'),
 
     path('', views.index, name='index'),
+    path('giten/ncreate/', views.giten_ncreate, name='giten_ncreate'),
 ]
