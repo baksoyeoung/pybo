@@ -1,8 +1,48 @@
 {% extends './giten_base.html' %}
 {% block content %}
-<main>
-     <h5 class="my-3 border-bottom pb-2">모의고사신청등록</h5>
+<!-- Default form login -->
+<form class="text-center border border-light p-5">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <p class="h4 mb-4">모의고사 신청 등록하기</p>
+
+    <!-- 이름 -->
+    <input type="text" name="nameis" id="nameis" class="form-control mb-4" placeholder="이름"
+           value="{{ form.nameis.value|default_if_none:'' }}">
+
+    <!-- 학교 -->
+    <input type="text" name="schoolis" id="schoolis" class="form-control mb-4" placeholder="학교명"
+           value="{{ form.schoolis.value|default_if_none:'' }}">
+
+    <!-- 학년 -->
+    <input type="text" name="gradeis" id="gradeis" class="form-control mb-4" placeholder="학년"
+           value="{{ form.gradeis.value|default_if_none:'' }}">
+
+    <!-- 전화번호 -->
+    <input type="text" name="phoneis" id="phoneis" class="form-control mb-4" placeholder="전화번호"
+           value="{{ form.phoneis.value|default_if_none:'' }}">
+
+    <!-- 재원/비재원 -->
+    <select name="bboosamis" id="bboosamis" class="browser-default custom-select-lg form-control mb-4">
+      <option selected>재원생/비재원생 선택</option>
+      <option value="1">재원생</option>
+      <option value="2">비재원생</option>
+    </select>
+
+    <!-- 이메일 -->
+    <input type="text" name="emailis" id="emailis" class="form-control mb-4" placeholder="이메일"
+           value="{{ form.emailis.value|default_if_none:'' }}">
 
 
-</main>
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit">등록하기</button>
+
+
+
+
+
+</form>
+<!-- Default form login -->
 {% endblock %}

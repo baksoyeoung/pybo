@@ -4,8 +4,7 @@ from giten.models import Gitenstudent
 class GitenCreateForm(forms.ModelForm):
     class Meta:
         model = Gitenstudent #사용할 모델
-        fields = ['nameis', 'schoolis', 'gradeis', 'phoneis', 'bboosamis', 'emailis', 'monthis', 'firstweek',
-                  'secondweek', 'thirdweekone', 'thirdweektwo', 'fourthweek'] #GitenCreateForm 사용할 Gitenstudent 모델의 속성
+        fields = ['nameis', 'schoolis', 'gradeis', 'phoneis', 'bboosamis', 'emailis', 'monthis', 'firstweek', 'secondweek', 'thirdweekone', 'thirdweektwo', 'fourthweek'] #GitenCreateForm 사용할 Gitenstudent 모델의 속성
 
         labels = {
             'nameis':'이름',
