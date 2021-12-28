@@ -20,6 +20,7 @@ class Gitenstudent(models.Model):
     fourthweek = models.CharField(max_length=100)
     create_date = models.DateTimeField(null=True, blank=True)
     modify_date = models.DateTimeField(null=True, blank=True)
+    campis = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nameis, self.schoolis, self.gradeis, self.phoneis
