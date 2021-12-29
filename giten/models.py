@@ -12,7 +12,7 @@ class Gitenstudent(models.Model):
     phoneis = models.CharField(max_length=200)
     bboosamis = models.CharField(max_length=50)
     emailis = models.EmailField(verbose_name='email address', max_length=255, unique=True)
-    monthis = models.CharField(max_length=50)
+    monthis = models.CharField(max_length=50,default='')
     firstweek = models.CharField(max_length=100)
     secondweek = models.CharField(max_length=100)
     thirdweekone = models.CharField(max_length=100)

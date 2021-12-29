@@ -1,8 +1,11 @@
 {% extends './giten_base.html' %}
 {% block content %}
 <!-- Default form login -->
-<form class="text-center border border-light p-5">
+<form method="post" class="text-center border border-light p-5">
+    <input type="hidden" id="camp" name="camp" value="n">
     {% csrf_token %}
+    {% include "form_errors.html" %}
+
 <!--    {{ form.as_p }}-->
 
     <p class="h4 mb-4">모의고사 신청 하기</p>
@@ -105,164 +108,55 @@
         </thead>
         <tbody>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 월</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 월</td>
             <td>21:00-24:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 월</td>
             <td>21:00-24:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 화</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 화</td>
             <td>21:00-24:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 화</td>
             <td>21:00-24:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 수</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 수</td>
             <td>21:00-24:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 수</td>
             <td>21:00-24:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 목</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 목</td>
             <td>21:00-24:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 목</td>
             <td>21:00-24:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 토</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 토</td>
             <td>09:00-12:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 토</td>
             <td>09:00-12:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 토</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 토</td>
             <td>21:00-24:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 토</td>
             <td>21:00-24:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 일</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 일</td>
             <td>09:00-12:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 일</td>
             <td>09:00-12:00</td>
           </tr>
           <tr>
-            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek"> 일</td>
+            <td><input class="form-check-input" type="checkbox" id="thirdweek" name="thirdweek[]"> 일</td>
             <td>21:00-24:00</td>
             <td><input type="radio" class="form-check-input" id="fourthweek" name="fourthweek"> 일</td>
             <td>21:00-24:00</td>
           </tr>
         </tbody>
     </table>
-
-<!--    <table class="table">-->
-<!--      <thead class="table-dark lighten-2">-->
-<!--        <tr>-->
-<!--          <th scope="col">#</th>-->
-<!--          <th scope="col">1주차</th>-->
-<!--          <th scope="col">2주차</th>-->
-<!--          <th scope="col">3주차</th>-->
-<!--          <th scope="col">4주자</th>-->
-<!--        </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--        <tr>-->
-<!--          <th scope="row">월</th>-->
-<!--          <td>21:00-24:00</td>-->
-<!--          <td>21:00-24:00</td>-->
-<!--          <td>21:00-24:00</td>-->
-<!--          <td>21:00-24:00</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">화</th>-->
-<!--          <td>Jacob</td>-->
-<!--          <td>Thornton</td>-->
-<!--          <td>@fat</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">수</th>-->
-<!--          <td>Larry</td>-->
-<!--          <td>the Bird</td>-->
-<!--          <td>@twitter</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">목</th>-->
-<!--          <td>Larry</td>-->
-<!--          <td>the Bird</td>-->
-<!--          <td>@twitter</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">토</th>-->
-<!--          <td>Larry</td>-->
-<!--          <td>the Bird</td>-->
-<!--          <td>@twitter</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">일</th>-->
-<!--          <td>Larry</td>-->
-<!--          <td>the Bird</td>-->
-<!--          <td>@twitter</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--    <table class="table">-->
-<!--      <thead class="black white-text">-->
-<!--        <tr>-->
-<!--          <th scope="col">#주차</th>-->
-<!--          <th scope="col">월</th>-->
-<!--          <th scope="col">화</th>-->
-<!--          <th scope="col">수</th>-->
-<!--          <th scope="col">목</th>-->
-<!--          <th scope="col">토</th>-->
-<!--          <th scope="col">일</th>-->
-<!--        </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--        <tr>-->
-<!--          <th scope="row">1</th>-->
-<!--          <td>Mark</td>-->
-<!--          <td>Otto</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">2</th>-->
-<!--          <td>Jacob</td>-->
-<!--          <td>Thornton</td>-->
-<!--          <td>@fat</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">3</th>-->
-<!--          <td>Larry</td>-->
-<!--          <td>the Bird</td>-->
-<!--          <td>@twitter</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th scope="row">4</th>-->
-<!--          <td>Larry</td>-->
-<!--          <td>the Bird</td>-->
-<!--          <td>@twitter</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--          <td>@mdo</td>-->
-<!--        </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-
-
 
     <!-- Sign in button -->
     <button class="btn btn-info btn-block my-4 text-white" type="submit" >등록하기</button>

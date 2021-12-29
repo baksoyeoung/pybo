@@ -3,13 +3,14 @@ from django.utils import timezone
 from .models import Gitenstudent
 from .form import GitenCreateForm
 
+
 # Create your views here.
 
 def index(request):
-
     return render(request, 'giten/giten_home.html')
 
-def giten_ncreate(request): #노형캠 모의고사 신청하기
+
+def giten_ncreate(request):  # 노형캠 모의고사 신청하기
     if request.method == 'POST':
         form = GitenCreateForm(request.POST)
         if form.is_valid():
