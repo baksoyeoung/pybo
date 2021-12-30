@@ -36,6 +36,7 @@ LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
+    'lecture.apps.LectureConfig',
     'giten.apps.GitenConfig',
     'common.apps.CommonConfig',
     'pybo.apps.PyboConfig',
