@@ -11,7 +11,7 @@ class Gitenstudent(models.Model):
     gradeis = models.CharField(max_length=50)
     phoneis = models.CharField(max_length=200)
     bboosamis = models.CharField(max_length=50)
-    emailis = models.EmailField(verbose_name='email address', max_length=255, unique=True)
+    emailis = models.EmailField(verbose_name='email address', max_length=255)
     monthis = models.CharField(max_length=50,default='')
     firstweek = models.CharField(max_length=100)
     secondweek = models.CharField(max_length=100)
