@@ -48,3 +48,6 @@ def giten_ycreate(request):  # 노형캠 모의고사 신청하기
         form = GitenCreateForm()
     context = {'form': form}
     return render(request, 'giten/giten_ycreate.html', context)
+
+def giten_directions(request):
+    return render(request, 'giten/giten_directions.html')
