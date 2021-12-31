@@ -4,6 +4,6 @@ from .models import Gitenstudent
 # Register your models here.
 
 class GitenstudentAdmin(admin.ModelAdmin):
-    search_fields = ['subject']
+    search_fields = ['nameis']
 
 admin.site.register(Gitenstudent)
