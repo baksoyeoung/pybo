@@ -6,3 +6,11 @@ from .models import Season, Lectureinfo
 
 def lecture_home(request):
     return render(request, 'lecture/lecture_home.html')
+
+
+def lecture_create(request):
+    return render(request, 'lecture/lecture_create.html')
+
+
+def lecture_timetable(request):
+    return  render(request, 'lecture/lecture_timetable.html')
