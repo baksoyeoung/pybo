@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Season, Lectureinfo
+from .models import Season, Lectureinfo, Teacher
 
 # Register your models here.
 
@@ -12,3 +12,8 @@ class LectureinfoAdmin(admin.ModelAdmin):
     search_fields = ['subject']
 
 admin.site.register(Lectureinfo, LectureinfoAdmin)
+
+class TeacherAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+admin.site.register(Teacher, TeacherAdmin)

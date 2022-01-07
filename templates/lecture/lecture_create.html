@@ -4,7 +4,7 @@
 
   <div class="col-md-7 col-lg-7">
     <h4 class="mb-3">강의정보입력</h4>
-    <form class="needs-validation" novalidate>
+    <form  name="lecture_info" class="needs-validation" novalidate>
       <div class="row g-3">
         <div class="col-md-5">
           <label for="학기선택" class="form-label">학기선택</label>
@@ -91,11 +91,17 @@
           </ul>
         </div>
 
-        <div class="col-sm-5">
-          <label for="firstName" class="form-label">강사명</label>
-          <input type="text" class="form-control" id="firstName" placeholder="한글로 띄여쓰기 없이 입력" value="" required>
+        <div class="col-md-5">
+          <label for="캠퍼스선택" class="form-label">강사명선택</label>
+          <select class="form-select" id="country" required>
+            <option value="">강사명선택...</option>
+            <option>하명래</option>
+            <option>조시훈</option>
+            <option>위대영</option>
+            <option>이진구</option>
+          </select>
           <div class="invalid-feedback">
-            Valid first name is required.
+            Please select a valid country.
           </div>
         </div>
 
@@ -114,10 +120,10 @@
 
         <div class="buttons">
           <label for="yoiltime" class="form-label">등원 요일/시간</label>
-          <ul class="list-group" id="yoiltime">
+          <ul class="list-group yoiltime" id="yoiltime">
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="form-check-label" for="flexCheckDefault">등원시간협의</label>
+              <input class="form-check-input" type="checkbox" value="" id="timeselect" name="timeselect">
+              <label class="form-check-label" for="timeselect">등원시간협의</label>
             </li>
             <li class="list-group-item">
             <select id="" name="">
@@ -130,16 +136,26 @@
               <option value="토">토요일</option>
               <option value="일">일요일</option>
             </select>
-            <input type="time" name="time1"  placeholder="시작시간"><span> ~ </span><input type="time" name="time2"  placeholder="종료시간">
+            <input type="time" class="time1" id="time1" name="time1" placeholder="시작시간"><span> ~ </span><input type="time" id="time2" name="time2"  placeholder="종료시간">
             <input type="button" class="btn btn-primary btn-sm btnAdd" value="추가">
             </li>
           </ul>
         </div>
 
-        <div class="col-sm-3">
-          <label for="lect_fee" class="form-label">주당 등원횟수</label>
+        <div class="col-sm-2">
+          <label for="week_cnt" class="form-label">강의개수</label>
           <div class="input-group has-validation">
-            <input type="number" class="form-control" id="lect_fee" placeholder="숫자만입력" value="">
+            <input type="number" class="form-control" id="week_cnt" placeholder="숫자만입력" value="" readonly>
+            <div class="invalid-feedback">
+              Valid last name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="week_cnt" class="form-label">수강개수</label>
+          <div class="input-group has-validation">
+            <input type="number" class="form-control" id="in_cnt" placeholder="숫자만입력" value="">
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -156,7 +172,7 @@
           </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <label for="lect_fee" class="form-label">수강료추가설명</label>
           <div class="input-group has-validation">
             <textarea class="form-control" id="lect_fee" rows="3" placeholder="추가설명"></textarea>
@@ -305,18 +321,46 @@
 {% endblock %}
 {% block script %}
 <script>
-    $(document).ready (function () {
-        $('.btnAdd').click (function () {
-            $('.buttons').append('<li class="list-group-item"><select id="" name=""><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" name="time1"><span> ~ </span><input type="time" name="time2"> <input type="button" class="btn btn-primary btn-sm btnRemove" value="삭제"></li>'); // end append
-            $('.btnRemove').on('click', function () {
+    $(document).ready(function(){
+        $('#week_cnt').val(count_input());
+        $('.btnAdd').click (function(){
+            $('.yoiltime').append('<li class="list-group-item lecture-time"><select id="" name=""><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1" id="time1" name="time1"><span> ~ </span><input type="time" id="time2" name="time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" value="삭제"></li>'); // end append
+            $('#week_cnt').val(count_input());
+            $('.btnRemove').on('click', function(){
                 $(this).prev().remove (); // remove
                 $(this).prev().remove (); // remove
                 $(this).prev().remove (); // remove
                 $(this).prev().remove (); // remove
                 $(this).unwrap();
                 $(this).remove(); // remove the button
+                $('#week_cnt').val(count_input());
             });
         }); // end click
+
+        function count_input(){
+          let length = $('.time1').length;
+          return length;
+        }
+
+        $(':checkbox[name="timeselect"]').on({
+          click: function(e) {
+            if($('#timeselect').is(':checked')){
+              $('#week_cnt').val(1);
+              $('#in_cnt').val('');
+              $('.lecture-time').remove();
+              $('#in_cnt').prop('readonly', true);
+              $('.btnAdd').prop('disabled', true);
+            }else{
+              $('#week_cnt').val(count_input());
+              $("#in_cnt" ).prop('readonly', false);
+              $('.btnAdd').prop('disabled', false);
+            }
+          },
+          change: function(e) {
+
+          }
+        });
+
     }); // end ready
 </script>
 {% endblock %}
