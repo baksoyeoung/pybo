@@ -31,13 +31,19 @@ class Lectureinfo(models.Model):
     name = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='teacher_name')    #강사명
     lect_nm = models.CharField(max_length=255)    #강의명
     lect_explan = models.TextField(null=True, blank=True) #강의설명
-    lect_yoil = models.CharField(max_length=50, null=True, blank=True)  #등원요일
-    lect_time = models.CharField(max_length=50, null=True, blank=True)  #등원시간
-    week_cnt = models.CharField(max_length=50, null=True, blank=True)   #등원횟수
-    lect_fee = models.CharField(max_length=50, null=True, blank=True)   #수강료
-    lect_fee_explan = models.CharField(max_length=255, null=True, blank=True) #수강료추가설명
+    timeselect = models.BooleanField(default=False) #등원시간협의
+    lect_yoil = models.CharField(max_length=255, null=True, blank=True)  #등원요일
+    lect_time = models.CharField(max_length=255, null=True, blank=True)  #시작시간
+    lect_time2 = models.CharField(max_length=255, null=True, blank=True)  # 종료시간
+    week_cnt = models.CharField(max_length=50, null=True, blank=True)    #시간개수
+    in_cnt = models.CharField(max_length=50, null=True, blank=True)      #수강개수
+    lect_fee = models.CharField(max_length=50, null=True, blank=True)    #수강료
+    lect_fee_explan = models.TextField(null=True, blank=True)            #수강료추가설명
     create_date = models.DateTimeField()          #생성날짜시간
     modify_date = models.DateTimeField(null=True, blank=True) #수정날짜시간
+
+    def __str__(self):
+        return (self.lect_nm)
 
 
 

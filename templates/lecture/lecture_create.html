@@ -3,14 +3,20 @@
 <div class="row g-5 justify-content-center">
   <div class="col-md-7 col-lg-7">
     <h4 class="mb-3">강의정보입력</h4>
-    <form  name="lecture_info" class="needs-validation" novalidate>
+    <form  name="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
+<!--      {{ form.as_p }}-->
+
       <div class="row g-3">
         <div class="col-md-5">
           <label for="season_nm" class="form-label">학기선택</label>
           <select class="form-select" id="season_nm" name="season_nm" required>
             <option>학기선택...</option>
-            <option>2022년1학기</option>
+            {% if season_list %}
+              {% for season in season_list %}
+            <option value="{{ season.season_nm }}">{{ season.season_nm }}</option>
+              {% endfor %}
+            {% endif %}
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -18,11 +24,11 @@
         </div>
 
         <div class="col-md-5">
-          <label for="camp_select" class="form-label">캠퍼스선택</label>
-          <select class="form-select" id="camp_select" required>
+          <label for="camp_nm" class="form-label">캠퍼스선택</label>
+          <select class="form-select" id="camp_nm" name="camp_nm" required>
             <option>캠퍼스선택...</option>
-            <option>노형캠퍼스</option>
-            <option>이도캠퍼스</option>
+            <option value="노형캠퍼스">노형캠퍼스</option>
+            <option value="이도캠퍼스">이도캠퍼스</option>
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -30,23 +36,23 @@
         </div>
 
         <div class="col-md-5">
-          <label for="subject_select" class="form-label">과목선택</label>
-          <select class="form-select" id="subject_select" required>
+          <label for="subject" class="form-label">과목선택</label>
+          <select class="form-select" id="subject" name="subject" required>
             <option value="">과목선택...</option>
-            <option>국어</option>
-            <option>영어</option>
-            <option>수학</option>
-            <option>과학</option>
+            <option value="국어">국어</option>
+            <option value="영어">영어</option>
+            <option value="수학">수학</option>
+            <option value="과학">과학</option>
             <option disabled>-------------------</option>
-            <option>인문논술</option>
-            <option>수리논술</option>
+            <option value="인문논술">인문논술</option>
+            <option value="수리논술">수리논술</option>
             <option disabled>-------------------</option>
-            <option>입시(자소서,생기부 등)</option>
-            <option>특강</option>
+            <option value="입시">입시(자소서,생기부 등)</option>
+            <option value="특강">특강</option>
             <option disabled>-------------------</option>
-            <option>SPEC</option>
-            <option>클래스</option>
-            <option>클리닉</option>
+            <option value="SPEC">SPEC</option>
+            <option value="클래스">클래스</option>
+            <option value="클리닉">클리닉</option>
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -54,51 +60,52 @@
         </div>
 
         <div class="col-md-12">
-          <label for="grade_list" class="form-label">대상학년</label>
-          <ul class="list-group" id="grade_list">
+          <label for="lect_grade" class="form-label">대상학년</label>
+          <ul class="list-group" id="lect_grade" name="lect_grade">
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="" id="pmiddle1">
+              <input class="form-check-input" type="checkbox" value="예비중1" id="pmiddle1" name="lect_grade[]">
               <label class="form-check-label" for="pmiddle1">예비중1</label>
-              <input class="form-check-input" type="checkbox" value="" id="pmiddle2">
+              <input class="form-check-input" type="checkbox" value="예비중2" id="pmiddle2" name="lect_grade[]">
               <label class="form-check-label" for="pmiddle2">예비중2</label>
-              <input class="form-check-input" type="checkbox" value="" id="pmiddle3">
+              <input class="form-check-input" type="checkbox" value="예비중3" id="pmiddle3" name="lect_grade[]">
               <label class="form-check-label" for="pmiddle3">예비중3</label>
             </li>
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="" id="middle1">
+              <input class="form-check-input" type="checkbox" value="중1" id="middle1" name="lect_grade[]">
               <label class="form-check-label" for="middle1">중1</label>
-              <input class="form-check-input" type="checkbox" value="" id="middle2">
+              <input class="form-check-input" type="checkbox" value="중2" id="middle2" name="lect_grade[]">
               <label class="form-check-label" for="middle2">중2</label>
-              <input class="form-check-input" type="checkbox" value="" id="middle3">
+              <input class="form-check-input" type="checkbox" value="중3" id="middle3" name="lect_grade[]">
               <label class="form-check-label" for="middle3">중3</label>
             </li>
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="" id="phigh1">
+              <input class="form-check-input" type="checkbox" value="예비고1" id="phigh1" name="lect_grade[]">
               <label class="form-check-label" for="phigh1">예비고1</label>
-              <input class="form-check-input" type="checkbox" value="" id="phigh2">
+              <input class="form-check-input" type="checkbox" value="예비고2" id="phigh2" name="lect_grade[]">
               <label class="form-check-label" for="phigh2">예비고2</label>
-              <input class="form-check-input" type="checkbox" value="" id="phigh3">
+              <input class="form-check-input" type="checkbox" value="예비고3" id="phigh3" name="lect_grade[]">
               <label class="form-check-label" for="phigh3">예비고3</label>
             </li>
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="" id="high1">
+              <input class="form-check-input" type="checkbox" value="고1" id="high1" name="lect_grade[]">
               <label class="form-check-label" for="high1">고1</label>
-              <input class="form-check-input" type="checkbox" value="" id="high2">
+              <input class="form-check-input" type="checkbox" value="고2" id="high2" name="lect_grade[]">
               <label class="form-check-label" for="high2">고2</label>
-              <input class="form-check-input" type="checkbox" value="" id="high3">
+              <input class="form-check-input" type="checkbox" value="고3" id="high3" name="lect_grade[]">
               <label class="form-check-label" for="high3">고3</label>
             </li>
           </ul>
         </div>
 
         <div class="col-md-5">
-          <label for="select_teacher" class="form-label">강사명선택</label>
-          <select class="form-select" id="select_teacher" required>
+          <label for="name" class="form-label">강사명선택</label>
+          <select class="form-select" id="name" name="name" required>
             <option>강사명선택...</option>
-            <option>하명래</option>
-            <option>조시훈</option>
-            <option>위대영</option>
-            <option>이진구</option>
+            {% if teacher_list %}
+              {% for teacher in teacher_list %}
+            <option value="{{ teacher.name }}">{{ teacher.name }}</option>
+              {% endfor %}
+            {% endif %}
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -106,16 +113,16 @@
         </div>
 
         <div class="col-sm-7">
-          <label for="lect_name" class="form-label">강의명</label>
-          <input type="text" class="form-control" id="lect_name" placeholder="강의명입력" value="" required>
+          <label for="lect_nm" class="form-label">강의명</label>
+          <input type="text" class="form-control" id="lect_nm" name="lect_nm" placeholder="강의명입력" value="{{ form.lect_nm.value|default_if_none:'' }}" required>
           <div class="invalid-feedback">
             Valid last name is required.
           </div>
         </div>
 
         <div class="col-sm-12">
-          <label for="lect_explan_text" class="form-label">강의설명</label>
-          <textarea class="form-control" id="lect_explan_text" rows="3" placeholder="강의에 대한 설명"></textarea>
+          <label for="lect_explan" class="form-label">강의설명</label>
+          <textarea class="form-control" id="lect_explan" name="lect_explan" rows="3" placeholder="강의에 대한 설명">{{ form.lect_explan.value|default_if_none:'' }}</textarea>
         </div>
 
         <div class="buttons">
@@ -126,7 +133,7 @@
               <label class="form-check-label" for="timeselect">등원시간협의</label>
             </li>
             <li class="list-group-item">
-            <select class="yoil" id="yoil" name="yoil">
+            <select class="yoil" id="lect_yoil" name="lect_yoil[]">
               <option>요일선택</option>
               <option value="월">월요일</option>
               <option value="화">화요일</option>
@@ -136,7 +143,7 @@
               <option value="토">토요일</option>
               <option value="일">일요일</option>
             </select>
-            <input type="time" class="time1" id="time1" name="time1" placeholder="시작시간"><span> ~ </span><input type="time" class="time2" id="time2" name="time2"  placeholder="종료시간">
+            <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time[]" placeholder="시작시간"><span> ~ </span><input type="time" class="time2 timepicker" id="lect_time2" name="lect_time2[]"  placeholder="종료시간">
             <input type="button" class="btn btn-primary btn-sm btnAdd" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right" value="추가">
             </li>
           </ul>
@@ -145,7 +152,7 @@
         <div class="col-sm-2">
           <label for="week_cnt" class="form-label">시간개수</label>
           <div class="input-group has-validation">
-            <input type="number" class="form-control" id="week_cnt" placeholder="숫자만입력" value="" readonly>
+            <input type="number" class="form-control week-cnt" id="week_cnt" name="week_cnt" placeholder="숫자만입력" value="{{ form.week_cnt.value|default_if_none:'' }}" readonly>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -155,7 +162,7 @@
         <div class="col-sm-3">
           <label for="week_cnt" class="form-label">수강개수</label>
           <div class="input-group has-validation">
-            <input type="number" class="form-control" id="in_cnt" placeholder="숫자만입력" value="">
+            <input type="number" class="form-control in-cnt" id="in_cnt" name="in_cnt" placeholder="숫자만입력" value="{{ form.in_cnt.value|default_if_none:'' }}">
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -165,7 +172,7 @@
         <div class="col-sm-3">
           <label for="lect_fee" class="form-label">수강료(원)</label>
           <div class="input-group has-validation">
-            <input type="number" class="form-control" id="lect_fee" placeholder="숫자만입력" value="">
+            <input type="number" class="form-control" id="lect_fee" name="lect_fee" placeholder="숫자만입력" value="{{ form.lect_fee.value|default_if_none:'' }}">
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -173,9 +180,9 @@
         </div>
 
         <div class="col-sm-4">
-          <label for="lect_fee" class="form-label">수강료추가설명</label>
+          <label for="lect_fee_explan" class="form-label">수강료추가설명</label>
           <div class="input-group has-validation">
-            <textarea class="form-control" id="lect_fee" rows="3" placeholder="추가설명"></textarea>
+            <textarea class="form-control" id="lect_fee_explan" name="lect_fee_explan" rows="3" placeholder="추가설명">{{ form.lect_fee_explan.value|default_if_none:'' }}</textarea>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -194,7 +201,15 @@
     $(document).ready(function(){
         $('#week_cnt').val(count_input());
         $('.btnAdd').click (function(){
-            $('.yoiltime').append('<li class="list-group-item lecture-time"><select id="yoil" name="yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1" id="time1" name="time1"><span> ~ </span><input type="time" id="time2" name="time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" value="삭제"></li>'); // end append
+            $('.yoiltime').append('<li class="list-group-item lecture-time"><select id="lect_yoil" name="lect_yoil[]"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time[]"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2[]"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" value="삭제"></li>'); // end append
+            $('input.timepicker').timepicker({
+              timeFormat: 'HH:mm',
+              interval: 30,
+              startTime: '08:00',
+              dynamic: false,
+              dropdown: true,
+              scrollbar: true
+            });
             $('#week_cnt').val(count_input());
             $('.btnRemove').on('click', function(){
                 $(this).prev().remove (); // remove
@@ -203,7 +218,7 @@
                 $(this).prev().remove (); // remove
                 $(this).unwrap();
                 $(this).remove(); // remove the button
-                $('#week_cnt').val(count_input());
+                $('.week-cnt').val(count_input());
             });
         }); // end click
 
@@ -212,13 +227,22 @@
           return length;
         }
 
+        $('input.timepicker').timepicker({
+          timeFormat: 'HH:mm',
+          interval: 30,
+          startTime: '08:00',
+          dynamic: false,
+          dropdown: true,
+          scrollbar: true
+        });
+
         $(':checkbox[name="timeselect"]').on({
           click: function(e) {
             if($('#timeselect').is(':checked')){
-              $('#week_cnt').val(1);
-              $('#in_cnt').val('');
+              $('.week-cnt').val(1);
+              $('.in-cnt').val('');
               $('.lecture-time').remove();
-              $('#in_cnt').prop('readonly', true);
+              $('.in-cnt').prop('readonly', true);
               $('.btnAdd').prop('disabled', true);
               $('.yoil').prop('disabled', true);
               $('.time1').val('');
@@ -226,8 +250,8 @@
               $('.time1').prop('disabled', true);
               $('.time2').prop('disabled', true);
             }else{
-              $('#week_cnt').val(count_input());
-              $("#in_cnt" ).prop('readonly', false);
+              $('.week-cnt').val(count_input());
+              $('.in-cnt').prop('readonly', false);
               $('.btnAdd').prop('disabled', false);
               $('.yoil').prop('disabled', false);
               $('.time1').prop('disabled', false);
