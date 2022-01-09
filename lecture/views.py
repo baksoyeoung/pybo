@@ -23,10 +23,10 @@ def lecture_create(request):
         print(form)
         if form.is_valid():
             lectureinfo = form.save(commit=False)
-            lectureinfo.lect_grade = lect_grade_check[]
-            lectureinfo.lect_yoil = lect_yoil_check[]
-            lectureinfo.lect_time = lect_time_check[]
-            lectureinfo.lect_time2 = lect_time2_check[]
+            lectureinfo.lect_grade = lect_grade_check
+            lectureinfo.lect_yoil = lect_yoil_check
+            lectureinfo.lect_time = lect_time_check
+            lectureinfo.lect_time2 = lect_time2_check
             lectureinfo.create_date = timezone.now()
             lectureinfo.save()
 
