@@ -11,10 +11,10 @@
         <div class="col-md-5">
           <label for="season_nm" class="form-label">학기선택</label>
           <select class="form-select" id="season_nm" name="season_nm" required>
-            <option>학기선택...</option>
+            <option value="">학기선택...</option>
             {% if season_list %}
               {% for season in season_list %}
-            <option value="{{ season.season_nm }}">{{ season.season_nm }}</option>
+                <option value="{{season.season_nm}}">{{season.season_nm}}</option>
               {% endfor %}
             {% endif %}
           </select>
@@ -26,7 +26,7 @@
         <div class="col-md-5">
           <label for="camp_nm" class="form-label">캠퍼스선택</label>
           <select class="form-select" id="camp_nm" name="camp_nm" required>
-            <option>캠퍼스선택...</option>
+            <option value="">캠퍼스선택...</option>
             <option value="노형캠퍼스">노형캠퍼스</option>
             <option value="이도캠퍼스">이도캠퍼스</option>
           </select>
@@ -63,35 +63,35 @@
           <label for="lect_grade" class="form-label">대상학년</label>
           <ul class="list-group" id="lect_grade" name="lect_grade">
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="예비중1" id="pmiddle1" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="예비중1" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="pmiddle1">예비중1</label>
-              <input class="form-check-input" type="checkbox" value="예비중2" id="pmiddle2" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="예비중2" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="pmiddle2">예비중2</label>
-              <input class="form-check-input" type="checkbox" value="예비중3" id="pmiddle3" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="예비중3" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="pmiddle3">예비중3</label>
             </li>
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="중1" id="middle1" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="중1" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="middle1">중1</label>
-              <input class="form-check-input" type="checkbox" value="중2" id="middle2" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="중2" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="middle2">중2</label>
-              <input class="form-check-input" type="checkbox" value="중3" id="middle3" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="중3" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="middle3">중3</label>
             </li>
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="예비고1" id="phigh1" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="예비고1" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="phigh1">예비고1</label>
-              <input class="form-check-input" type="checkbox" value="예비고2" id="phigh2" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="예비고2" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="phigh2">예비고2</label>
-              <input class="form-check-input" type="checkbox" value="예비고3" id="phigh3" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="예비고3" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="phigh3">예비고3</label>
             </li>
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="고1" id="high1" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="고1" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="high1">고1</label>
-              <input class="form-check-input" type="checkbox" value="고2" id="high2" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="고2" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="high2">고2</label>
-              <input class="form-check-input" type="checkbox" value="고3" id="high3" name="lect_grade[]">
+              <input class="form-check-input" type="checkbox" value="고3" id="lect_grade" name="lect_grade">
               <label class="form-check-label" for="high3">고3</label>
             </li>
           </ul>
@@ -100,10 +100,10 @@
         <div class="col-md-5">
           <label for="name" class="form-label">강사명선택</label>
           <select class="form-select" id="name" name="name" required>
-            <option>강사명선택...</option>
+            <option value="">강사명선택...</option>
             {% if teacher_list %}
               {% for teacher in teacher_list %}
-            <option value="{{ teacher.name }}">{{ teacher.name }}</option>
+                <option value="{{ teacher.name }}">{{ teacher.name }}</option>
               {% endfor %}
             {% endif %}
           </select>
@@ -129,11 +129,11 @@
           <label for="yoiltime" class="form-label">등원 요일/시간</label>
           <ul class="list-group yoiltime" id="yoiltime">
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="" id="timeselect" name="timeselect">
+              <input class="form-check-input" type="checkbox" value="1" id="timeselect" name="timeselect">
               <label class="form-check-label" for="timeselect">등원시간협의</label>
             </li>
             <li class="list-group-item">
-            <select class="yoil" id="lect_yoil" name="lect_yoil[]">
+            <select class="yoil" id="lect_yoil" name="lect_yoil">
               <option>요일선택</option>
               <option value="월">월요일</option>
               <option value="화">화요일</option>
@@ -143,7 +143,7 @@
               <option value="토">토요일</option>
               <option value="일">일요일</option>
             </select>
-            <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time[]" placeholder="시작시간"><span> ~ </span><input type="time" class="time2 timepicker" id="lect_time2" name="lect_time2[]"  placeholder="종료시간">
+            <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time" placeholder="시작시간"><span> ~ </span><input type="time" class="time2 timepicker" id="lect_time2" name="lect_time2"  placeholder="종료시간">
             <input type="button" class="btn btn-primary btn-sm btnAdd" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right" value="추가">
             </li>
           </ul>
@@ -191,7 +191,7 @@
 
       <hr class="my-4">
 
-      <button class="w-100 btn btn-primary btn-lg" type="submit">강의등록하기</button>
+      <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의등록하기</button>
     </form>
   </div>
 </div>
@@ -201,7 +201,7 @@
     $(document).ready(function(){
         $('#week_cnt').val(count_input());
         $('.btnAdd').click (function(){
-            $('.yoiltime').append('<li class="list-group-item lecture-time"><select id="lect_yoil" name="lect_yoil[]"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time[]"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2[]"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" value="삭제"></li>'); // end append
+            $('.yoiltime').append('<li class="list-group-item lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" value="삭제"></li>'); // end append
             $('input.timepicker').timepicker({
               timeFormat: 'HH:mm',
               interval: 30,
@@ -261,6 +261,47 @@
           change: function(e) {
 
           }
+        });
+
+        $(".insert").on('click', function(){
+          if ($("#season_nm").val() == ""){
+            $("#season_nm").focus();
+              return false;
+          }
+          if ($("#camp_nm").val() == ""){
+            $("#camp_nm").focus();
+              return false;
+          }
+          if ($("#subject").val() == ""){
+            $("#subject").focus();
+              return false;
+          }
+          var check_cnt = $("input:checkbox[id=lect_grade]:checked").length
+          if (check_cnt == 0){
+            $('input[id^=lect_grade]')[0].focus();
+            return false;
+          }
+          if ($("#name").val() == ""){
+            $("#name").focus();
+              return false;
+          }
+          if ($("#lect_nm").val() == ""){
+            $("#lect_nm").focus();
+              return false;
+          }
+          var timeselect_chk = $("input:checkbox[id=timeselect]:checked").length
+          if (timeselect_chk != 1){
+            if ($("#in_cnt").val() == ""){
+              $("#in_cnt").focus();
+                return false;
+            }
+          }
+          if ($("#lect_fee").val() == ""){
+            $("#lect_fee").focus();
+              return false;
+          }
+
+          $("form").submit();
         });
 
     }); // end ready

@@ -17,18 +17,18 @@ class Season(models.Model):
 class Teacher(models.Model):
     name = models.CharField(max_length=50) #강사명
     subject = models.CharField(max_length=50) #담당과목
-    num = models.CharField(max_length=50) #과목별 출력순번
+    num = models.CharField(max_length=50, null=True, blank=True) #과목별 출력순번
 
     def __str__(self):
         return (self.name)
 
 
 class Lectureinfo(models.Model):
-    season_nm = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='season_name') #학기
+    season_nm = models.CharField(max_length=255) #학기
     camp_nm = models.CharField(max_length=255)    #캠퍼스명
     subject = models.CharField(max_length=255)    #과목
     lect_grade = models.CharField(max_length=255) #수강학년
-    name = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='teacher_name')    #강사명
+    name = models.CharField(max_length=50)   #강사명
     lect_nm = models.CharField(max_length=255)    #강의명
     lect_explan = models.TextField(null=True, blank=True) #강의설명
     timeselect = models.BooleanField(default=False) #등원시간협의

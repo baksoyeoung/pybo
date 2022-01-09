@@ -13,14 +13,14 @@ def lecture_create(request):
     season_list = Season.objects.order_by('-create_date')
     teacher_list = Teacher.objects.order_by('name')
     if request.method == 'POST':
-        print("======> POST DATA:", request.POST)
-        lect_grade_check = request.POST.getlist('lect_grade[]')
-        lect_yoil_check = request.POST.getlist('lect_yoil[]')
-        lect_time_check = request.POST.getlist('lect_time[]')
-        lect_time2_check = request.POST.getlist('lect_time2[]')
+        # print("======> POST DATA:", request.POST)
+        lect_grade_check = request.POST.getlist('lect_grade')
+        lect_yoil_check = request.POST.getlist('lect_yoil')
+        lect_time_check = request.POST.getlist('lect_time')
+        lect_time2_check = request.POST.getlist('lect_time2')
 
         form = LectureCreateForm(request.POST)
-        print(form)
+        # print(form)
         if form.is_valid():
             lectureinfo = form.save(commit=False)
             lectureinfo.lect_grade = lect_grade_check
@@ -30,7 +30,10 @@ def lecture_create(request):
             lectureinfo.create_date = timezone.now()
             lectureinfo.save()
 
-            print("강의등록정보",lectureinfo)
+
+
+            print(form)
+
     else:
         form = LectureCreateForm()
 

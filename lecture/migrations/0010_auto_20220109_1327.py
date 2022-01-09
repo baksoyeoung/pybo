@@ -15,10 +15,6 @@ class Migration(migrations.Migration):
             name='lect_time',
             field=models.CharField(blank=True, max_length=255, null=True),
         ),
-        migrations.RenameField(
-            model_name='lectureinfo',
-            old_name='lect_time',
-            new_name='lect_time1',
-        ),
+
 
     ]
