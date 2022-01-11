@@ -6,6 +6,12 @@
     <form  name="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
 <!--      {{ form.as_p }}-->
+      {{ form.lect_grade.value.count }}
+      {% if form.lect_grade.value %}
+        {% for grade in form.lect_grade.value %}
+          {{grade}}
+        {% endfor %}
+      {% endif %}
 
       <div class="row g-3">
         <div class="col-md-5">
@@ -14,7 +20,7 @@
             <option value="">학기선택...</option>
             {% if season_list %}
               {% for season in season_list %}
-                <option value="{{season.season_nm}}">{{season.season_nm}}</option>
+                <option value="{{season.season_nm}}" {% if season.season_nm == form.season_nm.value %}{{ 'selected' }}{% endif %}>{{season.season_nm}}</option>
               {% endfor %}
             {% endif %}
           </select>
@@ -27,8 +33,11 @@
           <label for="camp_nm" class="form-label">캠퍼스선택</label>
           <select class="form-select" id="camp_nm" name="camp_nm" required>
             <option value="">캠퍼스선택...</option>
-            <option value="노형캠퍼스">노형캠퍼스</option>
-            <option value="이도캠퍼스">이도캠퍼스</option>
+            {% if campus_list %}
+              {% for campus in campus_list %}
+                <option value="{{campus.camp_nm}}" {% if campus.camp_nm == form.camp_nm.value %}{{ 'selected' }}{% endif %}>{{campus.camp_nm}}</option>
+              {% endfor %}
+            {% endif %}
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -39,20 +48,11 @@
           <label for="subject" class="form-label">과목선택</label>
           <select class="form-select" id="subject" name="subject" required>
             <option value="">과목선택...</option>
-            <option value="국어">국어</option>
-            <option value="영어">영어</option>
-            <option value="수학">수학</option>
-            <option value="과학">과학</option>
-            <option disabled>-------------------</option>
-            <option value="인문논술">인문논술</option>
-            <option value="수리논술">수리논술</option>
-            <option disabled>-------------------</option>
-            <option value="입시">입시(자소서,생기부 등)</option>
-            <option value="특강">특강</option>
-            <option disabled>-------------------</option>
-            <option value="SPEC">SPEC</option>
-            <option value="클래스">클래스</option>
-            <option value="클리닉">클리닉</option>
+            {% if subjects_list %}
+              {% for subjects in subjects_list %}
+                <option value="{{subjects.subject_nm}}" {% if subjects.subject_nm == form.subject.value %}{{ 'selected' }}{% endif %}>{{subjects.subject_nm}}</option>
+              {% endfor %}
+            {% endif %}
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -103,7 +103,7 @@
             <option value="">강사명선택...</option>
             {% if teacher_list %}
               {% for teacher in teacher_list %}
-                <option value="{{ teacher.name }}">{{ teacher.name }}</option>
+                <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
               {% endfor %}
             {% endif %}
           </select>
@@ -129,7 +129,7 @@
           <label for="yoiltime" class="form-label">등원 요일/시간</label>
           <ul class="list-group yoiltime" id="yoiltime">
             <li class="list-group-item">
-              <input class="form-check-input" type="checkbox" value="1" id="timeselect" name="timeselect">
+              <input class="form-check-input" type="checkbox" value="1" id="timeselect" name="timeselect" {% if form.timeselect.value %}{{ 'checked' }}{% endif %}>
               <label class="form-check-label" for="timeselect">등원시간협의</label>
             </li>
             <li class="list-group-item">
@@ -263,6 +263,19 @@
           }
         });
 
+        if($('#timeselect').is(':checked')){
+          $('.week-cnt').val(1);
+          $('.in-cnt').val('');
+          $('.lecture-time').remove();
+          $('.in-cnt').prop('readonly', true);
+          $('.btnAdd').prop('disabled', true);
+          $('.yoil').prop('disabled', true);
+          $('.time1').val('');
+          $('.time2').val('');
+          $('.time1').prop('disabled', true);
+          $('.time2').prop('disabled', true);
+        }
+
         $(".insert").on('click', function(){
           if ($("#season_nm").val() == ""){
             $("#season_nm").focus();
@@ -303,6 +316,7 @@
 
           $("form").submit();
         });
+
 
     }); // end ready
 </script>

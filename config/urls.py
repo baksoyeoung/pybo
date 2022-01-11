@@ -18,6 +18,7 @@ from django.urls import path, include
 from pybo import views
 from pybo.views import base_views
 from giten import views
+from lecture import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
     path('giten/', include('giten.urls')),
     path('lecture/', include('lecture.urls')),
     # path('', base_views.index, name='index'), # '/' 에 해당하는 path -> settings.py 에 LOGIN_REDIRECT_URL
-    path('', views.index, name='index'), # giten 인덱스
+    #path('', views.index, name='index'), # giten 인덱스
+    path('', views.lecture_home, name='index'), #lecture 인덱스
 ]
