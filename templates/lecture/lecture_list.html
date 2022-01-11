@@ -1,0 +1,59 @@
+{% extends 'lecture/lecture_base.html' %}
+{% block content %}
+<div class="row g-5 justify-content-center">
+    <div class="col-md-12 col-lg-12">
+        <h4 class="mb-3">강의리스트</h4>
+        <form  name="lecture_info" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-3">
+                  <select class="form-select" id="season_nm" name="season_nm" required>
+                    <option value="">학기선택...</option>
+                    {% if season_list %}
+                      {% for season in season_list %}
+                        <option value="{{season.season_nm}}" {% if season.season_nm == form.season_nm.value %}{{ 'selected' }}{% endif %}>{{season.season_nm}}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <select class="form-select" id="camp_nm" name="camp_nm" required>
+                    <option value="">캠퍼스선택...</option>
+                    {% if campus_list %}
+                      {% for campus in campus_list %}
+                        <option value="{{campus.camp_nm}}" {% if campus.camp_nm == form.camp_nm.value %}{{ 'selected' }}{% endif %}>{{campus.camp_nm}}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <select class="form-select" id="name" name="name" required>
+                    <option value="">강사명선택...</option>
+                    {% if teacher_list %}
+                      {% for teacher in teacher_list %}
+                        <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <button type="button" class="btn btn-warning">검색</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

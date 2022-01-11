@@ -6,12 +6,6 @@
     <form  name="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
 <!--      {{ form.as_p }}-->
-      {{ form.lect_grade.value.count }}
-      {% if form.lect_grade.value %}
-        {% for grade in form.lect_grade.value %}
-          {{grade}}
-        {% endfor %}
-      {% endif %}
 
       <div class="row g-3">
         <div class="col-md-5">
@@ -192,6 +186,7 @@
       <hr class="my-4">
 
       <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의등록하기</button>
+      </div>
     </form>
   </div>
 </div>
@@ -276,6 +271,22 @@
           $('.time2').prop('disabled', true);
         }
 
+        {{ form.lect_grade.value.count }}
+        {% if form.lect_grade.value %}
+          {% for grade in form.lect_grade.value %}
+
+              //var grade_cnt = $("input:checkbox[id=lect_grade]").length;
+              //alert(grade_cnt);
+
+              $("input:checkbox[id=lect_grade]").each(function(){
+                if(this.value == "{{grade}}"){
+                  this.checked = true;
+                }
+              });
+
+          {% endfor %}
+        {% endif %}
+
         $(".insert").on('click', function(){
           if ($("#season_nm").val() == ""){
             $("#season_nm").focus();
@@ -289,7 +300,7 @@
             $("#subject").focus();
               return false;
           }
-          var check_cnt = $("input:checkbox[id=lect_grade]:checked").length
+          var check_cnt = $("input:checkbox[id=lect_grade]:checked").length;
           if (check_cnt == 0){
             $('input[id^=lect_grade]')[0].focus();
             return false;
@@ -302,7 +313,7 @@
             $("#lect_nm").focus();
               return false;
           }
-          var timeselect_chk = $("input:checkbox[id=timeselect]:checked").length
+          var timeselect_chk = $("input:checkbox[id=timeselect]:checked").length;
           if (timeselect_chk != 1){
             if ($("#in_cnt").val() == ""){
               $("#in_cnt").focus();

@@ -62,6 +62,17 @@ def lecture_create(request):
 
     return render(request, 'lecture/lecture_create.html', context)
 
+def lecture_list(request):
+    season_list = Season.objects.order_by('-create_date')
+    teacher_list = Teacher.objects.order_by('name')
+    campus_list = campus.objects.order_by('num')
+
+
+
+    context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,}
+
+    return render(request, 'lecture/lecture_list.html', context)
+
 
 def lecture_timetable(request):
     return render(request, 'lecture/lecture_timetable.html')

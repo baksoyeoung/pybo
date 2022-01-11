@@ -17,21 +17,21 @@ class Season(models.Model):
 class Teacher(models.Model):
     name = models.CharField(max_length=50) #강사명
     subject = models.CharField(max_length=50) #담당과목
-    num = models.CharField(max_length=50, null=True, blank=True) #과목별 출력순번
+    num = models.IntegerField() #과목별 출력순번
 
     def __str__(self):
         return (self.name)
 
 class campus(models.Model):
     camp_nm = models.CharField(max_length=255)
-    num = models.CharField(max_length=50, null=True, blank=True) #캠퍼스 출력순번
+    num = models.IntegerField() #캠퍼스 출력순번
 
     def __str__(self):
         return (self.camp_nm)
 
 class subjects(models.Model):
     subject_nm = models.CharField(max_length=255)
-    num = models.CharField(max_length=50, null=True, blank=True) #캠퍼스 출력순번
+    num = models.IntegerField() #캠퍼스 출력순번
 
     def __str__(self):
         return (self.subject_nm)
