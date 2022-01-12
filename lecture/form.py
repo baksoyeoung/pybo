@@ -25,6 +25,11 @@ class LectureCreateForm(forms.ModelForm):
             'lect_fee_explan': '수강료추가설명',
         }
 
+class MylectureList(forms.Form):
+    season_nm = forms.CharField(max_length=255)
+    camp_nm = forms.CharField(max_length=255)
+    name = forms.CharField(max_length=50)
+
 # class LectureCreateForm_set(forms.Form):
 #     season_nm = forms.CharField(max_length=255)
 #     camp_nm = forms.CharField(max_length=255)

@@ -49,11 +49,32 @@
                 </div>
 
                 <div class="col-md-3">
-                  <button type="button" class="btn btn-warning">검색</button>
+                  <button type="button" class="btn btn-warning search-btn">검색</button>
                 </div>
 
             </div>
         </form>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-9">
+              <label for="lect_grade" class="form-label">총 12개</label>
+              <ul class="list-group" id="lect_list" name="lect_list">
+                <li class="list-group-item">
+                  대상학년 과목 강사명 강의명 강의설명 등원시간 주당수강수 수강료 수강료추가설명
+               </li>
+              </ul>
+            </div>
+        </div>
+
     </div>
 </div>
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $('.search-btn').on('click',function(){
+            $('form').submit();
+        });
+    });
+</script>
 {% endblock %}

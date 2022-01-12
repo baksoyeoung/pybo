@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Season, Lectureinfo, Teacher, campus, subjects
-from .form import LectureCreateForm
+from .form import LectureCreateForm, MylectureList
 from django.forms import modelformset_factory
 
 
@@ -52,11 +52,13 @@ def lecture_create(request):
                         'lect_fee_explan': lectureinfo.lect_fee_explan,}
 
             f = LectureCreateForm(set_data)
-            print(f)
+            # print(f)
             form = f
 
     else:
         form = LectureCreateForm()
+
+        # print(form)
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list, 'subjects_list': subjects_list}
 
@@ -67,9 +69,14 @@ def lecture_list(request):
     teacher_list = Teacher.objects.order_by('name')
     campus_list = campus.objects.order_by('num')
 
+    if request.method == "POST":
+        print("======> POST DATA:", request.POST)
+        mylectureList = Lectureinfo.objects
 
 
-    context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,}
+
+    form = MylectureList()
+    context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list}
 
     return render(request, 'lecture/lecture_list.html', context)
 

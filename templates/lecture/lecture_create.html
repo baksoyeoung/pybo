@@ -186,6 +186,25 @@
       <hr class="my-4">
 
       <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의등록하기</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">강의입력완료</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>강의가 추가 되었습니다. <span class="badge rounded-pill bg-success">Success</span></h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!--                    <button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end Modal -->
       </div>
     </form>
   </div>
@@ -271,6 +290,7 @@
           $('.time2').prop('disabled', true);
         }
 
+        //submit 이후 다시 폼 제출시 대상학년 체크
         {{ form.lect_grade.value.count }}
         {% if form.lect_grade.value %}
           {% for grade in form.lect_grade.value %}
@@ -327,6 +347,11 @@
 
           $("form").submit();
         });
+
+        if ("{{ form.lect_nm.value }}" != 'None'){ //강의가 입력 되었다는 모달
+          //alert("{{ form.lect_nm.value }}");
+          $('.modal').modal('show');
+        }
 
 
     }); // end ready
