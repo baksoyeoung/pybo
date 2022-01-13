@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Season, Lectureinfo, Teacher, campus, subjects
-from .form import LectureCreateForm, MylectureList
-from django.forms import modelformset_factory
+from .form import LectureCreateForm, MylectureListForm
+from django.db.models import Q, Count
 
 
 # Create your views here.
@@ -70,13 +70,34 @@ def lecture_list(request):
     campus_list = campus.objects.order_by('num')
 
     if request.method == "POST":
-        print("======> POST DATA:", request.POST)
-        mylectureList = Lectureinfo.objects
+        # print("======> POST DATA:", request.POST)
+        season_nm = request.POST.get('season_nm')
+        camp_nm = request.POST.get('camp_nm')
+        name = request.POST.get('name')
+        set_data = {'season_nm': season_nm,
+                    'camp_nm': camp_nm,
+                    'name': name,}
 
+        f = MylectureListForm(set_data)
+        form = f
 
+        mylecture_list = Lectureinfo.objects.order_by('season_nm')
 
-    form = MylectureList()
-    context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list}
+        mylecture_list = mylecture_list.filter(
+            Q(season_nm__icontains=season_nm), # 제목검색
+            Q(camp_nm__icontains=camp_nm),  # 내용검색
+            Q(name__icontains=name)   # 질문 글쓴이 검색
+
+        ).distinct()
+
+        print(mylecture_list)
+
+    else:
+        form = MylectureListForm()
+        mylecture_list = ()
+
+    context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
+               'mylecture_list': mylecture_list}
 
     return render(request, 'lecture/lecture_list.html', context)
 

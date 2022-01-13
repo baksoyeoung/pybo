@@ -57,11 +57,26 @@
 
         <div class="row g-3 mt-2">
             <div class="col-md-9">
-              <label for="lect_grade" class="form-label">총 12개</label>
+              <label for="lect_grade" class="form-label">총 {{ mylecture_list.count }}개</label>
               <ul class="list-group" id="lect_list" name="lect_list">
-                <li class="list-group-item">
-                  대상학년 과목 강사명 강의명 강의설명 등원시간 주당수강수 수강료 수강료추가설명
-               </li>
+              {% if mylecture_list %}
+                  {% for mylecture in mylecture_list %}
+                  <li class="list-group-item">
+                  {{ mylecture.lect_grade }}
+                  {{ mylecture.subject }}
+                  {{ mylecture.lect_nm }}
+                  {{ mylecture.lect_explan }}
+                  {{ mylecture.timeselect }}
+                  {{ mylecture.lect_yoil }}
+                  {{ mylecture.lect_time }}
+                  {{ mylecture.lect_time2 }}
+                  {{ mylecture.week_cnt }}
+                  {{ mylecture.in_cnt }}
+                  {{ mylecture.lect_fee }}
+                  {{ mylecture.lect_fee_explan }}
+                  </li>
+                  {% endfor %}
+              {% endif %}
               </ul>
             </div>
         </div>
@@ -73,6 +88,18 @@
 <script>
     $(document).ready(function(){
         $('.search-btn').on('click',function(){
+            if ($("#season_nm").val() == ""){
+                 $("#season_nm").focus();
+                  return false;
+            }
+            if ($("#camp_nm").val() == ""){
+                 $("#camp_nm").focus();
+                  return false;
+            }
+            if ($("#name").val() == ""){
+                 $("#name").focus();
+                  return false;
+            }
             $('form').submit();
         });
     });
