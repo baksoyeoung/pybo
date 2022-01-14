@@ -5,16 +5,19 @@ from .models import Season, Lectureinfo, Teacher, campus, subjects
 
 class SeasonAdmin(admin.ModelAdmin):
     search_fields = ['season_nm']
+    list_display = ['season_nm', 'create_date']
 
 admin.site.register(Season, SeasonAdmin)
 
 class LectureinfoAdmin(admin.ModelAdmin):
     search_fields = ['subject']
+    list_display = ['season_nm', 'camp_nm', 'subject', 'name', 'lect_grade', 'lect_nm', 'lect_yoil']
 
 admin.site.register(Lectureinfo, LectureinfoAdmin)
 
 class TeacherAdmin(admin.ModelAdmin):
     search_fields = ['name']
+    list_display = ['name', 'num']
 
 admin.site.register(Teacher, TeacherAdmin)
 
@@ -25,5 +28,6 @@ admin.site.register(campus, campusAdmin)
 
 class subjectsAdmin(admin.ModelAdmin):
     search_fields = ['subject_nm']
+    list_display = ['subject_nm', 'num']
 
 admin.site.register(subjects, subjectsAdmin)

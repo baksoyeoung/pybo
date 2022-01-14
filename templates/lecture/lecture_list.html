@@ -1,4 +1,5 @@
 {% extends 'lecture/lecture_base.html' %}
+{% load lecture_filter %}
 {% block content %}
 <div class="row g-5 justify-content-center">
     <div class="col-md-12 col-lg-12">
@@ -56,28 +57,54 @@
         </form>
 
         <div class="row g-3 mt-2">
-            <div class="col-md-9">
+            <div class="col-md-12">
               <label for="lect_grade" class="form-label">총 {{ mylecture_list.count }}개</label>
-              <ul class="list-group" id="lect_list" name="lect_list">
-              {% if mylecture_list %}
-                  {% for mylecture in mylecture_list %}
-                  <li class="list-group-item">
-                  {{ mylecture.lect_grade }}
-                  {{ mylecture.subject }}
-                  {{ mylecture.lect_nm }}
-                  {{ mylecture.lect_explan }}
-                  {{ mylecture.timeselect }}
-                  {{ mylecture.lect_yoil }}
-                  {{ mylecture.lect_time }}
-                  {{ mylecture.lect_time2 }}
-                  {{ mylecture.week_cnt }}
-                  {{ mylecture.in_cnt }}
-                  {{ mylecture.lect_fee }}
-                  {{ mylecture.lect_fee_explan }}
-                  </li>
-                  {% endfor %}
-              {% endif %}
-              </ul>
+              <table class="table table-hover table-sm table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">대상학년</th>
+                      <th scope="col">과목</th>
+                      <th scope="col">강의명</th>
+                      <th scope="col">등원요일</th>
+                      <th scope="col">등원개수</th>
+                      <th scope="col">수강료(원)</th>
+                      <th scope="col">수강료추가설명</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if mylecture_list %}
+                        {% for mylecture in mylecture_list %}
+                    <tr>
+                      <th scope="row" class="align-middle">{{ forloop.counter }}</th>
+                      <td class="align-middle">{% for mylecture in mylecture.lect_grade|grade %} {{ mylecture }} {% endfor %}</td>
+                      <td class="align-middle">{{ mylecture.subject }}</td>
+                      <td class="align-middle">{{ mylecture.lect_nm }}</td>
+                      {% if mylecture.timeselect == True %}
+                      <td class="align-middle">시간협의</td>
+                      {% else %}
+                      <td class="align-middle">
+                          {% yoil_time mylecture.lect_yoil mylecture.lect_time mylecture.lect_time2 as timeis %}
+                          {% if timeis %}
+                              {% for time in timeis %}
+                                {{ time }}<br>
+                              {% endfor %}
+                          {% endif %}
+                      {% endif %}
+                      </td>
+                      {% if mylecture.timeselect == False %}
+                      <td class="align-middle">{{ mylecture.week_cnt }}중 택{{ mylecture.in_cnt }}</td>
+                      {% else %}
+                      <td class="align-middle">협의</td>
+                      {% endif %}
+                      <td class="align-middle">{{ mylecture.lect_fee|comma }}</td>
+                      <td class="align-middle">{{ mylecture.lect_fee_explan }}</td>
+                    </tr>
+                        {% endfor %}
+                    {% endif %}
+                  </tbody>
+              </table>
+
             </div>
         </div>
 

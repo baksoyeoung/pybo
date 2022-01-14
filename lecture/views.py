@@ -84,9 +84,9 @@ def lecture_list(request):
         mylecture_list = Lectureinfo.objects.order_by('season_nm')
 
         mylecture_list = mylecture_list.filter(
-            Q(season_nm__icontains=season_nm), # 제목검색
-            Q(camp_nm__icontains=camp_nm),  # 내용검색
-            Q(name__icontains=name)   # 질문 글쓴이 검색
+            Q(season_nm__icontains=season_nm), # 학기검색
+            Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+            Q(name__icontains=name)   # 강사명검색
 
         ).distinct()
 
@@ -94,7 +94,7 @@ def lecture_list(request):
 
     else:
         form = MylectureListForm()
-        mylecture_list = ()
+        mylecture_list = []
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                'mylecture_list': mylecture_list}
