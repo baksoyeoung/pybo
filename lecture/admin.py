@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Season, Lectureinfo, Teacher, campus, subjects
+from .models import Season, Lectureinfo, Teacher, campus, subjects, science
 
 # Register your models here.
 
@@ -11,7 +11,7 @@ admin.site.register(Season, SeasonAdmin)
 
 class LectureinfoAdmin(admin.ModelAdmin):
     search_fields = ['subject']
-    list_display = ['season_nm', 'camp_nm', 'subject', 'name', 'lect_grade', 'lect_nm', 'lect_yoil']
+    list_display = ['season_nm', 'camp_nm', 'subject', 'name', 'lect_grade', 'lect_nm', 'lect_yoil', 'lect_time', 'lect_time2']
 
 admin.site.register(Lectureinfo, LectureinfoAdmin)
 
@@ -31,3 +31,9 @@ class subjectsAdmin(admin.ModelAdmin):
     list_display = ['subject_nm', 'num']
 
 admin.site.register(subjects, subjectsAdmin)
+
+class scienceAdmin(admin.ModelAdmin):
+    search_fields = ['science_nm']
+    list_display = ['science_nm', 'num']
+
+admin.site.register(science, scienceAdmin)

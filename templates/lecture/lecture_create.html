@@ -53,6 +53,21 @@
           </div>
         </div>
 
+        <div class="col-md-5">
+          <label for="subject" class="form-label">과학세부선택</label>
+          <select class="form-select" id="subject" name="subject" required>
+            <option value="">과목선택...</option>
+            {% if subjects_list %}
+              {% for subjects in subjects_list %}
+                <option value="{{subjects.subject_nm}}" {% if subjects.subject_nm == form.subject.value %}{{ 'selected' }}{% endif %}>{{subjects.subject_nm}}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid country.
+          </div>
+        </div>
+
         <div class="col-md-12">
           <label for="lect_grade" class="form-label">대상학년</label>
           <ul class="list-group" id="lect_grade" name="lect_grade">
