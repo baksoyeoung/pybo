@@ -11,7 +11,7 @@ admin.site.register(Season, SeasonAdmin)
 
 class LectureinfoAdmin(admin.ModelAdmin):
     search_fields = ['subject']
-    list_display = ['season_nm', 'camp_nm', 'subject', 'name', 'lect_grade', 'lect_nm', 'lect_yoil', 'lect_time', 'lect_time2']
+    list_display = ['season_nm', 'camp_nm', 'subject', 'name', 'lect_grade', 'lect_nm', 'science', 'lect_yoil', 'lect_time', 'lect_time2']
 
 admin.site.register(Lectureinfo, LectureinfoAdmin)
 

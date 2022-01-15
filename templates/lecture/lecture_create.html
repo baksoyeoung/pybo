@@ -297,11 +297,15 @@
             let science = $(this).find('option:selected').text();
             if(science == '과학'){
               $('#science').prop('disabled', false);
+            }else{
+              $('#science').prop('disabled', true);
             }
           }
         });
 
-        //$('#subject')
+        {% if form.science.value %}
+          $('#science').prop('disabled', false);
+        {% endif %}
 
         if($('#timeselect').is(':checked')){
           $('.week-cnt').val(1);
@@ -378,7 +382,6 @@
           //alert("{{ form.lect_nm.value }}");
           $('.modal').modal('show');
         }
-
 
     }); // end ready
 </script>

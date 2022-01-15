@@ -58,18 +58,19 @@
 
         <div class="row g-3 mt-2">
             <div class="col-md-12">
-              <label for="lect_grade" class="form-label">총 {{ mylecture_list.count }}개</label>
+              <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
               <table class="table table-hover table-sm table-bordered">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">대상학년</th>
-                      <th scope="col">과목</th>
-                      <th scope="col">강의명</th>
-                      <th scope="col">등원요일</th>
-                      <th scope="col">등원개수</th>
-                      <th scope="col">수강료(원)</th>
-                      <th scope="col">수강료추가설명</th>
+                      <th scope="col" class="text-center">대상학년</th>
+                      <th scope="col" class="text-center">과목</th>
+                      <th scope="col" class="text-center">강의명</th>
+                      <th scope="col" class="text-center">등원요일</th>
+                      <th scope="col" class="text-center">등원개수</th>
+                      <th scope="col" class="text-center">수강료(원)</th>
+                      <th scope="col" class="text-center">수강료추가설명</th>
+                      <th scope="col" class="text-center">수정/삭제</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -99,8 +100,14 @@
                       {% endif %}
                       <td class="align-middle">{{ mylecture.lect_fee|comma }}</td>
                       <td class="align-middle">{{ mylecture.lect_fee_explan }}</td>
+                      <td class="align-middle text-center">
+                          <a href="{% url 'lecture:lecture_modify' mylecture.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+                          <a href="#" data-uri="" class="delete btn btn-sm btn-outline-secondary">삭제</a>
+                      </td>
                     </tr>
                         {% endfor %}
+                    {% else %}
+                    <tr><td class="align-middle text-center" colspan="9">검색이 필요합니다.</td></tr>
                     {% endif %}
                   </tbody>
               </table>
