@@ -57,6 +57,7 @@ class Lectureinfo(models.Model):
     in_cnt = models.CharField(max_length=50, null=True, blank=True)      #수강개수
     lect_fee = models.CharField(max_length=50, null=True, blank=True)    #수강료
     lect_fee_explan = models.TextField(null=True, blank=True)            #수강료추가설명
+    science = models.CharField(max_length=50, null=True, blank=True)     #과학세부과목
     create_date = models.DateTimeField()          #생성날짜시간
     modify_date = models.DateTimeField(null=True, blank=True) #수정날짜시간
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Season, Lectureinfo, Teacher, campus, subjects
+from .models import Season, Lectureinfo, Teacher, campus, subjects, science
 from .form import LectureCreateForm, MylectureListForm
 from django.db.models import Q, Count
 
@@ -16,6 +16,7 @@ def lecture_create(request):
     teacher_list = Teacher.objects.order_by('name')
     campus_list = campus.objects.order_by('num')
     subjects_list = subjects.objects.order_by('num')
+    science_list = science.objects.order_by('num')
 
     if request.method == 'POST':
         # print("======> POST DATA:", request.POST)
@@ -49,7 +50,8 @@ def lecture_create(request):
                         'week_cnt': lectureinfo.week_cnt,
                         'in_cnt': lectureinfo.in_cnt,
                         'lect_fee': lectureinfo.lect_fee,
-                        'lect_fee_explan': lectureinfo.lect_fee_explan,}
+                        'lect_fee_explan': lectureinfo.lect_fee_explan,
+                        'science': lectureinfo.science,}
 
             f = LectureCreateForm(set_data)
             # print(f)
@@ -60,7 +62,8 @@ def lecture_create(request):
 
         # print(form)
 
-    context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list, 'subjects_list': subjects_list}
+    context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
+               'subjects_list': subjects_list, 'science_list': science_list}
 
     return render(request, 'lecture/lecture_create.html', context)
 

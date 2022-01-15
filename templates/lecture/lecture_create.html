@@ -55,11 +55,11 @@
 
         <div class="col-md-5">
           <label for="subject" class="form-label">과학세부선택</label>
-          <select class="form-select" id="subject" name="subject" required>
+          <select class="form-select" id="science" name="science" disabled>
             <option value="">과목선택...</option>
-            {% if subjects_list %}
-              {% for subjects in subjects_list %}
-                <option value="{{subjects.subject_nm}}" {% if subjects.subject_nm == form.subject.value %}{{ 'selected' }}{% endif %}>{{subjects.subject_nm}}</option>
+            {% if science_list %}
+              {% for science in science_list %}
+                <option value="{{science.science_nm}}" {% if science.science_nm == form.science.value %}{{ 'selected' }}{% endif %}>{{science.science_nm}}</option>
               {% endfor %}
             {% endif %}
           </select>
@@ -291,6 +291,17 @@
 
           }
         });
+
+        $('select[name="subject"]').on({
+          change: function(e){
+            let science = $(this).find('option:selected').text();
+            if(science == '과학'){
+              $('#science').prop('disabled', false);
+            }
+          }
+        });
+
+        //$('#subject')
 
         if($('#timeselect').is(':checked')){
           $('.week-cnt').val(1);
