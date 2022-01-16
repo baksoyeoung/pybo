@@ -136,40 +136,18 @@ def lecture_modify(request, lectureinfo_id):
             lectureinfo.save()
             return redirect('lecture:lecture_list')
     else:
-        set_data = {'season_nm': lectureinfo.season_nm,
-                    'camp_nm': lectureinfo.camp_nm,
-                    'subject': lectureinfo.subject,
-                    'lect_grade': lectureinfo.lect_grade,
-                    'name': lectureinfo.name,
-                    'lect_nm': lectureinfo.lect_nm,
-                    'lect_explan': lectureinfo.lect_explan,
-                    'timeselect': lectureinfo.timeselect,
-                    'lect_yoil': lectureinfo.lect_yoil,
-                    'lect_time': lectureinfo.lect_time,
-                    'lect_time2': lectureinfo.lect_time2,
-                    'week_cnt': lectureinfo.week_cnt,
-                    'in_cnt': lectureinfo.in_cnt,
-                    'lect_fee': lectureinfo.lect_fee,
-                    'lect_fee_explan': lectureinfo.lect_fee_explan,
-                    'science': lectureinfo.science}
 
         form = LectureCreateForm(instance=lectureinfo)
 
+        lecture_modify_state = 'view'
         print(form.is_valid())
         print(form)
 
-        # c = RequestContext(request, {
-        #     'foo': 'bar',
-        # })
-
-        # request_context = RequestContext(request)
-        # request_context.push(["my_name": "Adrian"])
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-                'subjects_list': subjects_list, 'science_list': science_list}
+                'subjects_list': subjects_list, 'science_list': science_list, 'lecture_modify_state': lecture_modify_state}
 
     return render(request,'lecture/lecture_create.html', context)
-    # return 0
 
 
 def lecture_timetable(request):

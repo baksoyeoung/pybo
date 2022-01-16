@@ -1,4 +1,5 @@
 {% extends 'lecture/lecture_base.html' %}
+{% load lecture_filter %}
 {% block content %}
 <div class="row g-5 justify-content-center">
   <div class="col-md-7 col-lg-7">
@@ -6,7 +7,7 @@
     <form  name="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
 <!--      {{ form.as_p }}-->
-
+<!--      {{ form.lect_grade.value }}-->
       <div class="row g-3">
         <div class="col-md-5">
           <label for="season_nm" class="form-label">학기선택</label>
@@ -131,7 +132,7 @@
 
         <div class="col-sm-12">
           <label for="lect_explan" class="form-label">강의설명</label>
-          <textarea style="font-size:13px;" class="form-control" id="lect_explan" name="lect_explan" rows="3" placeholder="강의에 대한 설명">{{ form.lect_explan.value|default_if_none:'' }}</textarea>
+          <textarea style="font-size:13px;" class="form-control" id="lect_explan" name="lect_explan" rows="5" placeholder="강의에 대한 설명">{{ form.lect_explan.value|default_if_none:'' }}</textarea>
         </div>
 
         <div class="buttons">
@@ -228,9 +229,10 @@
 {% block script %}
 <script>
     $(document).ready(function(){
+
         $('#week_cnt').val(count_input());
-        $('.btnAdd').click (function(){
-            $('.yoiltime').append('<li class="list-group-item lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" value="삭제"></li>'); // end append
+        $('.btnAdd').on('click',function(){
+            $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
             $('input.timepicker').timepicker({
               timeFormat: 'HH:mm',
               interval: 30,
@@ -240,11 +242,11 @@
               scrollbar: true
             });
             $('#week_cnt').val(count_input());
-            $('.btnRemove').on('click', function(){
-                $(this).prev().remove (); // remove
-                $(this).prev().remove (); // remove
-                $(this).prev().remove (); // remove
-                $(this).prev().remove (); // remove
+            $('.btnRemove').on('click',function(){
+                $(this).prev().remove(); // remove
+                $(this).prev().remove(); // remove
+                $(this).prev().remove(); // remove
+                $(this).prev().remove(); // remove
                 $(this).unwrap();
                 $(this).remove(); // remove the button
                 $('.week-cnt').val(count_input());
@@ -255,6 +257,18 @@
           let length = $('.time1').length;
           return length;
         }
+
+        $(document).on('mousedown','#Remove',function(){
+		  $('.btnRemove').on('click',function(){
+                $(this).prev().remove(); // remove
+                $(this).prev().remove(); // remove
+                $(this).prev().remove(); // remove
+                $(this).prev().remove(); // remove
+                $(this).unwrap();
+                $(this).remove(); // remove the button
+                $('.week-cnt').val(count_input());
+            });
+        })
 
         $('input.timepicker').timepicker({
           timeFormat: 'HH:mm',
@@ -320,8 +334,7 @@
           $('.time2').prop('disabled', true);
         }
 
-        //submit 이후 다시 폼 제출시 대상학년 체크
-        {{ form.lect_grade.value.count }}
+        //submit 이후 다시 폼 제출시 대상학년 체크 강의등록후 실행
         {% if form.lect_grade.value %}
           {% for grade in form.lect_grade.value %}
 
@@ -335,6 +348,26 @@
               });
 
           {% endfor %}
+        {% endif %}
+
+        {% if lecture_modify_state  == "view"  %}
+          {% if form.lect_grade.value %}
+            {% for grade in form.lect_grade.value|grade %} //강의수정시 view 값을 받고 필터로 대상학년 값을 받는다
+
+                //var grade_cnt = $("input:checkbox[id=lect_grade]").length;
+                //alert(grade_cnt);
+
+                $("input:checkbox[id=lect_grade]").each(function(){
+                  if(this.value == "{{grade}}"){
+                    this.checked = true;
+                  }
+                });
+
+            {% endfor %}
+          {% endif %}
+
+          $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
+
         {% endif %}
 
         $(".insert").on('click', function(){
@@ -378,7 +411,7 @@
           $("form").submit();
         });
 
-        if ("{{ form.lect_nm.value }}" != 'None'){ //강의가 입력 되었다는 모달
+        if ("{{ form.lect_nm.value }}" != 'None' && "{{ lecture_modify_state }}" != "view"){ //강의가 입력 되었다는 모달
           //alert("{{ form.lect_nm.value }}");
           $('.modal').modal('show');
         }
