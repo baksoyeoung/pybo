@@ -3,7 +3,11 @@
 {% block content %}
 <div class="row g-5 justify-content-center">
   <div class="col-md-7 col-lg-7">
+    {% if lecture_modify_state  != "view"  %}
     <h4 class="mb-3">강의정보입력</h4>
+    {% else %}
+    <h4 class="mb-3">강의정보수정</h4>
+    {% endif %}
     <form  name="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
 <!--      {{ form.as_p }}-->
@@ -144,7 +148,7 @@
             </li>
             <li class="list-group-item">
             <select class="yoil" id="lect_yoil" name="lect_yoil">
-              <option>요일선택</option>
+              <option value="">요일선택</option>
               <option value="월">월요일</option>
               <option value="화">화요일</option>
               <option value="수">수요일</option>
@@ -200,8 +204,11 @@
         </div>
 
       <hr class="my-4">
-
+      {% if lecture_modify_state  != "view"  %}
       <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의등록하기</button>
+      {% else %}
+      <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의수정하기</button>
+      {% endif %}
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -212,6 +219,44 @@
               </div>
               <div class="modal-body">
                 <h5>강의가 추가 되었습니다. <span class="badge rounded-pill bg-success">Success</span></h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!--                    <button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="timeis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">강의입력에러</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>시간을 설정해 주세요 <span class="badge rounded-pill bg-warning">Error</span></h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!--                    <button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="yoilis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">강의입력에러</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>요일을 설정해 주세요 <span class="badge rounded-pill bg-warning">Error</span></h5>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -232,7 +277,7 @@
 
         $('#week_cnt').val(count_input());
         $('.btnAdd').on('click',function(){
-            $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
+            $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option value="">요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
             $('input.timepicker').timepicker({
               timeFormat: 'HH:mm',
               interval: 30,
@@ -372,7 +417,7 @@
             {% endfor %}
           {% endif %}
 
-          $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
+          $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option value="">요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
 
         {% endif %}
 
@@ -414,12 +459,53 @@
               return false;
           }
 
+          if ($('#timeselect').is(':checked') == false){ //요일, 시간 값 확인
+            let chceking = 0;
+            let timeis = 0;
+            let yoilis = 0;
+            $("select[id=lect_yoil]").each(function(){
+              if($(this).val() == ""){
+                $(this).focus();
+                chceking = chceking + 1;
+                yoilis = yoilis + 1;
+              }
+            });
+
+            $("input[id=lect_time1").each(function(){
+              if($(this).val() == ""){
+                chceking = chceking + 1;
+                timeis = timeis + 1;
+              }
+            });
+
+            $("input[id=lect_time2").each(function(){
+              if($(this).val() == ""){
+                chceking = chceking + 1;
+                timeis = timeis + 1;
+              }
+            });
+
+            if(yoilis != 0){
+              $('#yoilis').modal('show')
+              return false;
+            }
+
+            if(timeis != 0){
+              $('#timeis').modal('show')
+              return false;
+            }
+
+            if(chceking != 0){
+              return false;
+            }
+          }
+
           $("form").submit();
         });
 
         if ("{{ form.lect_nm.value }}" != 'None' && "{{ lecture_modify_state }}" != "view"){ //강의가 입력 되었다는 모달
           //alert("{{ form.lect_nm.value }}");
-          $('.modal').modal('show');
+          $('#exampleModal').modal('show');
         }
 
     }); // end ready

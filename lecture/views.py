@@ -79,6 +79,8 @@ def lecture_list(request):
     # teacher_list = Teacher.objects.order_by('name')
     # campus_list = campus.objects.order_by('num')
 
+    print("======> GET DATA", request.GET)
+
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
         season_nm = request.POST.get('season_nm')

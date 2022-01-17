@@ -59,7 +59,7 @@
         <div class="row g-3 mt-2">
             <div class="col-md-12">
               <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
-              <table class="table table-hover table-sm table-bordered">
+              <table class="table table-hover table-sm table-bordered" style="backgroud-color:white;">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -107,7 +107,7 @@
                     </tr>
                         {% endfor %}
                     {% else %}
-                    <tr><td class="align-middle text-center" colspan="9">검색이 필요합니다.</td></tr>
+                    <tr><td class="align-middle text-center" colspan="9">검색된 강의가 없습니다.</td></tr>
                     {% endif %}
                   </tbody>
               </table>
