@@ -84,7 +84,7 @@
                       {% if mylecture.timeselect == True %}
                       <td class="align-middle">시간협의</td>
                       {% else %}
-                      <td class="align-middle">
+                      <td class="align-middle"> <!-- filter 에 yoil_time 사용 -->
                           {% yoil_time mylecture.lect_yoil mylecture.lect_time mylecture.lect_time2 as timeis %}
                           {% if timeis %}
                               {% for time in timeis %}

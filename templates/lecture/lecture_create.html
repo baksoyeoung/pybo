@@ -366,6 +366,12 @@
             {% endfor %}
           {% endif %}
 
+          {% if form.lect_yoil %}
+            {% for lect_yoil in form.lect_yoil.value|yoil %}
+              alert("{{ lect_yoil }}");
+            {% endfor %}
+          {% endif %}
+
           $('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option>요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
 
         {% endif %}
