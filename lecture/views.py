@@ -142,12 +142,15 @@ def lecture_modify(request, lectureinfo_id):
         form = LectureCreateForm(instance=lectureinfo)
 
         lecture_modify_state = 'view'
+        lecture_yoil_cnt = 1
+        select_yoil = ""
         print(form.is_valid())
         print(form)
 
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-                'subjects_list': subjects_list, 'science_list': science_list, 'lecture_modify_state': lecture_modify_state}
+                'subjects_list': subjects_list, 'science_list': science_list,
+               'lecture_modify_state': lecture_modify_state, 'lecture_yoil_cnt': lecture_yoil_cnt, 'select_yoil': select_yoil}
 
     return render(request,'lecture/lecture_create.html', context)
 

@@ -28,6 +28,25 @@ def yoil_cnt(value):
     cnt = len(m)
     return cnt
 
+@register.filter()
+def yoil_ranges(value):
+    p = re.compile('[가-하]')
+    m = p.findall(value)
+    cnt = len(m)
+    return range(2, cnt+1)
+
+@register.filter()
+def yoil_select(value):
+    p = re.compile('[가-하]')
+    m = p.findall(value)
+    print(len(m))
+    return m
+
+@register.filter()
+def gains(value):
+    value = value + 1
+    return value
+
 @register.filter
 def cut_text(value):
     result = value[0:20]
