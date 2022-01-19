@@ -4,6 +4,7 @@ from .models import Season, Lectureinfo, Teacher, campus, subjects, science
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
 from django.db.models import Q, Count
 from django.template import RequestContext
+import json
 
 
 # Create your views here.
@@ -119,7 +120,7 @@ def lecture_modify(request, lectureinfo_id):
     """
     lectureinfo = get_object_or_404(Lectureinfo, pk=lectureinfo_id)
 
-    print(lectureinfo)
+    # print(lectureinfo)
 
     if request.method == "POST":
         lect_grade_check = request.POST.getlist('lect_grade')
@@ -146,6 +147,10 @@ def lecture_modify(request, lectureinfo_id):
         select_yoil = ''
         print(form.is_valid())
         print(form)
+
+        posts = Lectureinfo.objects.filter(id=lectureinfo_id).values('lect_yoil')
+
+        print(posts)
 
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,

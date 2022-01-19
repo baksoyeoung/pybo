@@ -417,10 +417,13 @@
             {% endfor %}
           {% endif %}
 
-          alert("{{ lecture_yoil_cnt }}");
-          $("select[id=lect_yoil]").each(function(){
-            $(this).val("{{ select_yoil|yoil_select:form.lect_yoil.value|yoil_select:0 }}").prop("selected", true);
-            //$(this).val('목').prop("selected", true);
+
+          $("select[id=lect_yoil]").each(function(index){
+            {{ lecture_yoil_cnt|add:1 }}
+            {% yoil_select form.lect_yoil.value lecture_yoil_cnt as yoilis %}
+            {% if yoilis %}
+              $(this).val("{{ yoilis }}").prop("selected", true);
+            {% endif %}
             {{ lecture_yoil_cnt|gains }}
           });
 

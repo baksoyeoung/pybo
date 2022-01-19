@@ -66,3 +66,4 @@ class Lectureinfo(models.Model):
 
 
 
+

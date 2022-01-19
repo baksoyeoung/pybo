@@ -1,4 +1,5 @@
 from django import template
+from django.template.defaultfilters import stringfilter
 import re
 
 register = template.Library()
@@ -35,12 +36,12 @@ def yoil_ranges(value):
     cnt = len(m)
     return range(2, cnt+1)
 
-@register.filter()
-def yoil_select(value, arg=0):
+@register.simple_tag
+def yoil_select(value, cnt):
+    print(cnt)
     p = re.compile('[가-하]')
     m = p.findall(value)
-    print(len(m))
-    return m[arg]
+    return m[cnt]
 
 @register.filter()
 def gains(value):
