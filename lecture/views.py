@@ -142,8 +142,8 @@ def lecture_modify(request, lectureinfo_id):
         form = LectureCreateForm(instance=lectureinfo)
 
         lecture_modify_state = 'view'
-        lecture_yoil_cnt = 1
-        select_yoil = ""
+        lecture_yoil_cnt = 0
+        select_yoil = ''
         print(form.is_valid())
         print(form)
 

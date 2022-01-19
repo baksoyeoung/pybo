@@ -419,7 +419,7 @@
 
           alert("{{ lecture_yoil_cnt }}");
           $("select[id=lect_yoil]").each(function(){
-            $(this).val("{{ form.lect_yoil.value|yoil_select }}").prop("selected", true);
+            $(this).val("{{ select_yoil|yoil_select:form.lect_yoil.value|yoil_select:0 }}").prop("selected", true);
             //$(this).val('목').prop("selected", true);
             {{ lecture_yoil_cnt|gains }}
           });

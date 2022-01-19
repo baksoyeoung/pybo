@@ -36,11 +36,11 @@ def yoil_ranges(value):
     return range(2, cnt+1)
 
 @register.filter()
-def yoil_select(value):
+def yoil_select(value, arg=0):
     p = re.compile('[가-하]')
     m = p.findall(value)
     print(len(m))
-    return m
+    return m[arg]
 
 @register.filter()
 def gains(value):
