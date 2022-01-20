@@ -23,6 +23,20 @@ def timeis(value):
     return m
 
 @register.filter
+def timeis_ranges_total(value):
+    p = re.compile('[0-9][0-9]:[0-9][0-9]')
+    m = p.findall(value)
+    cnt = len(m)
+    return range(0, cnt)
+
+@register.simple_tag
+def time_select(value, cnt):
+    print(value, cnt)
+    p = re.compile('[0-9][0-9]:[0-9][0-9]')
+    m = p.findall(value)
+    return m[cnt]
+
+@register.filter
 def yoil_cnt(value):
     p = re.compile('[가-하]')
     m = p.findall(value)
@@ -36,9 +50,15 @@ def yoil_ranges(value):
     cnt = len(m)
     return range(2, cnt+1)
 
+@register.filter()
+def yoil_ranges_total(value):
+    p = re.compile('[가-하]')
+    m = p.findall(value)
+    cnt = len(m)
+    return range(0, cnt)
+
 @register.simple_tag
 def yoil_select(value, cnt):
-    print(cnt)
     p = re.compile('[가-하]')
     m = p.findall(value)
     return m[cnt]

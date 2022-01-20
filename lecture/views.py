@@ -81,7 +81,7 @@ def lecture_list(request):
     # teacher_list = Teacher.objects.order_by('name')
     # campus_list = campus.objects.order_by('num')
 
-    print("======> GET DATA", request.GET)
+    # print("======> GET DATA", request.GET)
 
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
@@ -95,7 +95,7 @@ def lecture_list(request):
         f = MylectureListForm(set_data)
         form = f
 
-        mylecture_list = Lectureinfo.objects.order_by('-lect_grade')
+        mylecture_list = Lectureinfo.objects.order_by('name', '-lect_grade')
 
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm), # 학기검색
@@ -108,7 +108,7 @@ def lecture_list(request):
 
     else:
         form = MylectureListForm()
-        mylecture_list = ()
+        mylecture_list = Lectureinfo.objects.order_by('name', '-lect_grade')
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                'mylecture_list': mylecture_list}
@@ -129,7 +129,13 @@ def lecture_modify(request, lectureinfo_id):
         lect_time_check = request.POST.getlist('lect_time')
         lect_time2_check = request.POST.getlist('lect_time2')
 
+        print('moditfy:', lect_grade_check)
+        print('moditfy:', lect_yoil_check)
+        print('moditfy:', lect_time_check)
+        print('moditfy:', lect_time2_check)
+
         form = LectureCreateForm(request.POST, instance=lectureinfo)
+        print('modify:', form.is_valid())
         if form.is_valid():
             lectureinfo = form.save(commit=False)
             lectureinfo.lect_grade = lect_grade_check
@@ -144,20 +150,14 @@ def lecture_modify(request, lectureinfo_id):
         form = LectureCreateForm(instance=lectureinfo)
 
         lecture_modify_state = 'view'
-        lecture_yoil_cnt = 0
-        select_yoil = ''
-        print(form.is_valid())
-        print(form)
+        # print(form.is_valid())
+        # print(form)
 
         lecture = serializers.serialize("json", Lectureinfo.objects.filter(id=lectureinfo_id), fields=("lect_yoil"))
 
-
-        print(lecture)
-
-
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-                'subjects_list': subjects_list, 'science_list': science_list,
-               'lecture_modify_state': lecture_modify_state, 'lecture_yoil_cnt': lecture_yoil_cnt, 'select_yoil': select_yoil, 'lecturejson': lecture}
+               'subjects_list': subjects_list, 'science_list': science_list,
+               'lecture_modify_state': lecture_modify_state}
 
     return render(request,'lecture/lecture_create.html', context)
 

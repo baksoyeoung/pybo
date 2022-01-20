@@ -8,7 +8,7 @@
     {% else %}
     <h4 class="mb-3">강의정보수정</h4>
     {% endif %}
-    <form  name="lecture_info" method="post" class="needs-validation" novalidate>
+    <form  name="lecture_info" id="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
 <!--      {{ form.as_p }}-->
 <!--      {{ form.lect_grade.value }}-->
@@ -362,7 +362,7 @@
           }
         });
 
-        {% if form.science.value %}
+        {% if form.subject.value == '과학' %}
           $('#science').prop('disabled', false);
         {% endif %}
 
@@ -417,25 +417,33 @@
             {% endfor %}
           {% endif %}
 
-           console.log("{{ lecturejson }}");
+          //설정된 요일 선택하기
+          {% if form.lect_yoil.value %}
+            {% for i in form.lect_yoil.value|yoil_ranges_total %}
+              {% yoil_select form.lect_yoil.value forloop.counter0 as yoilis %}
+              {% if yoilis %}
+                $("select[id=lect_yoil]").eq({{ i }}).val("{{ yoilis }}").prop("selected", true);
+              {% endif %}
+            {% endfor %}
+          {% endif %}
 
-          var json = "{{ lecturejson }}".replace(/&quot;/g, "\"");
-              json = json.replace(/&#x27;/g, "\"");
+          {% if form.lect_time.value %}
+            {% for i in form.lect_time.value|timeis_ranges_total %}
+              {% time_select form.lect_time.value forloop.counter0 as timeis %}
+              {% if timeis %}
+                $("input[id=lect_time1]").eq({{ i }}).val("{{ timeis }}");
+              {% endif %}
+            {% endfor %}
+          {% endif %}
 
-
-
-
-
-          $("select[id=lect_yoil]").each(function(index){
-            {{ lecture_yoil_cnt|add:1 }}
-            {% yoil_select form.lect_yoil.value lecture_yoil_cnt as yoilis %}
-            {% if yoilis %}
-              $(this).val("{{ yoilis }}").prop("selected", true);
-            {% endif %}
-            {{ lecture_yoil_cnt|gains }}
-          });
-
-          //$('.yoiltime').append('<li class="list-group-item lecture-time" id="lecture-time"><select id="lect_yoil" name="lect_yoil"><option value="">요일선택</option><option value="월">월요일</option><option value="화">화요일</option><option value="수">수요일</option><option value="목">목요일</option><option value="금">금요일</option><option value="토">토요일</option><option value="일">일요일</option></select> <input type="time" class="time1 timepicker" id="lect_time1" name="lect_time"><span> ~ </span><input type="time" class="timepicker" id="lect_time2" name="lect_time2"> <input type="button" class="btn btn-primary btn-sm btnRemove Remove" id="Remove" value="삭제"></li>'); // end append
+          {% if form.lect_time2.value %}
+            {% for i in form.lect_time2.value|timeis_ranges_total %}
+              {% time_select form.lect_time2.value forloop.counter0 as timeis %}
+              {% if timeis %}
+                $("input[id=lect_time2]").eq({{ i }}).val("{{ timeis }}");
+              {% endif %}
+            {% endfor %}
+          {% endif %}
 
         {% endif %}
 

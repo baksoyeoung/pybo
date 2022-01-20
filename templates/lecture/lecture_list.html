@@ -66,6 +66,7 @@
                       <th scope="col" class="text-center">대상학년</th>
                       <th scope="col" class="text-center">과목</th>
                       <th scope="col" class="text-center">강의명</th>
+                      <th scope="col" class="text-center">강사명</th>
                       <th scope="col" class="text-center">등원요일</th>
                       <th scope="col" class="text-center">등원개수</th>
                       <th scope="col" class="text-center">수강료(원)</th>
@@ -81,6 +82,7 @@
                       <td class="align-middle">{% for mylecture in mylecture.lect_grade|grade %} {{ mylecture }} {% endfor %}</td>
                       <td class="align-middle">{{ mylecture.subject }}</td>
                       <td class="align-middle">{{ mylecture.lect_nm }}</td>
+                      <td class="align-middle">{{ mylecture.name }}</td>
                       {% if mylecture.timeselect == True %}
                       <td class="align-middle">시간협의</td>
                       {% else %}
@@ -99,7 +101,7 @@
                       <td class="align-middle">협의</td>
                       {% endif %}
                       <td class="align-middle">{{ mylecture.lect_fee|comma }}</td>
-                      <td class="align-middle">{{ mylecture.lect_fee_explan }}</td>
+                      <td class="align-middle">{{ mylecture.lect_fee_explan|linebreaks }}</td>
                       <td class="align-middle text-center">
                           <a href="{% url 'lecture:lecture_modify' mylecture.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
                           <a href="#" data-uri="" class="delete btn btn-sm btn-outline-secondary">삭제</a>
@@ -107,7 +109,7 @@
                     </tr>
                         {% endfor %}
                     {% else %}
-                    <tr><td class="align-middle text-center" colspan="9">검색된 강의가 없습니다.</td></tr>
+                    <tr><td class="align-middle text-center" colspan="10">검색된 강의가 없습니다.</td></tr>
                     {% endif %}
                   </tbody>
               </table>
@@ -122,20 +124,20 @@
 <script>
     $(document).ready(function(){
         $('.search-btn').on('click',function(){
-            if ($("#season_nm").val() == ""){
-                 $("#season_nm").focus();
-                  return false;
-            }
-            if ($("#camp_nm").val() == ""){
-                 $("#camp_nm").focus();
-                  return false;
-            }
-            if ($("#name").val() == ""){
-                 $("#name").focus();
-                  return false;
-            }
+//            if ($("#season_nm").val() == ""){
+//                 $("#season_nm").focus();
+//                  return false;
+//            }
+//            if ($("#camp_nm").val() == ""){
+//                 $("#camp_nm").focus();
+//                  return false;
+//            }
+//            if ($("#name").val() == ""){
+//                 $("#name").focus();
+//                  return false;
+//            }
             $('form').submit();
         });
-    });
+    }); //endready
 </script>
 {% endblock %}
