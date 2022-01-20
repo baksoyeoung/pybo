@@ -4,6 +4,7 @@ from .models import Season, Lectureinfo, Teacher, campus, subjects, science
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
 from django.db.models import Q, Count
 from django.template import RequestContext
+from django.core import serializers
 import json
 
 
@@ -148,14 +149,15 @@ def lecture_modify(request, lectureinfo_id):
         print(form.is_valid())
         print(form)
 
-        posts = Lectureinfo.objects.filter(id=lectureinfo_id).values('lect_yoil')
+        lecture = serializers.serialize("json", Lectureinfo.objects.filter(id=lectureinfo_id), fields=("lect_yoil"))
 
-        print(posts)
+
+        print(lecture)
 
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                 'subjects_list': subjects_list, 'science_list': science_list,
-               'lecture_modify_state': lecture_modify_state, 'lecture_yoil_cnt': lecture_yoil_cnt, 'select_yoil': select_yoil}
+               'lecture_modify_state': lecture_modify_state, 'lecture_yoil_cnt': lecture_yoil_cnt, 'select_yoil': select_yoil, 'lecturejson': lecture}
 
     return render(request,'lecture/lecture_create.html', context)
 

@@ -417,6 +417,14 @@
             {% endfor %}
           {% endif %}
 
+           console.log("{{ lecturejson }}");
+
+          var json = "{{ lecturejson }}".replace(/&quot;/g, "\"");
+              json = json.replace(/&#x27;/g, "\"");
+
+
+
+
 
           $("select[id=lect_yoil]").each(function(index){
             {{ lecture_yoil_cnt|add:1 }}
