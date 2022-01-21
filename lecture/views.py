@@ -161,6 +161,17 @@ def lecture_modify(request, lectureinfo_id):
 
     return render(request,'lecture/lecture_create.html', context)
 
-
 def lecture_timetable(request):
     return render(request, 'lecture/lecture_timetable.html')
+
+
+def lecture_delete(request, lectureinfo_id):
+    """
+    강의삭제
+    """
+    lectureinfo = get_object_or_404(Lectureinfo, pk=lectureinfo_id)
+    # if request.user != question.author:
+    #     messages.error(request, '삭제권한이 없습니다.')
+    #     return redirect('pybo:detail', question_id=question.id)
+    lectureinfo.delete()
+    return redirect('lecture:lecture_list')

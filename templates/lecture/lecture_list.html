@@ -104,7 +104,7 @@
                       <td class="align-middle">{{ mylecture.lect_fee_explan|linebreaks }}</td>
                       <td class="align-middle text-center">
                           <a href="{% url 'lecture:lecture_modify' mylecture.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
-                          <a href="#" data-uri="" class="delete btn btn-sm btn-outline-secondary">삭제</a>
+                          <a href="#" data-uri="{% url 'lecture:lecture_delete' mylecture.id  %}" class="delete btn btn-sm btn-outline-secondary">삭제</a>
                       </td>
                     </tr>
                         {% endfor %}
@@ -123,6 +123,13 @@
 {% block script %}
 <script>
     $(document).ready(function(){
+        $(".delete").on('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        });
+
+
         $('.search-btn').on('click',function(){
 //            if ($("#season_nm").val() == ""){
 //                 $("#season_nm").focus();
