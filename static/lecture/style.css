@@ -1,0 +1,5 @@
+#lecture_table,
+.lecture_table tr,
+.lecture_table td {
+    background-color: white !important;
+}
