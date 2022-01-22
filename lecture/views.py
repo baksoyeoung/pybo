@@ -153,16 +153,11 @@ def lecture_modify(request, lectureinfo_id):
         # print(form.is_valid())
         # print(form)
 
-        lecture = serializers.serialize("json", Lectureinfo.objects.filter(id=lectureinfo_id), fields=("lect_yoil"))
-
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                'subjects_list': subjects_list, 'science_list': science_list,
                'lecture_modify_state': lecture_modify_state}
 
     return render(request,'lecture/lecture_create.html', context)
-
-def lecture_timetable(request):
-    return render(request, 'lecture/lecture_timetable.html')
 
 
 def lecture_delete(request, lectureinfo_id):
@@ -175,3 +170,6 @@ def lecture_delete(request, lectureinfo_id):
     #     return redirect('pybo:detail', question_id=question.id)
     lectureinfo.delete()
     return redirect('lecture:lecture_list')
+
+def lecture_timetable(request):
+    return render(request, 'lecture/lecture_timetable.html')
