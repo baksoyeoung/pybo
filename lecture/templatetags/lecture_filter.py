@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.filter
 def grade(value):
-    p = re.compile('[가-하][1-9]')
+    p = re.compile('[가-하]*[1-9]')
     m = p.findall(value)
     return m
 
