@@ -399,7 +399,7 @@
         {% if lecture_modify_state  == "view"  %}
           {% if form.lect_grade.value %}
             {% for grade in form.lect_grade.value|grade %} //강의수정시 view 값을 받고 필터로 대상학년 값을 받는다
-                 alert("{{ grade }}");
+
                 //var grade_cnt = $("input:checkbox[id=lect_grade]").length;
                 //alert(grade_cnt);
 
