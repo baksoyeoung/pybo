@@ -196,7 +196,7 @@
         <div class="col-sm-4">
           <label for="lect_fee_explan" class="form-label">수강료추가설명</label>
           <div class="input-group has-validation">
-            <textarea style="font-size:13px;" class="form-control autosize" id="lect_fee_explan" name="lect_fee_explan" placeholder="추가설명">{{ form.lect_fee_explan.value|default_if_none:'' }}</textarea>
+            <textarea style="font-size:13px; height:100%" class="form-control autosize" id="lect_fee_explan" name="lect_fee_explan" placeholder="추가설명">{{ form.lect_fee_explan.value|default_if_none:'' }}</textarea>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -379,7 +379,9 @@
           $('.time2').prop('disabled', true);
         }
 
-        $("textarea.autosize").on('keydown keyup', function () {
+
+        //textarea 글 입력시 높이 자동 증가
+        $("textarea.autosize").on('keydown keyup mousedown', function(){
           $(this).height(1).height( $(this).prop('scrollHeight')+12 );
         });
 
@@ -451,6 +453,7 @@
           {% endif %}
 
           $('#week_cnt').val(count_input());
+
 
         {% endif %}
 
