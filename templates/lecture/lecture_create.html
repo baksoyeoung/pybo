@@ -136,7 +136,7 @@
 
         <div class="col-sm-12">
           <label for="lect_explan" class="form-label">강의설명</label>
-          <textarea style="font-size:13px;" class="form-control" id="lect_explan" name="lect_explan" rows="5" placeholder="강의에 대한 설명">{{ form.lect_explan.value|default_if_none:'' }}</textarea>
+          <textarea style="font-size:13px;" class="form-control autosize" id="lect_explan" name="lect_explan" placeholder="강의에 대한 설명">{{ form.lect_explan.value|default_if_none:'' }}</textarea>
         </div>
 
         <div class="buttons">
@@ -196,7 +196,7 @@
         <div class="col-sm-4">
           <label for="lect_fee_explan" class="form-label">수강료추가설명</label>
           <div class="input-group has-validation">
-            <textarea style="font-size:13px;" class="form-control" id="lect_fee_explan" name="lect_fee_explan" rows="3" placeholder="추가설명">{{ form.lect_fee_explan.value|default_if_none:'' }}</textarea>
+            <textarea style="font-size:13px;" class="form-control autosize" id="lect_fee_explan" name="lect_fee_explan" placeholder="추가설명">{{ form.lect_fee_explan.value|default_if_none:'' }}</textarea>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -378,6 +378,10 @@
           $('.time1').prop('disabled', true);
           $('.time2').prop('disabled', true);
         }
+
+        $("textarea.autosize").on('keydown keyup', function () {
+          $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+        });
 
         //submit 이후 다시 폼 제출시 대상학년 체크 강의등록후 실행
         {% if form.lect_grade.value %}
