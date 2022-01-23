@@ -6,13 +6,13 @@ register = template.Library()
 
 @register.filter
 def grade(value):
-    p = re.compile('[가-하]*[1-9]')
+    p = re.compile('[가-힣]*[1-9]')
     m = p.findall(value)
     return m
 
 @register.filter
 def yoil(value):
-    p = re.compile('[가-하]')
+    p = re.compile('[가-힣]')
     m = p.findall(value)
     return m
 
@@ -38,28 +38,28 @@ def time_select(value, cnt):
 
 @register.filter
 def yoil_cnt(value):
-    p = re.compile('[가-하]')
+    p = re.compile('[가-힣]')
     m = p.findall(value)
     cnt = len(m)
     return cnt
 
 @register.filter()
 def yoil_ranges(value):
-    p = re.compile('[가-하]')
+    p = re.compile('[가-힣]')
     m = p.findall(value)
     cnt = len(m)
     return range(2, cnt+1)
 
 @register.filter()
 def yoil_ranges_total(value):
-    p = re.compile('[가-하]')
+    p = re.compile('[가-힣]')
     m = p.findall(value)
     cnt = len(m)
     return range(0, cnt)
 
 @register.simple_tag
 def yoil_select(value, cnt):
-    p = re.compile('[가-하]')
+    p = re.compile('[가-힣]')
     m = p.findall(value)
     return m[cnt]
 
@@ -80,7 +80,7 @@ def comma(value):
 
 @register.simple_tag
 def yoil_time(yoil, time1, time2):
-    p_yoil = re.compile('[가-하]')
+    p_yoil = re.compile('[가-힣]')
     m_yoil = p_yoil.findall(yoil)
 
     p_time1 = re.compile('[0-9][0-9]:[0-9][0-9]')
