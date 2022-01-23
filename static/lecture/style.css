@@ -3,3 +3,9 @@
 .lecture_table td {
     background-color: white !important;
 }
+
+textarea {
+    min-height: 5rem;
+    overflow-y: hidden;
+    resize: none;
+}

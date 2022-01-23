@@ -6,7 +6,7 @@
     {% if lecture_modify_state  != "view"  %}
     <h4 class="mb-3">강의추가</h4>
     {% else %}
-    <h4 class="mb-3">강의정보수정</h4>
+    <h4 class="mb-3">강의수정</h4>
     {% endif %}
     <form  name="lecture_info" id="lecture_info" method="post" class="needs-validation" novalidate>
       {% csrf_token %}
@@ -205,7 +205,7 @@
 
       <hr class="my-4">
       {% if lecture_modify_state  != "view"  %}
-      <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의등록하기</button>
+      <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의추가하기</button>
       {% else %}
       <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의수정하기</button>
       {% endif %}
@@ -381,9 +381,13 @@
 
 
         //textarea 글 입력시 높이 자동 증가
-        $("textarea.autosize").on('keydown keyup mousedown', function(){
-          $(this).height(1).height( $(this).prop('scrollHeight')+12 );
-        });
+        //$("textarea.autosize").on('keydown keyup mousedown', function(){
+        //  $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+        //});
+
+        autosize(document.querySelectorAll('textarea'));
+
+
 
         //submit 이후 다시 폼 제출시 대상학년 체크 강의등록후 실행
         {% if form.lect_grade.value %}
