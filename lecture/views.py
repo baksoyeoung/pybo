@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils import timezone
 from .models import Season, Lectureinfo, Teacher, campus, subjects, science
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
@@ -144,7 +144,9 @@ def lecture_modify(request, lectureinfo_id):
             lectureinfo.lect_time2 = lect_time2_check
             lectureinfo.modify_date = timezone.now()
             lectureinfo.save()
-            return redirect('lecture:lecture_list')
+            # return redirect('lecture:lecture_list')
+            return redirect('{}#list_{}'.format(
+                resolve_url('lecture:lecture_list'), lectureinfo.id))
     else:
 
         form = LectureCreateForm(instance=lectureinfo)

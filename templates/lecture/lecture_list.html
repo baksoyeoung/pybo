@@ -78,6 +78,7 @@
                   <tbody>
                     {% if mylecture_list %}
                         {% for mylecture in mylecture_list %}
+                    <a name="list_{{ mylecture.id }}"></a>
                     <tr>
                       <th scope="row" class="align-middle">{{ forloop.counter }}</th>
                       <td class="align-middle">{{ mylecture.camp_nm|cut_text }}</td>
