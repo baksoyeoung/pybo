@@ -379,11 +379,15 @@
           $('.time2').prop('disabled', true);
         }
 
+        // textarea 자동높이
+        // from a NodeList
+        //autosize(document.querySelectorAll('textarea'));
 
-        //textarea 글 입력시 높이 자동 증가
-        //$("textarea.autosize").on('keydown keyup mousedown', function(){
-        //  $(this).height(1).height( $(this).prop('scrollHeight')+12 );
-        //});
+        // from a single Node
+        //autosize(document.querySelector('textarea'));
+
+        // from a jQuery collection
+        //autosize($('textarea'));
 
         autosize(document.querySelectorAll('textarea'));
 
