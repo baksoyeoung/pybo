@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils import timezone
-from .models import Season, Lectureinfo, Teacher, campus, subjects, science
+from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
 from django.db.models import Q, Count
 from django.template import RequestContext
@@ -15,6 +15,7 @@ teacher_list = Teacher.objects.order_by('name')
 campus_list = campus.objects.order_by('num')
 subjects_list = subjects.objects.order_by('num')
 science_list = science.objects.order_by('num')
+grade_list = grade.objects.order_by('num')
 
 def lecture_home(request):
     return render(request, 'lecture/lecture_home.html')
@@ -88,9 +89,11 @@ def lecture_list(request):
         season_nm = request.POST.get('season_nm')
         camp_nm = request.POST.get('camp_nm')
         name = request.POST.get('name')
+        grade_nm = request.POST.get('grade_nm')
         set_data = {'season_nm': season_nm,
                     'camp_nm': camp_nm,
-                    'name': name,}
+                    'name': name,
+                    'grade': grade_nm,}
 
         f = MylectureListForm(set_data)
         form = f
@@ -100,7 +103,8 @@ def lecture_list(request):
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm), # 학기검색
             Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
-            Q(name__icontains=name)   # 강사명검색
+            Q(name__icontains=name),  # 강사명검색
+            Q(lect_grade__icontains=grade_nm) #학년
 
         ).distinct()
 
@@ -111,7 +115,7 @@ def lecture_list(request):
         mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-               'mylecture_list': mylecture_list}
+               'mylecture_list': mylecture_list, 'grade_list': grade_list}
 
     return render(request, 'lecture/lecture_list.html', context)
 

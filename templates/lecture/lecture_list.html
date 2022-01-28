@@ -7,7 +7,7 @@
         <form  name="lecture_info" method="post" class="needs-validation" novalidate>
             {% csrf_token %}
             <div class="row g-3">
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <select class="form-select" id="season_nm" name="season_nm" required>
                     <option value="">학기선택...</option>
                     {% if season_list %}
@@ -21,7 +21,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <select class="form-select" id="camp_nm" name="camp_nm" required>
                     <option value="">캠퍼스선택...</option>
                     {% if campus_list %}
@@ -35,7 +35,21 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
+                  <select class="form-select" id="grade_nm" name="grade_nm" required>
+                    <option value="">학년...</option>
+                    {% if grade_list %}
+                      {% for grade in grade_list %}
+                        <option value="{{grade.grade_nm}}" {% if grade.grade_nm == form.grade.value %}{{ 'selected' }}{% endif %}>{{grade.grade_nm}}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-2">
                   <select class="form-select" id="name" name="name" required>
                     <option value="">강사명선택...</option>
                     {% if teacher_list %}
@@ -49,7 +63,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <button type="button" class="btn btn-warning search-btn">검색</button>
                 </div>
 
