@@ -40,6 +40,10 @@ class science(models.Model):
     science_nm = models.CharField(max_length=255)
     num = models.IntegerField() #과학세부과목 출력순서
 
+class grade(models.Model):
+    grade_nm = models.CharField(max_length=255)
+    num = models.IntegerField() #학년년 출력서
+
 
 class Lectureinfo(models.Model):
     season_nm = models.CharField(max_length=255) #학기

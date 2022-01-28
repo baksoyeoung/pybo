@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Season, Lectureinfo, Teacher, campus, subjects, science
+from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade
 
 # Register your models here.
 
@@ -37,3 +37,8 @@ class scienceAdmin(admin.ModelAdmin):
     list_display = ['science_nm', 'num']
 
 admin.site.register(science, scienceAdmin)
+
+class gradeAdmin(admin.ModelAdmin):
+    list_display = ['grade_nm', 'num']
+
+admin.site.register(grade, gradeAdmin)
