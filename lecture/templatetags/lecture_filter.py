@@ -70,7 +70,7 @@ def gains(value):
 
 @register.filter
 def cut_text(value):
-    result = value[0:20]
+    result = value[0:2]
     return result
 
 @register.filter
