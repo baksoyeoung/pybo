@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade
+from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade, yoil
 
 # Register your models here.
 
@@ -42,3 +42,9 @@ class gradeAdmin(admin.ModelAdmin):
     list_display = ['grade_nm', 'num']
 
 admin.site.register(grade, gradeAdmin)
+
+class yoilAdmin(admin.ModelAdmin):
+    list_display = ['yoil_nm', 'num']
+
+admin.site.register(yoil, yoilAdmin)
+

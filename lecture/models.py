@@ -42,7 +42,11 @@ class science(models.Model):
 
 class grade(models.Model):
     grade_nm = models.CharField(max_length=255)
-    num = models.IntegerField() #학년년 출력서
+    num = models.IntegerField() #학년 출력순서
+
+class yoil(models.Model):
+    yoil_nm = models.CharField(max_length=50)
+    num = models.IntegerField() #요일 출력순서
 
 
 class Lectureinfo(models.Model):
