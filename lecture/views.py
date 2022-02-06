@@ -3,6 +3,8 @@ from django.utils import timezone
 from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade, yoil
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
 from django.db.models import Q, Count
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.core import serializers
 import json
@@ -19,7 +21,24 @@ grade_list = grade.objects.order_by('num')
 yoil_list = yoil.objects.order_by('num')
 
 def lecture_home(request):
-    return render(request, 'lecture/lecture_home.html')
+
+    # return render(request, 'lecture/lecture_home.html', context)
+
+    if request.user.is_authenticated:
+        form = MylectureListForm()
+        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
+        context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
+                   'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
+                   'username': request.user.username}
+
+        print(request.user.username)
+        return render(request, 'lecture/lecture_list.html', context)
+    else:
+        appis = 'lecture'
+        url = '/lecture/lecture/list' #로그인후 이동할 url
+        context = {'appis': appis, 'next': url}
+        print('user no')
+        return render(request, 'common/login.html', context)
 
 
 def lecture_create(request):
@@ -121,7 +140,8 @@ def lecture_list(request):
         mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-               'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list}
+               'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
+               'username': request.user.username}
 
     return render(request, 'lecture/lecture_list.html', context)
 
@@ -186,3 +206,6 @@ def lecture_delete(request, lectureinfo_id):
 
 def lecture_timetable(request):
     return render(request, 'lecture/lecture_timetable.html')
+
+
+
