@@ -49,6 +49,7 @@
                   </div>
                 </div>
 
+                {% if staff == True %}
                 <div class="col-md-2">
                   <select class="form-select" id="name" name="name" required>
                     <option value="">강사명선택...</option>
@@ -62,6 +63,7 @@
                     Please select a valid country.
                   </div>
                 </div>
+                {% endif %}
 
                 <div class="col-md-2">
                   <select class="form-select" id="yoil_nm" name="yoil_nm" required>

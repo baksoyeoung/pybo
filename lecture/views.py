@@ -27,9 +27,20 @@ def lecture_home(request):
     if request.user.is_authenticated:
         form = MylectureListForm()
         mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
+
+        if request.user.is_staff:
+            mylecture_list = mylecture_list
+            staff = True
+        else:
+            name = request.user.username
+            staff = False
+            mylecture_list = mylecture_list.filter(
+                Q(name__icontains=name),  # 강사명검색
+            ).distinct()
+
         context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                    'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
-                   'username': request.user.username}
+                   'username': request.user.username, 'staff': staff}
 
         print(request.user.username)
         return render(request, 'lecture/lecture_list.html', context)
@@ -108,7 +119,11 @@ def lecture_list(request):
         # print("======> POST DATA:", request.POST)
         season_nm = request.POST.get('season_nm')
         camp_nm = request.POST.get('camp_nm')
-        name = request.POST.get('name')
+        if request.user.is_staff:
+            name = request.POST.get('name')
+        else:
+            name = request.user.username
+
         grade_nm = request.POST.get('grade_nm')
         yoil_nm = request.POST.get('yoil_nm')
         set_data = {'season_nm': season_nm,
@@ -133,15 +148,27 @@ def lecture_list(request):
 
         # print(mylecture_list)
         # print(set_data)
-        print(yoil_list)
+        # print(yoil_list)
 
     else:
         form = MylectureListForm()
         mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
 
+        if request.user.is_staff:
+            mylecture_list = mylecture_list
+            staff = True
+        else:
+            name = request.user.username
+            staff = False
+            mylecture_list = mylecture_list.filter(
+                Q(name__icontains=name),  # 강사명검색
+            ).distinct()
+
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
-               'username': request.user.username}
+               'username': request.user.username, 'staff': staff}
+
+    # print("관리자===>", request.user.is_staff)
 
     return render(request, 'lecture/lecture_list.html', context)
 
@@ -160,10 +187,10 @@ def lecture_modify(request, lectureinfo_id):
         lect_time_check = request.POST.getlist('lect_time')
         lect_time2_check = request.POST.getlist('lect_time2')
 
-        print('moditfy:', lect_grade_check)
-        print('moditfy:', lect_yoil_check)
-        print('moditfy:', lect_time_check)
-        print('moditfy:', lect_time2_check)
+        # print('moditfy:', lect_grade_check)
+        # print('moditfy:', lect_yoil_check)
+        # print('moditfy:', lect_time_check)
+        # print('moditfy:', lect_time2_check)
 
         form = LectureCreateForm(request.POST, instance=lectureinfo)
         print('modify:', form.is_valid())
