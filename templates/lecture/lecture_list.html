@@ -50,11 +50,11 @@
                 </div>
 
                 <div class="col-md-2">
-                  <select class="form-select" id="yoil_nm" name="yoil_nm" required>
-                    <option value="">요일선택...</option>
-                    {% if yoil_list %}
-                      {% for yoil in yoil_list %}
-                        <option value="{{ yoil.yoil_nm }}" {% if yoil.yoil_nm == form.yoil_nm.value %}{{ 'selected' }}{% endif %}>{{ yoil.yoil_nm }}요일</option>
+                  <select class="form-select" id="name" name="name" required>
+                    <option value="">강사명선택...</option>
+                    {% if teacher_list %}
+                      {% for teacher in teacher_list %}
+                        <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
                       {% endfor %}
                     {% endif %}
                   </select>
@@ -64,11 +64,11 @@
                 </div>
 
                 <div class="col-md-2">
-                  <select class="form-select" id="name" name="name" required>
-                    <option value="">강사명선택...</option>
-                    {% if teacher_list %}
-                      {% for teacher in teacher_list %}
-                        <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
+                  <select class="form-select" id="yoil_nm" name="yoil_nm" required>
+                    <option value="">요일선택...</option>
+                    {% if yoil_list %}
+                      {% for yoil in yoil_list %}
+                        <option value="{{ yoil.yoil_nm }}" {% if yoil.yoil_nm == form.yoil_nm.value %}{{ 'selected' }}{% endif %}>{{ yoil.yoil_nm }}요일</option>
                       {% endfor %}
                     {% endif %}
                   </select>
