@@ -49,6 +49,7 @@ def lecture_home(request):
         url = '/lecture/lecture/list' #로그인후 이동할 url
         context = {'appis': appis, 'next': url}
         print('user no')
+        print(context)
         return render(request, 'common/login.html', context)
 
 
