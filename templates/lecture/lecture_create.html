@@ -111,6 +111,7 @@
           </ul>
         </div>
 
+        {% if staff == True %}
         <div class="col-md-5">
           <label for="name" class="form-label">강사명선택</label>
           <select class="form-select" id="name" name="name" required>
@@ -125,6 +126,15 @@
             Please select a valid country.
           </div>
         </div>
+        {% else %}
+        <div class="col-md-5">
+          <label for="name" class="form-label">강사명</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="강사명입력" value="{%if username %}{{ username }}{% else %}{{ form.name.value|default_if_none:'' }}{% endif %}" readonly required>
+          <div class="invalid-feedback">
+            Valid last name is required.
+          </div>
+        </div>
+        {% endif %}
 
         <div class="col-sm-7">
           <label for="lect_nm" class="form-label">강의명</label>

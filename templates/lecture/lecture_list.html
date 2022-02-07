@@ -97,7 +97,9 @@
                       <th scope="col" class="text-center">대상학년</th>
                       <th scope="col" class="text-center">과목</th>
                       <th scope="col" class="text-center">강의명</th>
-                      <th scope="col" class="text-center">강사명</th>
+                      {% if staff == True %}
+                        <th scope="col" class="text-center">강사명</th>
+                      {% endif %}
                       <th scope="col" class="text-center">등원요일</th>
                       <th scope="col" class="text-center">등원개수</th>
                       <th scope="col" class="text-center">수강료(원)</th>
@@ -114,7 +116,9 @@
                       <td class="align-middle">{% for mylecture in mylecture.lect_grade|grade %} {{ mylecture }} {% endfor %}</td>
                       <td class="align-middle">{{ mylecture.subject }}</td>
                       <td class="align-middle">{{ mylecture.lect_nm }}</td>
-                      <td class="align-middle">{{ mylecture.name }}</td>
+                      {% if staff == True %}
+                        <td class="align-middle">{{ mylecture.name }}</td>
+                      {% endif %}
                       {% if mylecture.timeselect == True %}
                       <td class="align-middle">시간협의</td>
                       {% else %}
@@ -142,7 +146,11 @@
                     </tr>
                         {% endfor %}
                     {% else %}
-                    <tr><td class="align-middle text-center" colspan="11">강의가 없습니다.</td></tr>
+                        {% if staff == True %}
+                            <tr><td class="align-middle text-center" colspan="11">강의가 없습니다.</td></tr>
+                        {% else %}
+                            <tr><td class="align-middle text-center" colspan="10">강의가 없습니다.</td></tr>
+                        {% endif %}
                     {% endif %}
                   </tbody>
               </table>

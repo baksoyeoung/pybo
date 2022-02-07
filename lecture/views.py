@@ -102,9 +102,13 @@ def lecture_create(request):
         form = LectureCreateForm()
 
         # print(form)
+    if request.user.is_staff:
+        staff = True
+    else:
+        staff = False
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-               'subjects_list': subjects_list, 'science_list': science_list}
+               'subjects_list': subjects_list, 'science_list': science_list, 'username': request.user.username, 'staff': staff}
 
     return render(request, 'lecture/lecture_create.html', context)
 
