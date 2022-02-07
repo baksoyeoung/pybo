@@ -50,7 +50,7 @@ def lecture_home(request):
         context = {'appis': appis, 'next': url}
         print('user no')
         print(context)
-        return render(request, 'common/login.html', context)
+        return render(request, 'lecture/lecture_login.html', context)
 
 
 def lecture_create(request):
