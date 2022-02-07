@@ -146,6 +146,16 @@ def lecture_list(request):
 
         ).distinct()
 
+        if request.user.is_staff:
+            mylecture_list = mylecture_list
+            staff = True
+        else:
+            name = request.user.username
+            staff = False
+            mylecture_list = mylecture_list.filter(
+                Q(name__icontains=name),  # 강사명검색
+            ).distinct()
+
         # print(mylecture_list)
         # print(set_data)
         # print(yoil_list)
