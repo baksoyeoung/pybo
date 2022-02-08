@@ -52,7 +52,7 @@ def lecture_home(request):
         print(context)
         return render(request, 'lecture/lecture_login.html', context)
 
-
+@login_required(login_url='lecture:login')
 def lecture_create(request):
     # season_list = Season.objects.order_by('-create_date')
     # teacher_list = Teacher.objects.order_by('name')
@@ -113,6 +113,7 @@ def lecture_create(request):
 
     return render(request, 'lecture/lecture_create.html', context)
 
+@login_required(login_url='lecture:login')
 def lecture_list(request):
     # season_list = Season.objects.order_by('-create_date')
     # teacher_list = Teacher.objects.order_by('name')
@@ -246,6 +247,7 @@ def lecture_delete(request, lectureinfo_id):
     lectureinfo.delete()
     return redirect('lecture:lecture_list')
 
+@login_required(login_url='lecture:login')
 def lecture_timetable(request):
     return render(request, 'lecture/lecture_timetable.html')
 
