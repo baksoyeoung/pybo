@@ -119,7 +119,7 @@ def lecture_list(request):
     # teacher_list = Teacher.objects.order_by('name')
     # campus_list = campus.objects.order_by('num')
 
-    # print("======> GET DATA", request.GET)
+    print("======> GET DATA", request.GET)
 
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
@@ -219,8 +219,41 @@ def lecture_modify(request, lectureinfo_id):
             lectureinfo.modify_date = timezone.now()
             lectureinfo.save()
             # return redirect('lecture:lecture_list')
-            return redirect('{}#list_{}'.format(
-                resolve_url('lecture:lecture_list'), lectureinfo.id))
+
+            mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
+
+            if request.user.is_staff:
+                mylecture_list = mylecture_list
+                staff = True
+            else:
+                name = request.user.username
+                staff = False
+                mylecture_list = mylecture_list.filter(
+                    Q(name__icontains=name),  # 강사명검색
+                ).distinct()
+
+            set_requst_data = {'season_nm': request.POST['season_nm'],
+                               'camp_nm': request.POST['camp_nm'],
+                               'name': request.POST['name'],
+                               'grade': 'dd',
+                               'yoil_nm': 'dd'}
+            f = MylectureListForm(set_requst_data)
+            form = f
+            context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list,
+                       'campus_list': campus_list,
+                       'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
+                       'username': request.user.username, 'staff': staff}
+
+            print(form)
+
+            # request.session['season_nm'] = request.POST['season_nm']
+            # request.session['camp_nm'] = request.POST['camp_nm']
+            # request.session['name'] = request.POST['name']
+
+            # return redirect('{}#list_{}'.format(
+            #     resolve_url('lecture:lecture_list'), lectureinfo.id))
+
+            return render(request, 'lecture/lecture_list.html', context)
     else:
 
         form = LectureCreateForm(instance=lectureinfo)

@@ -1,6 +1,10 @@
 {% extends 'lecture/lecture_base.html' %}
 {% load lecture_filter %}
 {% block content %}
+
+{% if request.session.name %}
+{{ request.session.name }}
+{% endif %}
 <div class="row g-5 justify-content-center">
     <div class="col-md-12 col-lg-12">
         <h4 class="mb-3">강의리스트</h4>
