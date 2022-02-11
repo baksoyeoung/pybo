@@ -230,14 +230,16 @@ def lecture_modify(request, lectureinfo_id):
                 staff = False
                 mylecture_list = mylecture_list.filter(
                     Q(name__icontains=name),  # 강사명검색
+                    Q(season_nm__icontains=lectureinfo.season_nm), #학기검색
+                    Q(camp_nm__icontains=lectureinfo.camp_nm)
                 ).distinct()
 
-            set_requst_data = {'season_nm': request.POST['season_nm'],
+            set_data = {'season_nm': request.POST['season_nm'],
                                'camp_nm': request.POST['camp_nm'],
                                'name': request.POST['name'],
                                'grade': 'dd',
                                'yoil_nm': 'dd'}
-            f = MylectureListForm(set_requst_data)
+            f = MylectureListForm(set_data)
             form = f
             context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list,
                        'campus_list': campus_list,
