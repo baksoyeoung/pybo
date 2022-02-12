@@ -28,5 +28,5 @@ urlpatterns = [
     path('lecture/', include('lecture.urls')),
     # path('', base_views.index, name='index'), # '/' 에 해당하는 path -> settings.py 에 LOGIN_REDIRECT_URL
     #path('', views.index, name='index'), # giten 인덱스
-    path('', views.lecture_home, name='index'), #lecture 인덱스
+    path('', views.lecture_list, name='index'), #lecture 인덱스
 ]
