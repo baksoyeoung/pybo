@@ -163,7 +163,7 @@ def lecture_list(request):
             ).distinct()
 
         # print(mylecture_list)
-        # print(set_data)
+        print(set_data)
         # print(yoil_list)
 
     else:
@@ -193,6 +193,9 @@ def lecture_modify(request, lectureinfo_id):
     """
     강의수정
     """
+
+    print(request)
+
     lectureinfo = get_object_or_404(Lectureinfo, pk=lectureinfo_id)
 
     # print(lectureinfo)
@@ -250,6 +253,9 @@ def lecture_delete(request, lectureinfo_id):
 @login_required(login_url='lecture:login')
 def lecture_timetable(request):
     return render(request, 'lecture/lecture_timetable.html')
+
+
+
 
 
 
