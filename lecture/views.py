@@ -1,4 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
+from django.template.response import TemplateResponse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.utils import timezone
 from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade, yoil
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
@@ -113,13 +118,22 @@ def lecture_create(request):
 
     return render(request, 'lecture/lecture_create.html', context)
 
+
 @login_required(login_url='lecture:login')
-def lecture_list(request):
+def lecture_list(request, *args, **kwargs):
     # season_list = Season.objects.order_by('-create_date')
     # teacher_list = Teacher.objects.order_by('name')
     # campus_list = campus.objects.order_by('num')
 
     # print("======> GET DATA", request.GET)
+
+    storage = get_messages(request)
+    message_list = []
+    for message in storage:
+        message_list.append(message)
+
+    print(message_list)
+
 
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
@@ -163,7 +177,7 @@ def lecture_list(request):
             ).distinct()
 
         # print(mylecture_list)
-        print(set_data)
+        # print(set_data)
         # print(yoil_list)
 
     else:
@@ -222,8 +236,56 @@ def lecture_modify(request, lectureinfo_id):
             lectureinfo.modify_date = timezone.now()
             lectureinfo.save()
             # return redirect('lecture:lecture_list')
-            return redirect('{}#list_{}'.format(
-                resolve_url('lecture:lecture_list'), lectureinfo.id))
+
+            mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
+
+            if request.user.is_staff:
+                mylecture_list = mylecture_list
+                staff = True
+            else:
+                name = request.user.username
+                staff = False
+                mylecture_list = mylecture_list.filter(
+                    Q(name__icontains=name),  # 강사명검색
+                    Q(season_nm__icontains=lectureinfo.season_nm), #학기검색
+                    Q(camp_nm__icontains=lectureinfo.camp_nm)
+                ).distinct()
+
+            set_data = {'season_nm': request.POST['season_nm'],
+                               'camp_nm': request.POST['camp_nm'],
+                               'name': request.POST['name'],
+                               'grade': '',
+                               'yoil_nm': ''}
+            f = MylectureListForm(set_data)
+            form = f
+
+            context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list,
+                       'campus_list': campus_list,
+                       'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
+                       'username': request.user.username, 'staff': staff}
+
+            # print(form)
+
+            # request.session['season_nm'] = request.POST['season_nm']
+            # request.session['camp_nm'] = request.POST['camp_nm']
+            # request.session['name'] = request.POST['name']
+
+            # return redirect('{}#list_{}'.format(
+            #     resolve_url('lecture:lecture_list'), lectureinfo.id))
+
+            # Create a response
+            # response = TemplateResponse(request, 'lecture/lecture_list.html', context)
+            # Register the callback
+            # response.add_post_render_callback(lecture_list)
+            # Return the response
+            # return response
+
+            messages.add_message(request, messages.INFO, lectureinfo.season_nm)
+            messages.add_message(request, messages.INFO, lectureinfo.camp_nm)
+            messages.add_message(request, messages.INFO, lectureinfo.name)
+
+            return HttpResponseRedirect(reverse(lecture_list))
+            # return render(request, 'lecture/lecture_list.html', context)
     else:
 
         form = LectureCreateForm(instance=lectureinfo)
@@ -232,11 +294,11 @@ def lecture_modify(request, lectureinfo_id):
         # print(form.is_valid())
         # print(form)
 
-    context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-               'subjects_list': subjects_list, 'science_list': science_list,
-               'lecture_modify_state': lecture_modify_state}
+        context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
+                   'subjects_list': subjects_list, 'science_list': science_list,
+                   'lecture_modify_state': lecture_modify_state}
 
-    return render(request,'lecture/lecture_create.html', context)
+        return render(request,'lecture/lecture_create.html', context)
 
 
 def lecture_delete(request, lectureinfo_id):
