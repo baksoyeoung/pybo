@@ -132,7 +132,8 @@ def lecture_list(request, *args, **kwargs):
     for message in storage:
         message_list.append(message)
 
-    print(message_list[0])
+    if message_list :
+        print(message_list[0])
 
 
     if request.method == "POST":
