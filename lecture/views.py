@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.template.response import TemplateResponse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.utils import timezone
 from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade, yoil
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
@@ -116,13 +118,17 @@ def lecture_create(request):
 
     return render(request, 'lecture/lecture_create.html', context)
 
+
 @login_required(login_url='lecture:login')
-def lecture_list(request):
+def lecture_list(request, *args, **kwargs):
     # season_list = Season.objects.order_by('-create_date')
     # teacher_list = Teacher.objects.order_by('name')
     # campus_list = campus.objects.order_by('num')
 
     print("======> GET DATA", request.GET)
+
+    storage = get_messages(request)
+    print(storage)
 
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
@@ -265,6 +271,8 @@ def lecture_modify(request, lectureinfo_id):
             # response.add_post_render_callback(lecture_list)
             # Return the response
             # return response
+
+            messages.success(request, 'parameter')
 
             return HttpResponseRedirect(reverse(lecture_list))
             # return render(request, 'lecture/lecture_list.html', context)
