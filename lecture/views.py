@@ -133,9 +133,9 @@ def lecture_list(request, *args, **kwargs):
         message_list.append(message)
 
     if message_list:
-        season_nm = message_list[0]
-        camp_nm = message_list[1]
-        name = message_list[2]
+        season_nm = str(message_list[0])
+        camp_nm = str(message_list[1])
+        name = str(message_list[2])
 
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
@@ -206,7 +206,7 @@ def lecture_list(request, *args, **kwargs):
         f = MylectureListForm(set_data)
         form = f
 
-        print(form)
+        print(set_data)
 
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm),  # 학기검색
@@ -228,9 +228,6 @@ def lecture_modify(request, lectureinfo_id):
     """
     강의수정
     """
-
-    print(request)
-
     lectureinfo = get_object_or_404(Lectureinfo, pk=lectureinfo_id)
 
     # print(lectureinfo)
