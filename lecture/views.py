@@ -157,7 +157,7 @@ def lecture_list(request, *args, **kwargs):
         f = MylectureListForm(set_data)
         form = f
 
-        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
+        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'name')
 
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm), # 학기검색
@@ -184,7 +184,7 @@ def lecture_list(request, *args, **kwargs):
 
     else:
         form = MylectureListForm()
-        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade')
+        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'name')
 
         if request.user.is_staff:
             mylecture_list = mylecture_list
