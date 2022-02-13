@@ -132,15 +132,10 @@ def lecture_list(request, *args, **kwargs):
     for message in storage:
         message_list.append(message)
 
-    if message_list :
-        print(message_list[0])
-        print(message_list[1])
-        print(message_list[2])
-
+    if message_list:
         season_nm = message_list[0]
         camp_nm = message_list[1]
         name = message_list[2]
-
 
     if request.method == "POST":
         # print("======> POST DATA:", request.POST)
@@ -211,6 +206,8 @@ def lecture_list(request, *args, **kwargs):
         f = MylectureListForm(set_data)
         form = f
 
+        print(form)
+
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm),  # 학기검색
             Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
@@ -269,6 +266,7 @@ def lecture_modify(request, lectureinfo_id):
             # else:
             #     name = request.user.username
             #     staff = False
+
             #     mylecture_list = mylecture_list.filter(
             #         Q(name__icontains=name),  # 강사명검색
             #         Q(season_nm__icontains=lectureinfo.season_nm), #학기검색
@@ -318,9 +316,14 @@ def lecture_modify(request, lectureinfo_id):
         # print(form.is_valid())
         # print(form)
 
+        if request.user.is_staff:
+            staff = True
+        else:
+            staff = False
+
         context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                    'subjects_list': subjects_list, 'science_list': science_list,
-                   'lecture_modify_state': lecture_modify_state}
+                   'lecture_modify_state': lecture_modify_state, 'staff': staff}
 
         return render(request,'lecture/lecture_create.html', context)
 
