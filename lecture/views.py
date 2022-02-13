@@ -338,7 +338,55 @@ def lecture_delete(request, lectureinfo_id):
 
 @login_required(login_url='lecture:login')
 def lecture_timetable(request):
-    return render(request, 'lecture/lecture_timetable.html')
+
+    if request.method == "POST":
+        # print("======> POST DATA:", request.POST)
+        season_nm = request.POST.get('season_nm')
+        camp_nm = request.POST.get('camp_nm')
+        name = request.POST.get('name')
+        grade_nm = request.POST.get('grade_nm')
+        yoil_nm = request.POST.get('yoil_nm')
+        set_data = {'season_nm': season_nm,
+                    'camp_nm': camp_nm,
+                    'name': name,
+                    'grade': grade_nm,
+                    'yoil_nm': yoil_nm,}
+
+        f = MylectureListForm(set_data)
+        form = f
+
+        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'name')
+
+        mylecture_list = mylecture_list.filter(
+            Q(season_nm__icontains=season_nm), # 학기검색
+            Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+            Q(name__icontains=name),  # 강사명검색
+            Q(lect_yoil__contains=yoil_nm), # 요일검색
+            Q(lect_grade__icontains=grade_nm) # 학년
+
+        ).distinct().values_list('season_nm', 'camp_nm', 'name', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2')
+
+        # instance = mylecture_list.values_list('season_nm', 'camp_nm', 'name', 'lect_nm')
+
+        for item in mylecture_list:
+            print(item)
+
+        for item in mylecture_list:
+            print(len(item[4]))
+
+
+        print(len(mylecture_list))
+
+        context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
+                   'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
+                   'username': request.user.username}
+
+    else:
+        context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
+                   'grade_list': grade_list, 'yoil_list': yoil_list,
+                   'username': request.user.username}
+
+    return render(request, 'lecture/lecture_timetable.html', context)
 
 
 
