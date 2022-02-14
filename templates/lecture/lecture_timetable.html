@@ -9,7 +9,7 @@
             <div class="row g-3">
                 <div class="col-md-2">
                   <select class="form-select" id="season_nm" name="season_nm" required>
-                    <option value="">학기선택...</option>
+                    <option value="">학기전체...</option>
                     {% if season_list %}
                       {% for season in season_list %}
                         <option value="{{season.season_nm}}" {% if season.season_nm == form.season_nm.value %}{{ 'selected' }}{% endif %}>{{season.season_nm}}</option>
@@ -23,7 +23,7 @@
 
                 <div class="col-md-2">
                   <select class="form-select" id="camp_nm" name="camp_nm" required>
-                    <option value="">캠퍼스선택...</option>
+                    <option value="">캠퍼스전체...</option>
                     {% if campus_list %}
                       {% for campus in campus_list %}
                         <option value="{{campus.camp_nm}}" {% if campus.camp_nm == form.camp_nm.value %}{{ 'selected' }}{% endif %}>{{campus.camp_nm}}</option>
@@ -37,7 +37,7 @@
 
                 <div class="col-md-2">
                   <select class="form-select" id="grade_nm" name="grade_nm" required>
-                    <option value="">학년선택...</option>
+                    <option value="">학년전체...</option>
                     {% if grade_list %}
                       {% for grade in grade_list %}
                         <option value="{{grade.grade_nm}}" {% if grade.grade_nm == form.grade.value %}{{ 'selected' }}{% endif %}>{{grade.grade_nm}}</option>
@@ -51,7 +51,7 @@
 
                 <div class="col-md-2">
                   <select class="form-select" id="name" name="name" required>
-                    <option value="">강사명선택...</option>
+                    <option value="">강사명전체...</option>
                     {% if teacher_list %}
                       {% for teacher in teacher_list %}
                         <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
@@ -65,7 +65,7 @@
 
                 <div class="col-md-2">
                   <select class="form-select" id="yoil_nm" name="yoil_nm" required>
-                    <option value="">요일선택...</option>
+                    <option value="">요일전체...</option>
                     {% if yoil_list %}
                       {% for yoil in yoil_list %}
                         <option value="{{ yoil.yoil_nm }}" {% if yoil.yoil_nm == form.yoil_nm.value %}{{ 'selected' }}{% endif %}>{{ yoil.yoil_nm }}요일</option>

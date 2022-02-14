@@ -373,14 +373,29 @@ def lecture_timetable(request):
 
         mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'name')
 
-        mylecture_list = mylecture_list.filter(
-            Q(season_nm__icontains=season_nm), # 학기검색
-            Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
-            Q(name__icontains=name),  # 강사명검색
-            Q(lect_yoil__contains=yoil_nm), # 요일검색
-            Q(lect_grade__icontains=grade_nm) # 학년
+        if grade_nm == '중등전체' or grade_nm == '고등전체':
+            if grade_nm == '중등전체':
+                grade_nm = '중'
+            if grade_nm == '고등전체':
+                grade_nm = '고'
 
-        ).distinct().values_list('season_nm', 'camp_nm', 'name', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2')
+            mylecture_list = mylecture_list.filter(
+                Q(season_nm__icontains=season_nm), # 학기검색
+                Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+                Q(name__icontains=name),  # 강사명검색
+                Q(lect_yoil__contains=yoil_nm), # 요일검색
+                Q(lect_grade__contains=grade_nm) # 학년
+
+            ).distinct().values_list('season_nm', 'camp_nm', 'name', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2')
+        else:
+            mylecture_list = mylecture_list.filter(
+                Q(season_nm__icontains=season_nm),  # 학기검색
+                Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+                Q(name__icontains=name),  # 강사명검색
+                Q(lect_yoil__contains=yoil_nm),  # 요일검색
+                Q(lect_grade__icontains=grade_nm)  # 학년
+
+            ).distinct().values_list('season_nm', 'camp_nm', 'name', 'subject', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2')
 
         # instance = mylecture_list.values_list('season_nm', 'camp_nm', 'name', 'lect_nm')
 
@@ -392,7 +407,7 @@ def lecture_timetable(request):
 
         for item in mylecture_list:
             p = re.compile('[0-9][0-9]:[0-9][0-9]')
-            m = p.findall(item[6])
+            m = p.findall(item[7])
             print(m)
 
 
