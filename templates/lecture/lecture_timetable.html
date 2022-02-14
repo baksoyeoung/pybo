@@ -9,7 +9,7 @@
             <div class="row g-3">
                 <div class="col-md-2">
                   <select class="form-select" id="season_nm" name="season_nm" required>
-                    <option value="">학기전체...</option>
+                    <option value="">학기선택...</option>
                     {% if season_list %}
                       {% for season in season_list %}
                         <option value="{{season.season_nm}}" {% if season.season_nm == form.season_nm.value %}{{ 'selected' }}{% endif %}>{{season.season_nm}}</option>
@@ -23,7 +23,7 @@
 
                 <div class="col-md-2">
                   <select class="form-select" id="camp_nm" name="camp_nm" required>
-                    <option value="">캠퍼스전체...</option>
+                    <option value="">캠퍼스선택...</option>
                     {% if campus_list %}
                       {% for campus in campus_list %}
                         <option value="{{campus.camp_nm}}" {% if campus.camp_nm == form.camp_nm.value %}{{ 'selected' }}{% endif %}>{{campus.camp_nm}}</option>

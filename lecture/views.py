@@ -410,6 +410,10 @@ def lecture_timetable(request):
             m = p.findall(item[7])
             print(m)
 
+        print(mylecture_list[0])
+
+
+
 
         context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                    'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
