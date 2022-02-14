@@ -51,7 +51,7 @@
 
                 <div class="col-md-2">
                   <select class="form-select" id="name" name="name" required>
-                    <option value="">강사명전체...</option>
+                    <option value="">강사전체...</option>
                     {% if teacher_list %}
                       {% for teacher in teacher_list %}
                         <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
