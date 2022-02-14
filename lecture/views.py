@@ -14,6 +14,7 @@ from django.template import RequestContext
 from django.core import serializers
 import json
 import re
+from .lecturefunc import lecture_time
 
 
 # Create your views here.
@@ -405,12 +406,12 @@ def lecture_timetable(request):
         # for item in mylecture_list:
         #     print(len(item[4]))
 
-        for item in mylecture_list:
-            p = re.compile('[0-9][0-9]:[0-9][0-9]')
-            m = p.findall(item[7])
-            print(m)
+        # for item in mylecture_list:
+        #     p = re.compile('[0-9][0-9]:[0-9][0-9]')
+        #     m = p.findall(item[7])
+        #     print(m)
 
-        print(mylecture_list[0])
+        lecture_time(mylecture_list)
 
 
 
