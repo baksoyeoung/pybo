@@ -7,6 +7,7 @@ def lecture_time(mylecture_list):
 
     # print(mylecture_list)
     # 요일별 데이터 만들기
+
     for item in mylecture_list:
         name = item[2] #강사명
         subject = item[3] #과목
@@ -23,9 +24,8 @@ def lecture_time(mylecture_list):
 
         #요일 갯수 만큼 강의명, 요일, 시간을 저장한다.
 
-        mins = 30
         for k in range(0, len(yoil)):
-
+            mins = 30
             time_1 = datetime.strptime(t1[k], "%H:%M") #시간간격을 구한다
             time_2 = datetime.strptime(t2[k], "%H:%M")  # 시간간격을 구한다
             time_interval = time_2 - time_1
@@ -35,8 +35,8 @@ def lecture_time(mylecture_list):
             term = int(term[3:4])
 
             print(name)
-            print(yoil[k])
-            print(term)
+            # print(yoil[k])
+            # print(term)
 
             if term > 0 and type(term) == int:
                 for i in range(0, term):
@@ -45,17 +45,15 @@ def lecture_time(mylecture_list):
                     else:
                         set_time = time_1 + timedelta(minutes=mins)
                         mins = mins + 30
+
                     print(set_time)
-                    print(mins)
-            min = 0
+                    # print(mins)
 
 
 
-        # print(term.strftime[2:3])
+        월_하명래_국어_0830 = '고1\n수능국어'
 
-        # print(time_1 + timedelta(minutes=30))
-
-        # print(time_interval)
+        print(월_하명래_국어_0830)
 
         # locals()['{}_data'.format(kind)] = item[4]
 
