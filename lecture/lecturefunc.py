@@ -23,8 +23,8 @@ def lecture_time(mylecture_list):
 
         #요일 갯수 만큼 강의명, 요일, 시간을 저장한다.
 
-        min = 30
-        for k in range(0,len(yoil)):
+        mins = 30
+        for k in range(0, len(yoil)):
 
             time_1 = datetime.strptime(t1[k], "%H:%M") #시간간격을 구한다
             time_2 = datetime.strptime(t2[k], "%H:%M")  # 시간간격을 구한다
@@ -43,10 +43,10 @@ def lecture_time(mylecture_list):
                     if i == 0:
                         set_time = time_1
                     else:
-                        set_time = time_1 + timedelta(minutes=min)
-                    min = min + 30
-
+                        set_time = time_1 + timedelta(minutes=mins)
+                        mins = mins + 30
                     print(set_time)
+                    print(mins)
             min = 0
 
 
