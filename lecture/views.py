@@ -411,14 +411,14 @@ def lecture_timetable(request):
         #     m = p.findall(item[7])
         #     print(m)
 
-        lecture_time(mylecture_list)
+        time_info = lecture_time(mylecture_list)
 
-
+        print(time_info[0])
 
 
         context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                    'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
-                   'username': request.user.username}
+                   'username': request.user.username, 'time_info': time_info[0], 'teacher_info': time_info[1] }
 
     else:
         context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,

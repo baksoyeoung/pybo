@@ -69,7 +69,7 @@ def lecture_time(mylecture_list):
 
 
     # print(info)
-    print(teacher)
+    # print(teacher)
 
         # 월_하명래_국어_0830 = '고1\n수능국어'
         # print(월_하명래_국어_0830)
@@ -87,4 +87,4 @@ def lecture_time(mylecture_list):
         # print(t2)
 
 
-    return mylecture_list, info
+    return info, teacher
