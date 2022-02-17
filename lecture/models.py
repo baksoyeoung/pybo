@@ -48,6 +48,10 @@ class yoil(models.Model):
     yoil_nm = models.CharField(max_length=50)
     num = models.IntegerField() #요일 출력순서
 
+class time(models.Model):
+    time_nm = models.CharField(max_length=50)
+    num = models.IntegerField()
+
 
 class Lectureinfo(models.Model):
     season_nm = models.CharField(max_length=255) #학기

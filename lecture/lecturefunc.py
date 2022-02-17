@@ -37,12 +37,8 @@ def lecture_time(mylecture_list):
             time_1 = datetime.strptime(t1[k], "%H:%M") #시간간격을 구한다
             time_2 = datetime.strptime(t2[k], "%H:%M")  # 시간간격을 구한다
 
-            if(str(time_2) == '1900-01-01 00:00:00'):
-                print('dddd')
+            if(str(time_2) == '1900-01-01 00:00:00'): #시간이 00:00:00 이면 바꿔준다
                 time_2 = datetime.strptime('23:59', "%H:%M")
-
-            print(time_2)
-
 
             time_interval = time_2 - time_1
             # print(time_interval)
@@ -51,7 +47,7 @@ def lecture_time(mylecture_list):
             # print(term)
             term = int(term[3:4])
 
-            if(str(time_2) == '1900-01-01 23:59:00'):
+            if(str(time_2) == '1900-01-01 23:59:00'): #time2 가 00:00:00 이면 term에 +1 해준다
                 term = term + 1
 
             # print(name)
@@ -72,15 +68,18 @@ def lecture_time(mylecture_list):
                     # print(mins)
                     info_time = str(time_1)
                     info_time = info_time[11:16]
+
+                    characters = ":" #강사별시간에서 : 없애준다다
+                    set_time = ''.join(x for x in set_time if x not in characters)
+
+                    print(info_time)
                     info[f"{yoil[k]}_{name}_{subject}_{set_time}"] = f"{grade}_{lect_nm}_{info_time}" #강의정보
 
                     #요일별 강사명
                     teacher[f'{name}_{yoil[k]}'] = f'{yoil[k]}'
 
-
-
-
-    # print(info)
+    # print(info.get('월_배동환_영어_21:00'))
+    print(info)
     # print(teacher)
 
         # 월_하명래_국어_0830 = '고1\n수능국어'
