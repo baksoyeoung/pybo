@@ -90,7 +90,67 @@
         <div class="row g-3 mt-2">
             <div class="col-md-12">
               <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
+
               <table class="table table-hover table-sm table-bordered" style="font-size:13px;">
+                <tbody>
+                <tr>
+                    <th>노형</th>
+                    <th>노형</th>
+                    <th>노형</th>
+                    <th>노형</th>
+                </tr>
+                <tr>
+                    <th>요일</th>
+                    <th>월</th>
+                    <th>월</th>
+                    <th>월</th>
+                </tr>
+                <tr>
+                    <th>과목</th>
+                    <th>고등영어</th>
+                    <th>중등영어</th>
+                    <th>수학</th>
+                </tr>
+                <tr>
+                    <th>강사명</th>
+                    <th>위대영</th>
+                    <th>이헌하</th>
+                    <th>조시훈</th>
+                </tr>
+                <tr>
+                    <td>09:00-09:30</td>
+                    <td>영어</td>
+                    <td>영어</td>
+                    <td>수학</td>
+                </tr>
+                <tr>
+                    <td>09:30-10:00</td>
+                    <td>영어</td>
+                    <td>영어</td>
+                    <td>수학</td>
+                </tr>
+                <tr>
+                    <td>10:00-10:30</td>
+                    <td>영어</td>
+                    <td>과학</td>
+                    <td>국어</td>
+                </tr>
+                <tr>
+                    <td>10:30-11:00</td>
+                    <td>국어</td>
+                    <td>과학</td>
+                    <td>국어</td>
+                </tr>
+                <tr>
+                    <td>11:00-11:30</td>
+                    <td>국어</td>
+                    <td>과학</td>
+                    <td>국어</td>
+                </tr>
+                </tbody>
+            </table>
+
+              <!-- <table class="table table-hover table-sm table-bordered" style="font-size:13px;">
                   <thead>
                     <tr>
                         <th scope="col">시간</th>
@@ -127,7 +187,7 @@
                     <tr><td>23:00-23:30</td><td></td></tr>
                     <tr><td>23:30-24:00</td><td></td></tr>
                   </tbody>
-              </table>
+              </table> -->
 
             </div>
         </div>
@@ -139,6 +199,14 @@
 <script>
     $(document).ready(function(){
         $('.search-btn').on('click',function(){
+            if ($("#season_nm").val() == ""){
+                 $("#season_nm").focus();
+                  return false;
+            }
+            if ($("#camp_nm").val() == ""){
+                 $("#camp_nm").focus();
+                  return false;
+            }
             $('form').submit();
         });
     }); //endready

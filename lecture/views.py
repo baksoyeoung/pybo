@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.utils import timezone
-from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade, yoil
+from .models import Season, Lectureinfo, Teacher, campus, subjects, science, grade, yoil, time
 from .form import LectureCreateForm, MylectureListForm, Lecture_modify_set
 from django.db.models import Q, Count
 from django.contrib.auth import authenticate, login
@@ -26,6 +26,7 @@ subjects_list = subjects.objects.order_by('num')
 science_list = science.objects.order_by('num')
 grade_list = grade.objects.order_by('num')
 yoil_list = yoil.objects.order_by('num')
+time_list = time.objects.order_by('num')
 
 def lecture_home(request):
 

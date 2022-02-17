@@ -72,15 +72,15 @@ def lecture_time(mylecture_list):
                     characters = ":" #강사별시간에서 : 없애준다다
                     set_time = ''.join(x for x in set_time if x not in characters)
 
-                    print(info_time)
                     info[f"{yoil[k]}_{name}_{subject}_{set_time}"] = f"{grade}_{lect_nm}_{info_time}" #강의정보
 
                     #요일별 강사명
-                    teacher[f'{name}_{yoil[k]}'] = f'{yoil[k]}'
+                    teacher[f'{yoil[k]}_{name}_'] = f'{yoil[k]}'
 
     # print(info.get('월_배동환_영어_21:00'))
-    print(info)
-    # print(teacher)
+    # print(info)
+    print(list(teacher.values()))
+    print(list(teacher.keys()))
 
         # 월_하명래_국어_0830 = '고1\n수능국어'
         # print(월_하명래_국어_0830)
@@ -97,5 +97,5 @@ def lecture_time(mylecture_list):
         # print(t1)
         # print(t2)
 
-
+    #return type info:dic, teachter:dic
     return info, teacher
