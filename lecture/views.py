@@ -413,7 +413,7 @@ def lecture_timetable(request):
 
         time_info = lecture_time(mylecture_list)
 
-        print(time_info[0])
+        # print(time_info[0])
 
 
         context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
