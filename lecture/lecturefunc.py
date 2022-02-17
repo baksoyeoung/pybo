@@ -40,6 +40,7 @@ def lecture_time(mylecture_list):
             # print(time_interval)
             term = time_interval / 30
             term = str(term)
+            print(name)
             term = int(term[3:4])
 
             # print(name)
