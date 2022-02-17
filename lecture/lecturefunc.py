@@ -37,16 +37,18 @@ def lecture_time(mylecture_list):
             time_1 = datetime.strptime(t1[k], "%H:%M") #시간간격을 구한다
             time_2 = datetime.strptime(t2[k], "%H:%M")  # 시간간격을 구한다
 
-            if(time_2 == '1900-01-01 00:00:00'):
-                time_2 = '1900-01-01 24:00:00'
+            if(str(time_2) == '1900-01-01 00:00:00'):
+                print('dddd')
+                time_2 = datetime.strptime('23:59', "%H:%M")
 
-            print(time_2)
+            # print(time_2)
 
 
             time_interval = time_2 - time_1
             # print(time_interval)
             term = time_interval / 30
             term = str(term)
+            # print(term)
             term = int(term[3:4])
 
             # print(name)
