@@ -102,3 +102,24 @@ def yoil_time(yoil, time1, time2):
 @register.filter
 def sub(value):
     return value - 1
+
+@register.filter
+def list_cnt_range(value):
+    a = len(value)
+    return range(0,a)
+
+@register.filter
+def index(indexable, i):
+    return indexable[i]
+
+@register.filter
+def yoil_index(indexable, i):
+    return indexable[i].yoil_nm
+
+@register.filter
+def time_mapping(value, time):
+    time = time[0:5]
+    characters = ":"
+    time = ''.join(x for x in time if x not in characters)
+    value = (value + time)
+    return value

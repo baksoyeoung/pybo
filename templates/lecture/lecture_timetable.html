@@ -86,47 +86,54 @@
 
         {{ time_info }} <br><br>
         {{ yoil_info_dc }}<br><br>
+        {{ yoil_info_dc.0 }}<br><br>
         {{ yoil_info_li }}<br><br>
+        {{ yoil_lect_cnt }}<br><br>
+
         {{ form.camp_nm.value }}
 
         <div class="row g-3 mt-2">
             <div class="col-md-12">
+              {% if yoil_info_li %}
               <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
-              {% for i in yoil_list %}
-                {{ forloop.counter0 }}
+              {% for i in yoil_list|list_cnt_range %}
               <table class="table table-hover table-sm table-bordered" style="font-size:13px;">
                 <tbody>
 
                 <tr>
-                    {% for i in yoil_info_li.forloop.counter0 %}
+                    <th>캠퍼스</th>
+                    {% for k in yoil_info_li|index:i %}
                     <th>{{ form.camp_nm.value }}</th>
                     {% endfor %}
                 </tr>
 
                 <tr>
                     <th>요일</th>
-                    <th>월</th>
-                    <th>월</th>
-                    <th>월</th>
+                    {% for k in yoil_info_li|index:i %}
+                    <th>{{ yoil_list|yoil_index:i }}</th>
+                    {% endfor %}
                 </tr>
                 <tr>
                     <th>과목</th>
-                    <th>고등영어</th>
-                    <th>중등영어</th>
-                    <th>수학</th>
+                    {% for k in yoil_info_li|index:i|list_cnt_range %}
+                    <th>{{ yoil_info_li|index:i|index:k}}</th>
+                    {% endfor %}
                 </tr>
                 <tr>
                     <th>강사명</th>
-                    <th>위대영</th>
-                    <th>이헌하</th>
-                    <th>조시훈</th>
+                    {% for k in yoil_info_li|index:i|list_cnt_range %}
+                    <th>{{ yoil_info_li|index:i|index:k}}</th>
+                    {% endfor %}
                 </tr>
+
+                {% for time in time_list %}
                 <tr>
-                    <td>09:00-09:30</td>
-                    <td>영어</td>
-                    <td>영어</td>
-                    <td>수학</td>
+                    <td>{{ time.time_nm }}</td>
+                    {% for k in yoil_info_li|index:i|list_cnt_range %}
+                    <td>{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm }}</td>
+                    {% endfor %}
                 </tr>
+                {% endfor %}
 
                 </tbody>
               </table>
@@ -172,6 +179,7 @@
               </table> -->
 
             </div>
+            {% endif %}
         </div>
 
     </div>
