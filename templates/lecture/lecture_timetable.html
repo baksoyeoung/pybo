@@ -85,7 +85,9 @@
         </form>
 
         {{ time_info }} <br><br>
-        {{ teacher_info }}
+        {{ teacher_M }}<br><br>
+        {{ teacher_M|length }}
+        {{ form.camp_nm.value }}
 
         <div class="row g-3 mt-2">
             <div class="col-md-12">
@@ -95,9 +97,7 @@
                 <tbody>
                 <tr>
                     <th>노형</th>
-                    <th>노형</th>
-                    <th>노형</th>
-                    <th>노형</th>
+                    {% endif %}
                 </tr>
                 <tr>
                     <th>요일</th>

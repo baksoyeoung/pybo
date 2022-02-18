@@ -1,13 +1,16 @@
 import re
 from datetime import datetime, timedelta
+from .models import yoil
 
 # 시간표 테이블 기초 데이터 작업
 
+
+yoil_list = yoil.objects.order_by('num')
 def lecture_time(mylecture_list):
 
     info = {}
     teacher = {}
-
+    yoil_teacher ={}
     # print(mylecture_list)
     # 요일별 데이터 만들기
 
@@ -74,13 +77,52 @@ def lecture_time(mylecture_list):
 
                     info[f"{yoil[k]}_{name}_{subject}_{set_time}"] = f"{grade}_{lect_nm}_{info_time}" #강의정보
 
-                    #요일별 강사명
-                    teacher[f'{yoil[k]}_{name}_'] = f'{yoil[k]}'
+                    #요일별 강사정보(중복제거됨 dic tpye)
+                    teacher[f'{yoil[k]}_{name}_{subject}_'] = f'{yoil[k]}'
 
-    # print(info.get('월_배동환_영어_21:00'))
+    # print(info.get('월_배동환_영어_21:00')) dic 값 추출
     # print(info)
-    print(list(teacher.values()))
-    print(list(teacher.keys()))
+    print(list(teacher.values())) #요일
+    print(list(teacher.keys())) #강사명
+
+    # 요일별 강사수
+    for yoil in yoil_list:
+        yoil_teacher[f'{yoil.yoil_nm}'] = list(teacher.values()).count(yoil.yoil_nm)
+
+    # 요일별 강사명 리스트에서 위치 및 요일별 강사명 뽑아내기
+    l1 = list(teacher.values())
+    l2 = list(teacher.keys())
+    M = []
+    t = []
+    W = []
+    T = []
+    F = []
+    s = []
+    S = []
+    for yoil in yoil_list:
+        for i in range(len(l1)):
+            if l1[i] == yoil.yoil_nm:
+                if yoil.yoil_nm == '월':
+                    M.append(l2[i])
+                if yoil.yoil_nm == '화':
+                    t.append(l2[i])
+                if yoil.yoil_nm == '수':
+                    W.append(l2[i])
+                if yoil.yoil_nm == '목':
+                    T.append(l2[i])
+                if yoil.yoil_nm == '금':
+                    F.append(l2[i])
+                if yoil.yoil_nm == '토':
+                    s.append(l2[i])
+                if yoil.yoil_nm == '일':
+                    S.append(l2[i])
+
+
+
+
+    # print(t)
+    # print(yoil_teacher)
+
 
         # 월_하명래_국어_0830 = '고1\n수능국어'
         # print(월_하명래_국어_0830)
@@ -98,4 +140,4 @@ def lecture_time(mylecture_list):
         # print(t2)
 
     #return type info:dic, teachter:dic
-    return info, teacher
+    return info, M, t, W, T, F, s, S
