@@ -98,3 +98,7 @@ def yoil_time(yoil, time1, time2):
         p.append(a+b+"-"+c)
 
     return p
+
+@register.filter
+def sub(value):
+    return value - 1

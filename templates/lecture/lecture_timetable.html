@@ -85,20 +85,24 @@
         </form>
 
         {{ time_info }} <br><br>
-        {{ teacher_M }}<br><br>
-        {{ teacher_M|length }}
+        {{ yoil_info_dc }}<br><br>
+        {{ yoil_info_li }}<br><br>
         {{ form.camp_nm.value }}
 
         <div class="row g-3 mt-2">
             <div class="col-md-12">
               <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
-
+              {% for i in yoil_list %}
+                {{ forloop.counter0 }}
               <table class="table table-hover table-sm table-bordered" style="font-size:13px;">
                 <tbody>
+
                 <tr>
-                    <th>노형</th>
-                    {% endif %}
+                    {% for i in yoil_info_li.forloop.counter0 %}
+                    <th>{{ form.camp_nm.value }}</th>
+                    {% endfor %}
                 </tr>
+
                 <tr>
                     <th>요일</th>
                     <th>월</th>
@@ -123,32 +127,10 @@
                     <td>영어</td>
                     <td>수학</td>
                 </tr>
-                <tr>
-                    <td>09:30-10:00</td>
-                    <td>영어</td>
-                    <td>영어</td>
-                    <td>수학</td>
-                </tr>
-                <tr>
-                    <td>10:00-10:30</td>
-                    <td>영어</td>
-                    <td>과학</td>
-                    <td>국어</td>
-                </tr>
-                <tr>
-                    <td>10:30-11:00</td>
-                    <td>국어</td>
-                    <td>과학</td>
-                    <td>국어</td>
-                </tr>
-                <tr>
-                    <td>11:00-11:30</td>
-                    <td>국어</td>
-                    <td>과학</td>
-                    <td>국어</td>
-                </tr>
+
                 </tbody>
-            </table>
+              </table>
+              {% endfor %}
 
               <!-- <table class="table table-hover table-sm table-bordered" style="font-size:13px;">
                   <thead>

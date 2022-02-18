@@ -118,7 +118,10 @@ def lecture_time(mylecture_list):
                     S.append(l2[i])
 
 
+    yoil_dc = [{'월':M}, {'화':t}, {'수':W}, {'목':T}, {'금':F}, {'토':s}, {'일':S}]
+    yoil_li = [M, t, W, T, F, s, S]
 
+    # print(yoil_is[0])
 
     # print(t)
     # print(yoil_teacher)
@@ -140,4 +143,4 @@ def lecture_time(mylecture_list):
         # print(t2)
 
     #return type info:dic, teachter:dic
-    return info, M, t, W, T, F, s, S
+    return info, yoil_dc, yoil_li

@@ -420,15 +420,7 @@ def lecture_timetable(request):
         context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
                    'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
                    'username': request.user.username,
-                   'time_info': time_info[0],
-                   'teacher_M': time_info[1],
-                   'teacher_t': time_info[2],
-                   'teacher_W': time_info[3],
-                   'teacher_T': time_info[4],
-                   'teacher_F': time_info[5],
-                   'teacher_s': time_info[6],
-                   'teacher_S': time_info[7],
-                   }
+                   'time_info': time_info[0],'yoil_info_dc': time_info[1], 'yoil_info_li': time_info[2] }
 
     else:
         context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
