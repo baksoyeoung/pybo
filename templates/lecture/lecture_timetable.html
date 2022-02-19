@@ -84,14 +84,6 @@
             </div>
         </form>
 
-        {{ time_info }} <br><br>
-        {{ yoil_info_dc }}<br><br>
-        {{ yoil_info_dc.0 }}<br><br>
-        {{ yoil_info_li }}<br><br>
-        {{ yoil_lect_cnt }}<br><br>
-
-        {{ form.camp_nm.value }}
-
         <div class="row g-3 mt-2">
             <div class="col-md-12">
               {% if yoil_info_li %}
@@ -130,7 +122,7 @@
                 <tr>
                     <td>{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-                    <td>{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm }}</td>
+                    <td>{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|default_if_none:'' }}</td>
                     {% endfor %}
                 </tr>
                 {% endfor %}

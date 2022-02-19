@@ -123,3 +123,8 @@ def time_mapping(value, time):
     time = ''.join(x for x in time if x not in characters)
     value = (value + time)
     return value
+
+@register.filter
+def get_lecture(key, dictionary):
+    print('dddd')
+    return dictionary.get(key)
