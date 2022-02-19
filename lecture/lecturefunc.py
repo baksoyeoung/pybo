@@ -30,7 +30,7 @@ def lecture_time(mylecture_list):
         t1 = re.compile('[0-9][0-9]:[0-9][0-9]') #시간 첫 번째
         t1 = t1.findall(item[7])
 
-        t2 = re.compile('[0-9][0-9]:[0-9][0-9]')  # 시간 두 번째
+        t2 = re.compile('[0-9][0-9]:[0-9][0-9]') #시간 두 번째
         t2 = t2.findall(item[8])
 
         #요일 갯수 만큼 강의명, 요일, 시간을 저장한다.

@@ -388,7 +388,7 @@ def lecture_timetable(request):
                 Q(lect_yoil__contains=yoil_nm), # 요일검색
                 Q(lect_grade__contains=grade_nm) # 학년
 
-            ).distinct().values_list('season_nm', 'camp_nm', 'name', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2')
+            ).distinct().values_list('season_nm', 'camp_nm', 'name', 'subject', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2')
         else:
             mylecture_list = mylecture_list.filter(
                 Q(season_nm__icontains=season_nm),  # 학기검색
