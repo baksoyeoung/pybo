@@ -87,7 +87,7 @@
         <div class="row g-3 mt-2">
             <div class="col-md-12">
               {% if yoil_info_li %}
-              <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
+              <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ time_info.count }}{% else %}0{% endif %}개</label>
               {% for i in yoil_list|list_cnt_range %}
               <table id="test" class="table table-hover table-sm table-bordered" style="font-size:13px;">
                 <tbody>
