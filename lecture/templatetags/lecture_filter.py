@@ -126,5 +126,4 @@ def time_mapping(value, time):
 
 @register.filter
 def get_lecture(key, dictionary):
-    print('dddd')
     return dictionary.get(key)
