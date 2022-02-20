@@ -130,10 +130,18 @@ def get_lecture(key, dictionary):
 
 @register.filter
 def get_subject_name(value):
-    # 월-배동환-영어_
-
+    # 월_배동환-영어_
     value = str(value)
     p = re.search('-.*_', value)
+    p = p.group().replace('-', '')
+    p = p.replace('_', '')
+    return p
+
+@register.filter
+def get_teacher_name(value):
+    # 월_배동환-영어_
+    value = str(value)
+    p = re.search('_.*-', value)
     p = p.group().replace('-', '')
     p = p.replace('_', '')
     return p
