@@ -373,7 +373,7 @@ def lecture_timetable(request):
         f = MylectureListForm(set_data)
         form = f
 
-        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'name')
+        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'subject')
 
         yoil_nm = ''
         if grade_nm == '중등전체' or grade_nm == '고등전체':
