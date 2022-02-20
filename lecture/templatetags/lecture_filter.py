@@ -127,3 +127,13 @@ def time_mapping(value, time):
 @register.filter
 def get_lecture(key, dictionary):
     return dictionary.get(key)
+
+@register.filter
+def get_subject_name(value):
+    # 월-배동환-영어_
+
+    value = str(value)
+    p = re.search('-.*_', value)
+    p = p.group().replace('-', '')
+    p = p.replace('_', '')
+    return p

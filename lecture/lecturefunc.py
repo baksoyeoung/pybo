@@ -75,10 +75,10 @@ def lecture_time(mylecture_list):
                     characters = ":" #강사별시간에서 : 없애준다다
                     set_time = ''.join(x for x in set_time if x not in characters)
 
-                    info[f"{yoil[k]}_{name}_{subject}_{set_time}"] = f"{grade}_{lect_nm}_{info_time}" #강의정보
+                    info[f"{yoil[k]}_{name}-{subject}_{set_time}"] = f"{grade}_{lect_nm}_{info_time}" #강의정보
 
-                    #요일별 강사정보(중복제거됨 dic tpye)
-                    teacher[f'{yoil[k]}_{name}_{subject}_'] = f'{yoil[k]}'
+                    #요일별 강사정보(key 중복제거됨 dic tpye)
+                    teacher[f'{yoil[k]}_{name}-{subject}_'] = f'{yoil[k]}'
 
     # print(info.get('월_배동환_영어_21:00')) dic 값 추출
     # print(info)

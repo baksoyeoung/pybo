@@ -84,6 +84,9 @@
             </div>
         </form>
 
+        {{ time_info }}<br><br>
+        {{ yoil_info_li }}
+
         <div class="row g-3 mt-2">
             <div class="col-md-12">
               {% if yoil_info_li %}
@@ -108,7 +111,7 @@
                 <tr>
                     <th>과목</th>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-                    <th>{{ yoil_info_li|index:i|index:k}}</th>
+                    <th>{{ yoil_info_li|index:i|index:k|get_subject_name}}</th>
                     {% endfor %}
                 </tr>
                 <tr>
