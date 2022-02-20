@@ -9,3 +9,11 @@ textarea {
     overflow-y: hidden;
     resize: none;
 }
+
+table #timetable {
+    table-layout:fixed;
+}
+
+td {
+    word-wrap:break-word;
+}
