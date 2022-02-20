@@ -93,9 +93,9 @@
                 <tbody>
 
                 <tr>
-                    <th class="col-md-2">캠퍼스</th>
+                    <th class="col-md-1">캠퍼스</th>
                     {% for k in yoil_info_li|index:i %}
-                    <th>{{ form.camp_nm.value }}</th>
+                    <th class="col-md-1">{{ form.camp_nm.value }}</th>
                     {% endfor %}
                 </tr>
 
@@ -120,7 +120,7 @@
 
                 {% for time in time_list %}
                 <tr>
-                    <td class="col-md-2">{{ time.time_nm }}</td>
+                    <td>{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
                     <td><pre>{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|get_lect_name|default_if_none:'' }}</pre></td>
                     {% endfor %}
