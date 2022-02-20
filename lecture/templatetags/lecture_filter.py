@@ -158,7 +158,7 @@ def get_lect_name(value):
         p1 = re.search('.*_', p) #학년추출
         p1 = p1.group()
         k = re.compile('[가-힣]*[1-9]')
-        m = k.findall(p1)
+        m = k.findall(p1) # type: list
 
         grade = ''
         for grd in m:
@@ -169,7 +169,7 @@ def get_lect_name(value):
         p2 = p2.replace('_', '')
         p2 = p2.replace('-', '')
 
-        p = grade + p2
+        p = grade + '\n' + p2
     else:
         p = ''
     return p
