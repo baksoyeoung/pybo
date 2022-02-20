@@ -120,7 +120,7 @@
 
                 {% for time in time_list %}
                 <tr>
-                    <td>{{ time.time_nm }}</td>
+                    <td class="col-md-1">{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
                     <td class="col-md-1">{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|get_lect_name|default_if_none:'' }}</td>
                     {% endfor %}
