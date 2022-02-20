@@ -14,7 +14,7 @@ table #timetable {
     table-layout:fixed;
 }
 
-td {
+td #timetable {
     width:100px;
     word-wrap:break-word;
 }
