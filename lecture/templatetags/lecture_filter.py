@@ -153,8 +153,23 @@ def get_lect_name(value):
         value = str(value)
         print(value)
         p = re.search('.*-', value)
-        p = p.group().replace('_', '')
-        p = p.replace('-', '')
+        p = p.group()
+
+        p1 = re.search('.*_', p) #학년추출
+        p1 = p1.group()
+        k = re.compile('[가-힣]*[1-9]')
+        m = k.findall(p1)
+
+        grade = ''
+        for grd in m:
+            grade = grade + str(grd)
+
+        p2 = re.search('_.*-', p) #강의명추출
+        p2 = p2.group()
+        p2 = p2.replace('_', '')
+        p2 = p2.replace('-', '')
+
+        p = grade + p2
     else:
         p = ''
     return p
