@@ -145,3 +145,16 @@ def get_teacher_name(value):
     p = p.group().replace('-', '')
     p = p.replace('_', '')
     return p
+
+@register.filter
+def get_lect_name(value):
+    # ['고1', '고2', '고3']_수능국어-09:30
+    if value:
+        value = str(value)
+        print(value)
+        p = re.search('.*-', value)
+        p = p.group().replace('_', '')
+        p = p.replace('-', '')
+    else:
+        p = ''
+    return p
