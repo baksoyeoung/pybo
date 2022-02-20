@@ -151,7 +151,7 @@ def get_lect_name(value):
     # ['고1', '고2', '고3']_수능국어-09:30
     if value:
         value = str(value)
-        print(value)
+        # print(value)
         p = re.search('.*-', value)
         p = p.group()
 
