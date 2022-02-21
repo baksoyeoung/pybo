@@ -10,11 +10,10 @@ textarea {
     resize: none;
 }
 
-#timetable {
+/*#timetable {
     table-layout:fixed;
-}
+}*/
 
 #timetable td {
-    width:100px;
     word-wrap:break-word;
 }
