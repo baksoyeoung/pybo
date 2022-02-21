@@ -20,7 +20,7 @@ from .lecturefunc import lecture_time
 # Create your views here.
 
 season_list = Season.objects.order_by('-create_date')
-teacher_list = Teacher.objects.order_by('name')
+teacher_list = Teacher.objects.all().order_by('name')
 campus_list = campus.objects.order_by('num')
 subjects_list = subjects.objects.order_by('num')
 science_list = science.objects.order_by('num')
@@ -373,7 +373,7 @@ def lecture_timetable(request):
         f = MylectureListForm(set_data)
         form = f
 
-        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'subject')
+        mylecture_list = Lectureinfo.objects.all().order_by('camp_nm', 'subject')
 
         yoil_nm = ''
         if grade_nm == '중등전체' or grade_nm == '고등전체':
@@ -413,6 +413,23 @@ def lecture_timetable(request):
         #     m = p.findall(item[7])
         #     print(m)
 
+
+
+        mylecture_list_order = []
+        for item in mylecture_list:
+            for member in teacher_list:
+                if member.name == item[2]:
+                    num = []
+                    num.append(member.num)
+                    mylecture_list_order.append(list(item) + num)
+                # else:
+                #     mylecture_list_order.append(list(item) + [0])
+
+        mylecture_list_order.sort(key=lambda x: x[9])
+
+        print(mylecture_list_order)
+
+        mylecture_list = mylecture_list_order
         time_info = lecture_time(mylecture_list)
 
         # print(mylecture_list)
