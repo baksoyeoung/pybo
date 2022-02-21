@@ -94,16 +94,14 @@
 
                 <tr>
                     <th>캠퍼스</th>
-                    {% for k in yoil_info_li|index:i %}
-                    <th>{{ form.camp_nm.value }}</th>
-                    {% endfor %}
+                    <th colspan="{{ yoil_lect_cnt|index:i }}">{{ form.camp_nm.value }}</th>
                 </tr>
 
                 <tr>
                     <th>요일</th>
-                    {% for k in yoil_info_li|index:i %}
-                    <th>{{ yoil_list|yoil_index:i }}</th>
-                    {% endfor %}
+
+                    <th colspan="{{ yoil_lect_cnt|index:i }}">{{ yoil_list|yoil_index:i }}</th>
+
                 </tr>
                 <tr>
                     <th>과목</th>
