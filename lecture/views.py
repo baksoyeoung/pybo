@@ -415,7 +415,7 @@ def lecture_timetable(request):
 
         time_info = lecture_time(mylecture_list)
 
-        print(mylecture_list)
+        # print(mylecture_list)
 
         # print(time_info[0])
 
