@@ -427,7 +427,7 @@ def lecture_timetable(request):
 
         mylecture_list_order.sort(key=lambda x: x[9])
 
-        print(mylecture_list_order)
+        # print(mylecture_list_order)
 
         mylecture_list = mylecture_list_order
         time_info = lecture_time(mylecture_list)
