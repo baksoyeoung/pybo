@@ -11,8 +11,8 @@ textarea {
 }
 
 #timetable,
-.timetable tr,
-.timetable td {
+#timetable tr,
+#timetable td {
     background-color: white !important;
 }
 
