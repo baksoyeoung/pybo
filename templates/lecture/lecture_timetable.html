@@ -104,15 +104,15 @@
 
                 </tr>
                 <tr>
-                    <th style="text-align:center">과목</th>
+                    <th>과목</th>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-                    <th>{{ yoil_info_li|index:i|index:k|get_subject_name }}</th>
+                    <th style="text-align:center">{{ yoil_info_li|index:i|index:k|get_subject_name }}</th>
                     {% endfor %}
                 </tr>
                 <tr>
                     <th>강사명</th>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-                    <th style="text-aling:center">{{ yoil_info_li|index:i|index:k|get_teacher_name }}</th>
+                    <th style="text-align:center">{{ yoil_info_li|index:i|index:k|get_teacher_name }}</th>
                     {% endfor %}
                 </tr>
 
