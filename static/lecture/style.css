@@ -10,6 +10,12 @@ textarea {
     resize: none;
 }
 
+#timetable,
+.timetable tr,
+.timetable td {
+    background-color: white !important;
+}
+
 #timetable {
     table-layout:fixed;
 }
