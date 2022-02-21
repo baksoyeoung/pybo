@@ -15,5 +15,5 @@ textarea {
 }
 
 #timetable td {
-    word-wrap:break-word;
+    word-break:break-all;
 }
