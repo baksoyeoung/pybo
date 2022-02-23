@@ -23,3 +23,7 @@ textarea {
 #timetable td {
     word-break:break-all;
 }
+
+.select_list {
+    font-size: 13px;
+}

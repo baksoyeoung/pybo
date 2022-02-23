@@ -144,6 +144,8 @@ def lecture_list(request, *args, **kwargs):
         # print("======> POST DATA:", request.POST)
         season_nm = request.POST.get('season_nm')
         camp_nm = request.POST.get('camp_nm')
+        subject = request.POST.get('subject')
+
         if request.user.is_staff:
             name = request.POST.get('name')
         else:
@@ -153,12 +155,15 @@ def lecture_list(request, *args, **kwargs):
         yoil_nm = request.POST.get('yoil_nm')
         set_data = {'season_nm': season_nm,
                     'camp_nm': camp_nm,
+                    'subject': subject,
                     'name': name,
                     'grade': grade_nm,
                     'yoil_nm': yoil_nm,}
 
         f = MylectureListForm(set_data)
         form = f
+
+        print(form)
 
         mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'name')
 
@@ -171,6 +176,7 @@ def lecture_list(request, *args, **kwargs):
             mylecture_list = mylecture_list.filter(
                 Q(season_nm__icontains=season_nm), # 학기검색
                 Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+                Q(subject__icontains=subject), # 과목검색
                 Q(name__icontains=name),  # 강사명검색
                 Q(lect_yoil__contains=yoil_nm), # 요일검색
                 Q(lect_grade__contains=grade_nm) # 학년
@@ -180,6 +186,7 @@ def lecture_list(request, *args, **kwargs):
             mylecture_list = mylecture_list.filter(
                 Q(season_nm__icontains=season_nm),  # 학기검색
                 Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+                Q(subject__icontains=subject), # 과목검색
                 Q(name__icontains=name),  # 강사명검색
                 Q(lect_yoil__contains=yoil_nm),  # 요일검색
                 Q(lect_grade__icontains=grade_nm)  # 학년
@@ -217,6 +224,7 @@ def lecture_list(request, *args, **kwargs):
     if message_list: #수정후 보여질 리스트 (강사)
         set_data = {'season_nm': season_nm,
                     'camp_nm': camp_nm,
+                    'subject': '',
                     'name': name,
                     'grade': '',
                     'yoil_nm': ''}
@@ -234,7 +242,7 @@ def lecture_list(request, *args, **kwargs):
 
 
     context = {'form': form, 'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
-               'mylecture_list': mylecture_list, 'grade_list': grade_list, 'yoil_list': yoil_list,
+               'mylecture_list': mylecture_list, 'grade_list': grade_list, 'subjects_list': subjects_list , 'yoil_list': yoil_list,
                'username': request.user.username, 'staff': staff}
 
     # print("관리자===>", request.user.is_staff)
@@ -414,7 +422,7 @@ def lecture_timetable(request):
         #     print(m)
 
 
-
+        #강사명 으로 순번을 정한다. (국어:(하명래)1, 수학:(조시훈)2, 영어:(이헌하)3, 과학:(이진구)4 ...) 순번으로 리스트 정렬
         mylecture_list_order = []
         for item in mylecture_list:
             for member in teacher_list:

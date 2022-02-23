@@ -8,7 +8,7 @@
             {% csrf_token %}
             <div class="row g-3">
                 <div class="col-md-2">
-                  <select class="form-select" id="season_nm" name="season_nm" required>
+                  <select class="form-select select_list" id="season_nm" name="season_nm" required>
                     <option value="">학기전체...</option>
                     {% if season_list %}
                       {% for season in season_list %}
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-md-2">
-                  <select class="form-select" id="camp_nm" name="camp_nm" required>
+                  <select class="form-select select_list" id="camp_nm" name="camp_nm" required>
                     <option value="">캠퍼스전체...</option>
                     {% if campus_list %}
                       {% for campus in campus_list %}
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="col-md-2">
-                  <select class="form-select" id="grade_nm" name="grade_nm" required>
+                  <select class="form-select select_list" id="grade_nm" name="grade_nm" required>
                     <option value="">학년전체...</option>
                     {% if grade_list %}
                       {% for grade in grade_list %}
@@ -50,8 +50,22 @@
                 </div>
 
                 {% if staff == True %}
-                <div class="col-md-2">
-                  <select class="form-select" id="name" name="name" required>
+                <div class="col-md-1">
+                  <select class="form-select select_list" id="subject" name="subject" required>
+                    <option value="">과목전체...</option>
+                    {% if subjects_list %}
+                      {% for subject in subjects_list %}
+                        <option value="{{ subject.subject_nm }}" {% if subject.subject_nm == form.subject.value %}{{ 'selected' }}{% endif %}>{{ subject.subject_nm }}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-1">
+                  <select class="form-select select_list" id="name" name="name" required>
                     <option value="">강사전체...</option>
                     {% if teacher_list %}
                       {% for teacher in teacher_list %}
@@ -66,7 +80,7 @@
                 {% endif %}
 
                 <div class="col-md-2">
-                  <select class="form-select" id="yoil_nm" name="yoil_nm" required>
+                  <select class="form-select select_list" id="yoil_nm" name="yoil_nm" required>
                     <option value="">요일전체...</option>
                     {% if yoil_list %}
                       {% for yoil in yoil_list %}

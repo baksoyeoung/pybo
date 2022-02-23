@@ -29,6 +29,7 @@ class LectureCreateForm(forms.ModelForm):
 class MylectureListForm(forms.Form):
     season_nm = forms.CharField(max_length=255)
     camp_nm = forms.CharField(max_length=255)
+    subject = forms.CharField(max_length=255)
     name = forms.CharField(max_length=50)
     grade = forms.CharField(max_length=255)
     yoil_nm = forms.CharField(max_length=50)
