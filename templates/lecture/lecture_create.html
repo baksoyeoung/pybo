@@ -276,6 +276,25 @@
           </div>
         </div>
         <!-- end Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="timeterm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">강의입력에러</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>시간설정을 올바르게 해주세요 <span class="badge rounded-pill bg-warning">Error</span></h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+<!--                    <button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end Modal -->
       </div>
     </form>
   </div>
@@ -560,6 +579,36 @@
             if(chceking != 0){
               return false;
             }
+
+            let time1_lenght;
+            //let time2_length;
+
+            time1_lenght = $("input[id=lect_time1").length;
+
+            for (let i=0; i<time1_lenght; i++){
+              let time1is = $("input[id=lect_time1]").eq(i).val();
+              let time2is = $("input[id=lect_time2]").eq(i).val();
+
+              let date1 = new Date('2022-01-01 '+ time1is);
+              let date2 = new Date('2022-01-01 '+ time2is);
+
+              //alert(date2.toLocaleTimeString());
+              if(date1.toLocaleTimeString() == '오전 12:00:00'){
+                date1 = new Date('2022-01-01 23:59:00');
+              }
+
+              if(date2.toLocaleTimeString() == '오전 12:00:00'){
+                date2 = new Date('2022-01-01 23:59:00');
+              }
+
+              let result = date2 - date1
+
+              if (result <= 0){
+                $('#timeterm').modal('show');
+                return false;
+              }
+            }
+
           }
 
           $("form").submit();
