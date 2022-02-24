@@ -9,6 +9,7 @@ yoil_list = yoil.objects.order_by('num')
 def lecture_time(mylecture_list):
 
     info = {}
+    info2 = {}
     teacher = {}
     yoil_teacher ={}
     # print(mylecture_list)
@@ -77,6 +78,12 @@ def lecture_time(mylecture_list):
 
                     #중복이 되지 않게 만듬(월_하명래-국어_0900 = 고1_수능영어-09:00) (월_하명래-국어_0930 = 고1_수능영어-09:00)
                     info[f"{yoil[k]}_{name}-{subject}_{set_time}"] = f"{grade}_{lect_nm}-{info_time}" #강의정보
+
+                    # time_cnt rowspan 값
+                    info_time2 = info_time
+                    characters = ":"  # 강사별시간에서 : 없애준다다
+                    info_time2 = ''.join(x for x in set_time if x not in characters)
+                    info2[f"{yoil[k]}_{name}-{subject}_"] = term
 
                     #요일별 강사정보(key 중복제거됨 dic tpye)
                     teacher[f'{yoil[k]}_{name}-{subject}_'] = f'{yoil[k]}' #요일별강사리스트
@@ -147,4 +154,4 @@ def lecture_time(mylecture_list):
         # print(t2)
 
     #return type info:dic, yoil_dc:dic, yoil_li:list, yoil_lect_cnt:list
-    return info, yoil_dc, yoil_li, yoil_lect_cnt
+    return info, yoil_dc, yoil_li, yoil_lect_cnt, info2

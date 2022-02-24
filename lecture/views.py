@@ -451,7 +451,8 @@ def lecture_timetable(request):
                    'time_info': time_info[0],
                    'yoil_info_dc': time_info[1],
                    'yoil_info_li': time_info[2],
-                   'yoil_lect_cnt': time_info[3]}
+                   'yoil_lect_cnt': time_info[3],
+                   'time_info2': time_info[4]}
 
     else:
         context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
