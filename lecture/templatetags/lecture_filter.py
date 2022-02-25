@@ -1,5 +1,6 @@
 from django import template
 from django.template.defaultfilters import stringfilter
+from datetime import datetime, timedelta
 import re
 
 register = template.Library()
@@ -121,6 +122,19 @@ def time_mapping(value, time):
     time = time[0:5]
     characters = ":"
     time = ''.join(x for x in time if x not in characters)
+    value = (value + time)
+    return value
+
+@register.filter
+def time_mapping_rows(value, time):
+    time = time[0:5]
+    time = datetime.strptime(time, "%H:%M")
+    time = time - timedelta(minutes=30)
+    print(time)
+    time = str(time)
+    characters = ":"
+    time = ''.join(x for x in time if x not in characters)
+    time = time[11:15]
     value = (value + time)
     return value
 

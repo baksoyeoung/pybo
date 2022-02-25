@@ -360,7 +360,11 @@ def lecture_delete(request, lectureinfo_id):
     #     messages.error(request, '삭제권한이 없습니다.')
     #     return redirect('pybo:detail', question_id=question.id)
     lectureinfo.delete()
-    return redirect('lecture:lecture_list')
+    messages.add_message(request, messages.INFO, lectureinfo.season_nm)
+    messages.add_message(request, messages.INFO, lectureinfo.camp_nm)
+    messages.add_message(request, messages.INFO, lectureinfo.name)
+    # return redirect('lecture:lecture_list')
+    return HttpResponseRedirect(reverse(lecture_list))
 
 @login_required(login_url='lecture:login')
 def lecture_timetable(request):
@@ -452,7 +456,7 @@ def lecture_timetable(request):
                    'yoil_info_dc': time_info[1],
                    'yoil_info_li': time_info[2],
                    'yoil_lect_cnt': time_info[3],
-                   'time_info2': time_info[4]}
+                   'rowspans': time_info[4]}
 
     else:
         context = {'season_list': season_list, 'teacher_list': teacher_list, 'campus_list': campus_list,
