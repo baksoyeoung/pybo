@@ -122,15 +122,11 @@
                 <tr>
                     <td width="100">{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-                    {% if yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info != yoil_info_li|index:i|index:k|time_mapping_rows:time.time_nm|get_lecture:time_info %}
-                    <td style="text-align:center" rowspan="{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:rowspans }}" width="150" style="word-break:break-all">
+
+                    <td style="text-align:center" width="150" style="word-break:break-all">
                     <pre>{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|get_lect_name|default_if_none:'' }}</pre>
                     </td>
-                    {% elif yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:rowspans == yoil_info_li|index:i|index:k|time_mapping_rows:time.time_nm|get_lecture:rowspans and yoil_info_li|index:i|index:k|time_mapping_rows:time.time_nm|get_lecture:rowspans != None %}
 
-                    {% else %}
-                    <td width="150" style="word-break:break-all"></td>
-                    {% endif %}
                     {% endfor %}
                 </tr>
                 {% endfor %}
