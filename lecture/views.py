@@ -163,9 +163,9 @@ def lecture_list(request, *args, **kwargs):
         f = MylectureListForm(set_data)
         form = f
 
-        print(form)
+        # print(form)
 
-        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'lect_grade', 'subject', 'name')
+        mylecture_list = Lectureinfo.objects.all().order_by('camp_nm', 'lect_grade', 'subject', 'name')
 
         if grade_nm == '중등전체' or grade_nm == '고등전체':
             if grade_nm == '중등전체':
@@ -202,6 +202,22 @@ def lecture_list(request, *args, **kwargs):
             mylecture_list = mylecture_list.filter(
                 Q(name__icontains=name),  # 강사명검색
             ).distinct()
+
+        # 강사명 으로 순번을 정한다. (국어:(하명래)1, 수학:(조시훈)2, 영어:(이헌하)3, 과학:(이진구)4 ...) 순번으로 리스트 정렬
+        mylecture_list_order = []
+        mylecture_list = list(mylecture_list)
+        for item in mylecture_list:
+            item = list(item)
+            for member in teacher_list:
+                if member.name == item.name:
+                    num = []
+                    num.append(member.num)
+                    mylecture_list_order.append(list(item) + num)
+
+
+        # mylecture_list_order.sort(key=lambda x: x[18])
+        #
+        # mylecture_list = mylecture_list_order
 
         # print(mylecture_list)
         # print(set_data)
