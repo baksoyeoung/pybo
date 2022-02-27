@@ -130,6 +130,8 @@ def lecture_list(request, *args, **kwargs):
 
     # print("======> GET DATA", request.GET)
 
+    # print(request.user.username)
+
     storage = get_messages(request)
     message_list = []
     for message in storage:
@@ -150,6 +152,7 @@ def lecture_list(request, *args, **kwargs):
             name = request.POST.get('name')
         else:
             name = request.user.username
+            subject = ''
 
         grade_nm = request.POST.get('grade_nm')
         yoil_nm = request.POST.get('yoil_nm')
