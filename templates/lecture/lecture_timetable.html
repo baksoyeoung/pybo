@@ -90,7 +90,7 @@
               {% if yoil_info_li %}
               <label for="lect_grade" class="form-label">총 {% if yoil_info_li %}{{ time_info|length }}{% else %}0{% endif %}개</label>
               {% for i in yoil_list|list_cnt_range %}
-              <table id="timetable" class="timetable table-hover table-bordered " style="style="font-size:13px;">
+              <table id="timetable" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px;">
                 <tbody>
 
                 <tr>
@@ -120,10 +120,10 @@
 
                 {% for time in time_list %}
                <tr>
-                    <td width="100" style="text-align:center; font-size:13px;">{{ time.time_nm }}</td>
+                    <td width="100" style="text-align:center;">{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
 
-                    <td width="150" style="word-break:break-all; text-align:center; font-size:13px;">
+                    <td width="150" style="word-break:break-all; text-align:center;">
                     <pre>{{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|get_lect_name|default_if_none:'' }}</pre>
                     </td>
 
