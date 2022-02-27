@@ -35,7 +35,6 @@ def lecture_time(mylecture_list):
         t2 = t2.findall(item[8])
 
         #요일 갯수 만큼 강의명, 요일, 시간을 저장한다.
-
         for k in range(0, len(yoil)):
             mins = 30
             time_1 = datetime.strptime(t1[k], "%H:%M") #시간간격을 구한다
@@ -57,6 +56,8 @@ def lecture_time(mylecture_list):
             # print(name)
             # print(yoil[k])
             # print(term)
+            # print(time_1)
+            # print(time_2)
 
             if term > 0 and type(term) == int:
                 for i in range(0, term):
@@ -86,6 +87,12 @@ def lecture_time(mylecture_list):
                     rowspans[f"{yoil[k]}_{name}-{subject}_{set_time}"] = term
 
 
+    rowspans['수_김동환-수학_2000'] = 6
+    rowspans['수_김동환-수학_2030'] = 6
+    rowspans['수_김동환-수학_2100'] = 6
+    rowspans['수_김동환-수학_2130'] = 6
+    rowspans['수_김동환-수학_2200'] = 6
+    rowspans['수_김동환-수학_2230'] = 6
 
     # print(info.get('월_배동환_영어_21:00')) dic 값 추출
     # print(info)

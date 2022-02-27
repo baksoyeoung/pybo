@@ -232,7 +232,7 @@ def lecture_list(request, *args, **kwargs):
         f = MylectureListForm(set_data)
         form = f
 
-        print(set_data)
+        # print(set_data)
 
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm),  # 학기검색
@@ -444,7 +444,7 @@ def lecture_timetable(request):
         mylecture_list = mylecture_list_order
         time_info = lecture_time(mylecture_list)
 
-        # print(mylecture_list)
+        # print(time_info[4])
 
         # print(time_info[0])
 

@@ -130,7 +130,7 @@ def time_mapping_rows(value, time):
     time = time[0:5]
     time = datetime.strptime(time, "%H:%M")
     time = time - timedelta(minutes=30)
-    print(time)
+    # print(time)
     time = str(time)
     characters = ":"
     time = ''.join(x for x in time if x not in characters)
