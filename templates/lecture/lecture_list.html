@@ -126,19 +126,19 @@
                     {% if mylecture_list %}
                         {% for mylecture in mylecture_list %}
                     <tr>
-                      <th scope="row" class="align-middle">{{ forloop.counter }}</th>
-                      <td class="align-middle">{{ mylecture.camp_nm|cut_text }}</td>
-                      <td class="align-middle">{{ mylecture.season_nm }}</td>
-                      <td class="align-middle">{% for mylecture in mylecture.lect_grade|grade %} {{ mylecture }} {% endfor %}</td>
-                      <td class="align-middle">{{ mylecture.subject }}</td>
+                      <th scope="row" class="align-middle text-center">{{ forloop.counter }}</th>
+                      <td class="align-middle text-center">{{ mylecture.camp_nm|cut_text }}</td>
+                      <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
+                      <td class="align-middle text-center">{% for mylecture in mylecture.lect_grade|grade %} {{ mylecture }} {% endfor %}</td>
+                      <td class="align-middle text-center">{{ mylecture.subject }}</td>
                       <td class="align-middle">{{ mylecture.lect_nm }}</td>
                       {% if staff == True %}
-                        <td class="align-middle">{{ mylecture.name }}</td>
+                        <td class="align-middle text-center">{{ mylecture.name }}</td>
                       {% endif %}
                       {% if mylecture.timeselect == True %}
-                      <td class="align-middle">시간협의</td>
+                      <td class="align-middle text-center">시간협의</td>
                       {% else %}
-                      <td class="align-middle"> <!-- filter 에 yoil_time 사용 -->
+                      <td class="align-middle text-center"> <!-- filter 에 yoil_time 사용 -->
                           {% yoil_time mylecture.lect_yoil mylecture.lect_time mylecture.lect_time2 as timeis %}
                           {% if timeis %}
                               {% for time in timeis %}
@@ -148,11 +148,11 @@
                       {% endif %}
                       </td>
                       {% if mylecture.timeselect == False %}
-                      <td class="align-middle">{{ mylecture.week_cnt }}중 택{{ mylecture.in_cnt }}</td>
+                      <td class="align-middle text-center">{{ mylecture.week_cnt }}중 택{{ mylecture.in_cnt }}</td>
                       {% else %}
-                      <td class="align-middle">협의</td>
+                      <td class="align-middle text-center">협의</td>
                       {% endif %}
-                      <td class="align-middle">{{ mylecture.lect_fee|comma }}</td>
+                      <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}</td>
                       <td class="align-middle">{{ mylecture.lect_fee_explan|linebreaksbr }}</td>
                       <td class="align-middle text-center">
                           <a name="list_{{ mylecture.id }}"></a>
