@@ -90,7 +90,7 @@
               {% if yoil_info_li %}
               <label for="lect_grade" class="form-label">총 {% if yoil_info_li %}{{ time_info|length }}{% else %}0{% endif %}개</label>
               {% for i in yoil_list|list_cnt_range %}
-              <table id="timetable{{ forloop.counter }}" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px;">
+              <table id="timetable{{ forloop.counter }}" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px; background-color:white;">
                 <tbody>
 
                 <tr>
