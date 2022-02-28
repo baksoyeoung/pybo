@@ -90,7 +90,7 @@
               {% if yoil_info_li %}
               <label for="lect_grade" class="form-label">총 {% if yoil_info_li %}{{ time_info|length }}{% else %}0{% endif %}개</label>
               {% for i in yoil_list|list_cnt_range %}
-              <table id="timetable" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px;">
+              <table id="timetable{{ forloop.counter }}" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px;">
                 <tbody>
 
                 <tr>
@@ -122,10 +122,13 @@
                <tr>
                     <td width="100" style="text-align:center;">{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-
+                      {% if yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info == None %}
+                    <td width="150" style="word-break:normal; text-align:center;"></td>
+                      {% else%}
                     <td width="150" style="word-break:normal; text-align:center;">
                     {{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|get_lect_name|linebreaksbr|default_if_none:'' }}
                     </td>
+                      {% endif %}
 
                     {% endfor %}
                 </tr>
@@ -143,6 +146,8 @@
 
     </div>
 </div>
+
+
 {% endblock %}
 {% block script %}
 <script>
@@ -161,11 +166,20 @@
     }); //endready
 
     jQuery(function(){
-      $('#timetable').rowspan(0);
-      $('#timetable').rowspan(1);
-      $('#timetable').rowspan(2);
-      $('#timetable').rowspan(3);
-      $('#timetable').rowspan(4);
+
+      {% if yoil_info_li %}
+        {% for i in yoil_list|list_cnt_range %}
+            {% for j in yoil_lect_cnt|list_cnt_range %}
+                $('#timetable{{i|add:1}}').rowspan({{j|add:1}});
+            {% endfor %}
+        {% endfor %}
+      {% endif %}
+
+      //$('#timetable1').rowspan(0);
+      //$('#timetable1').rowspan(1);
+      //$('#timetable1').rowspan(2);
+      //$('#timetable1').rowspan(3);
+      //$('#timetable1').rowspan(4);
     });
 
     $.fn.rowspan = function(colIdx, isStats) {
@@ -174,9 +188,7 @@
 				$('tr', this).each(function(row) {
 					$('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
 
-						if ($(this).html() == $(that).html() && $(this).html() != '' && $(that).html() != ''
-							&& (!isStats || isStats && $(this).prev().html() == $(that).prev().html())){
-                            //alert($(this).html());
+						if ($(this).html() == $(that).html() && $(this).html() != ''){
 							rowspan = $(that).attr("rowspan") || 1;
 							rowspan = Number(rowspan)+1;
 
