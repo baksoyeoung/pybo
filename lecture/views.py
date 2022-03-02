@@ -369,6 +369,7 @@ def lecture_delete(request, lectureinfo_id):
     # return redirect('lecture:lecture_list')
     return HttpResponseRedirect(reverse(lecture_list))
 
+
 @login_required(login_url='lecture:login')
 def lecture_timetable(request):
 

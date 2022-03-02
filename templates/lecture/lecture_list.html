@@ -152,7 +152,7 @@
                       {% else %}
                       <td class="align-middle text-center">협의</td>
                       {% endif %}
-                      <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}</td>
+                        <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span style="cursor:pointer" data-columns="{{ forloop.counter0 }}" class="explain-btn small"><small>강의설명보기</small></span></td>
                       <td class="align-middle">{{ mylecture.lect_fee_explan|linebreaksbr }}</td>
                       <td class="align-middle text-center">
                           <a name="list_{{ mylecture.id }}"></a>
@@ -177,6 +177,30 @@
     </div>
 </div>
 
+{% if mylecture_list %}
+    {% for mylecture in mylecture_list %}
+<!-- Modal -->
+<div class="modal fade" id="explain{{ forloop.counter0 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel">강의설명</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>강의설명</h5>
+        {{ mylecture.lect_explan|linebreaksbr }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
+    {% endfor %}
+{% endif %}
+
 
 {% endblock %}
 {% block script %}
@@ -186,6 +210,13 @@
             if(confirm("정말로 삭제하시겠습니까?")) {
                 location.href = $(this).data('uri');
             }
+        });
+
+        $('.explain-btn').on('click', function(){
+            //alert($(this).data('columns'));
+            let modalid = '#explain' + $(this).data('columns');
+            //alert(modalid);
+            $(""+ modalid +"").modal("show")
         });
 
 

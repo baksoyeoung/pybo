@@ -90,7 +90,7 @@
               {% if yoil_info_li %}
               <label for="lect_grade" class="form-label">총 {% if yoil_info_li %}{{ time_info|length }}{% else %}0{% endif %}개</label>
               {% for i in yoil_list|list_cnt_range %}
-              <table id="timetable" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px;">
+              <table id="timetable{{ forloop.counter }}" class="timetable table-hover table-bordered" style="white-space:nomal; font-size:13px; background-color:white;">
                 <tbody>
 
                 <tr>
@@ -122,10 +122,13 @@
                <tr>
                     <td width="100" style="text-align:center;">{{ time.time_nm }}</td>
                     {% for k in yoil_info_li|index:i|list_cnt_range %}
-
+                      {% if yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info == None %}
+                    <td width="150" style="word-break:normal; text-align:center;"></td>
+                      {% else%}
                     <td width="150" style="word-break:normal; text-align:center;">
                     {{ yoil_info_li|index:i|index:k|time_mapping:time.time_nm|get_lecture:time_info|get_lect_name|linebreaksbr|default_if_none:'' }}
                     </td>
+                      {% endif %}
 
                     {% endfor %}
                 </tr>
@@ -143,6 +146,8 @@
 
     </div>
 </div>
+
+
 {% endblock %}
 {% block script %}
 <script>
@@ -160,6 +165,51 @@
         });
     }); //endready
 
+    jQuery(function(){
+
+      {% if yoil_info_li %}
+        {% for i in yoil_list|list_cnt_range %}
+            {% for j in yoil_lect_cnt|list_cnt_range %}
+                $('#timetable{{i|add:1}}').rowspan({{j|add:1}});
+            {% endfor %}
+        {% endfor %}
+      {% endif %}
+
+      //$('#timetable1').rowspan(0);
+      //$('#timetable1').rowspan(1);
+      //$('#timetable1').rowspan(2);
+      //$('#timetable1').rowspan(3);
+      //$('#timetable1').rowspan(4);
+    });
+
+    $.fn.rowspan = function(colIdx, isStats) {
+			return this.each(function(){
+				var that;
+				$('tr', this).each(function(row) {
+					$('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+
+						if ($(this).html() == $(that).html() && $(this).html() != ''){
+							rowspan = $(that).attr("rowspan") || 1;
+							rowspan = Number(rowspan)+1;
+
+							$(that).attr("rowspan",rowspan);
+
+							// do your action for the colspan cell here
+							$(this).hide();
+
+							//$(this).remove();
+							// do your action for the old cell here
+
+						} else {
+							that = this;
+						}
+
+						// set the that if not already set
+						that = (that == null) ? this : that;
+					});
+				});
+			});
+		};
 
 </script>
 {% endblock %}

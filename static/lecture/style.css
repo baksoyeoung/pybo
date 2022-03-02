@@ -10,9 +10,9 @@ textarea {
     resize: none;
 }
 
-#timetable,
-#timetable tr,
-#timetable td {
+#timetable1,
+#timetable1 tr,
+#timetable1 td {
     background-color: white !important;
 }
 
