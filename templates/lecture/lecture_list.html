@@ -152,7 +152,11 @@
                       {% else %}
                       <td class="align-middle text-center">협의</td>
                       {% endif %}
-                        <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span style="cursor:pointer" data-columns="{{ forloop.counter0 }}" class="explain-btn small"><small>강의설명보기</small></span></td>
+                      {% if mylecture.lect_explan %}
+                      <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span style="cursor:pointer" data-columns="{{ forloop.counter0 }}" class="explain-btn small"><small>강의설명보기</small></span></td>
+                      {% else%}
+                      <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span class="small"><small>강의설명없음</small></span></td>
+                      {% endif %}
                       <td class="align-middle">{{ mylecture.lect_fee_explan|linebreaksbr }}</td>
                       <td class="align-middle text-center">
                           <a name="list_{{ mylecture.id }}"></a>
@@ -177,6 +181,7 @@
     </div>
 </div>
 
+
 {% if mylecture_list %}
     {% for mylecture in mylecture_list %}
 <!-- Modal -->
@@ -200,7 +205,6 @@
 <!-- end Modal -->
     {% endfor %}
 {% endif %}
-
 
 {% endblock %}
 {% block script %}
