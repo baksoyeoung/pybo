@@ -44,20 +44,21 @@ def lecture_time(mylecture_list):
                 time_2 = datetime.strptime('23:59', "%H:%M")
 
             time_interval = time_2 - time_1
-            # print(time_interval)
+            print(time_interval)
             term = time_interval / 30
             term = str(term)
-            # print(term)
-            term = int(term[3:4])
+            print(term)
+            # 0: 13:58
+            term = int(term[2:4])
 
             if(str(time_2) == '1900-01-01 23:59:00'): #time2 가 00:00:00 이면 term에 +1 해준다
                 term = term + 1
 
-            # print(name)
-            # print(yoil[k])
-            # print(term)
-            # print(time_1)
-            # print(time_2)
+            print(name)
+            print(yoil[k])
+            print(term)
+            print(time_1)
+            print(time_2)
 
             if term > 0 and type(term) == int:
                 for i in range(0, term):
@@ -86,13 +87,6 @@ def lecture_time(mylecture_list):
                     # time_cnt rowspan 값
                     rowspans[f"{yoil[k]}_{name}-{subject}_{set_time}"] = term
 
-
-    rowspans['수_김동환-수학_2000'] = 6
-    rowspans['수_김동환-수학_2030'] = 6
-    rowspans['수_김동환-수학_2100'] = 6
-    rowspans['수_김동환-수학_2130'] = 6
-    rowspans['수_김동환-수학_2200'] = 6
-    rowspans['수_김동환-수학_2230'] = 6
 
     # print(info.get('월_배동환_영어_21:00')) dic 값 추출
     # print(info)
