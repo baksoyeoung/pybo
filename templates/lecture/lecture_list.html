@@ -153,7 +153,7 @@
                       <td class="align-middle text-center">협의</td>
                       {% endif %}
                       {% if mylecture.lect_explan %}
-                      <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span style="cursor:pointer" data-columns="{{ forloop.counter0 }}" class="explain-btn small"><small>강의설명보기</small></span></td>
+                      <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span style="cursor:pointer" data-columns="{{ forloop.counter0 }}" class="explain-btn small"><small style="color:blue;">강의설명보기</small></span></td>
                       {% else%}
                       <td class="align-middle text-center">{{ mylecture.lect_fee|comma }}<br><span class="small"><small>강의설명없음</small></span></td>
                       {% endif %}
