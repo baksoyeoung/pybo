@@ -130,7 +130,7 @@
                       <td class="align-middle text-center">{{ mylecture.camp_nm|cut_text }}</td>
                       <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
                       <td class="align-middle text-center">{% for mylecture in mylecture.lect_grade|grade %} {{ mylecture }} {% endfor %}</td>
-                      <td class="align-middle text-center">{{ mylecture.subject }}<br>수정일:{{ mylecture.modify_date|date:"Y-m-d hh:mm" }}</td>
+                      <td class="align-middle text-center">{{ mylecture.subject }}<br>수정일:{{ mylecture.modify_date|date:"Y-m-d f" }}</td>
                       <td class="align-middle">{{ mylecture.lect_nm }}</td>
                       {% if staff == True %}
                         <td class="align-middle text-center">{{ mylecture.name }}</td>
