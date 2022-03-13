@@ -168,7 +168,7 @@ def lecture_list(request, *args, **kwargs):
 
         # print(form)
 
-        mylecture_list = Lectureinfo.objects.all().order_by('camp_nm', 'display_order', 'lect_grade', 'subject', 'name')
+        mylecture_list = Lectureinfo.objects.all().order_by('camp_nm', 'display_order', 'name', 'lect_grade', 'subject')
 
         if grade_nm == '중등전체' or grade_nm == '고등전체':
             if grade_nm == '중등전체':
@@ -212,7 +212,7 @@ def lecture_list(request, *args, **kwargs):
 
     else:
         form = MylectureListForm()
-        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'display_order', 'lect_grade', 'subject', 'name')
+        mylecture_list = Lectureinfo.objects.order_by('camp_nm', 'display_order', 'name', 'lect_grade', 'subject')
 
         if request.user.is_staff:
             mylecture_list = mylecture_list
