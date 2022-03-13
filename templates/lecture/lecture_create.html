@@ -213,6 +213,18 @@
           </div>
         </div>
 
+        {% if staff == True %}
+        <div class="col-sm-3">
+          <label for="display_order" class="form-label">표순</label>
+          <div class="input-group has-validation">
+            <input type="number" class="form-control" id="display_order" name="display_order" placeholder="숫자만입력" value="{{ form.display_order.value|default_if_none:'' }}">
+            <div class="invalid-feedback">
+              Valid last name is required.
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
       <hr class="my-4">
       {% if lecture_modify_state  != "view"  %}
       <button class="w-100 btn btn-primary btn-lg insert" type="submit">강의추가하기</button>

@@ -4,7 +4,7 @@ from lecture.models import Lectureinfo
 class LectureCreateForm(forms.ModelForm):
     class Meta:
         model = Lectureinfo #사용할 모델
-        fields = ["season_nm", "camp_nm", "subject", "lect_grade", "name", "lect_nm", "lect_explan", "timeselect", "lect_yoil", "lect_time", "lect_time2", "week_cnt", "in_cnt", "lect_fee", "lect_fee_explan", "science"]
+        fields = ["season_nm", "camp_nm", "subject", "lect_grade", "name", "lect_nm", "lect_explan", "timeselect", "lect_yoil", "lect_time", "lect_time2", "week_cnt", "in_cnt", "lect_fee", "lect_fee_explan", "science", "display_order"]
         # fields = '__all__'
 
         labels = {
@@ -24,6 +24,7 @@ class LectureCreateForm(forms.ModelForm):
             'lect_fee': '수강료',
             'lect_fee_explan': '수강료추가설명',
             'science': '과학세부항목',
+            'display_order': '표시순서'
         }
 
 class MylectureListForm(forms.Form):
