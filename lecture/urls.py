@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.lecture_home, name='index'),
     path('lecture/create', views.lecture_create, name='lecture_create'),
     path('lecture/timetable', views.lecture_timetable, name='lecture_timetable'),
+    path('lecture/form', views.lecture_form, name='lecture_form'),
     path('lecture/list', views.lecture_list, name='lecture_list'),
     path('lecture/modify/<int:lectureinfo_id>/', views.lecture_modify, name='lecture_modify'),
     path('lecture/delete/<int:lectureinfo_id>/', views.lecture_delete, name='lecture_delete'),

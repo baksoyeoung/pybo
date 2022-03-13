@@ -1,0 +1,181 @@
+{% extends 'lecture/lecture_base.html' %}
+{% load lecture_filter %}
+{% block content %}
+<div class="row g-5 justify-content-center">
+    <div class="col-md-12 col-lg-12">
+        <h4 class="mb-3">수강신청서</h4>
+        <form  name="lecture_info" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-2">
+                  <select class="form-select select_list" id="season_nm" name="season_nm" required>
+                    <option value="">(필수)학기전체...</option>
+                    {% if season_list %}
+                      {% for season in season_list %}
+                        <option value="{{season.season_nm}}" {% if season.season_nm == form.season_nm.value %}{{ 'selected' }}{% endif %}>{{season.season_nm}}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <select class="form-select select_list" id="camp_nm" name="camp_nm" required>
+                    <option value="">(필수)캠퍼스전체...</option>
+                    {% if campus_list %}
+                      {% for campus in campus_list %}
+                        <option value="{{campus.camp_nm}}" {% if campus.camp_nm == form.camp_nm.value %}{{ 'selected' }}{% endif %}>{{campus.camp_nm}}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <select class="form-select select_list" id="grade_nm" name="grade_nm" required>
+                    <option value="">(필수)학년선택...</option>
+                    {% if grade_list %}
+                      {% for grade in grade_list %}
+                        {% if grade.grade_nm != '중등전체' and grade.grade_nm != '고등전체' %}
+                        <option value="{{grade.grade_nm}}" {% if grade.grade_nm == form.grade.value %}{{ 'selected' }}{% endif %}>{{grade.grade_nm}}</option>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <select class="form-select select_list" id="subject" name="subject" required>
+                    <option value="">과목전체...</option>
+                    {% if subjects_list %}
+                      {% for subject in subjects_list %}
+                        <option value="{{ subject.subject_nm }}" {% if subject.subject_nm == form.subject.value %}{{ 'selected' }}{% endif %}>{{ subject.subject_nm }}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <select class="form-select select_list" id="name" name="name" required>
+                    <option value="">강사전체...</option>
+                    {% if teacher_list %}
+                      {% for teacher in teacher_list %}
+                        <option value="{{ teacher.name }}" {% if teacher.name == form.name.value %}{{ 'selected' }}{% endif %}>{{ teacher.name }}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid country.
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <button type="button" class="btn btn-warning search-btn">검색</button>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-12">
+              <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label>
+              <table class="table table-hover table-sm table-bordered" style="font-size:13px;" id="lecture_table">
+                  <thead>
+                    <tr>
+                      <th scope="col">과목</th>
+                      <th scope="col" class="text-center">강사명</th>
+                      <th scope="col" class="text-center">강의명</th>
+                      <th scope="col" class="text-center">시간선택</th>
+                      <th scope="col" class="text-center">비고</th>
+                      <th scope="col" class="text-center">수강료</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if mylecture_list %}
+                        {% for mylecture in mylecture_list %}
+                    <tr>
+                      <th scope="row" class="align-middle text-center">{{ mylecture.subject }}</th>
+                      <td class="align-middle text-center">{{ mylecture.camp_nm|cut_text }}</td>
+                      <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
+                      <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
+                     <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
+                     <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
+                    </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr><td class="align-middle text-center" colspan="6">강의가 없습니다.</td></tr>
+                    {% endif %}
+                  </tbody>
+              </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% if mylecture_list %}
+    {% for mylecture in mylecture_list %}
+<!-- Modal -->
+<div class="modal fade" id="explain{{ forloop.counter0 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel">강의설명</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>{{ mylecture.lect_nm }}</h5>
+        {{ mylecture.lect_explan|linebreaksbr }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $('.explain-btn').on('click', function(){
+            //alert($(this).data('columns'));
+            let modalid = '#explain' + $(this).data('columns');
+            //alert(modalid);
+            $(""+ modalid +"").modal("show")
+        });
+
+
+        $('.search-btn').on('click',function(){
+//            if ($("#season_nm").val() == ""){
+//                 $("#season_nm").focus();
+//                  return false;
+//            }
+//            if ($("#camp_nm").val() == ""){
+//                 $("#camp_nm").focus();
+//                  return false;
+//            }
+//            if ($("#grade_nm").val() == ""){
+//                 $("#grade_nm").focus();
+//                  return false;
+//            }
+            $('form').submit();
+        });
+    }); //endready
+</script>
+{% endblock %}

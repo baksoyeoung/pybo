@@ -470,6 +470,41 @@ def lecture_timetable(request):
     return render(request, 'lecture/lecture_timetable.html', context)
 
 
+def lecture_form(request):
+
+    if request.method == "POST":
+        # print("======> POST DATA:", request.POST)
+        season_nm = request.POST.get('season_nm')
+        camp_nm = request.POST.get('camp_nm')
+        subject = request.POST.get('subject')
+        name = request.POST.get('name')
+        grade_nm = request.POST.get('grade_nm')
+        yoil_nm = request.POST.get('yoil_nm')
+        set_data = {'season_nm': season_nm,
+                    'camp_nm': camp_nm,
+                    'subject': subject,
+                    'name': name,
+                    'grade': grade_nm,
+                    'yoil_nm': yoil_nm,}
+
+        f = MylectureListForm(set_data)
+        form = f
+
+        mylecture_list = Lectureinfo.objects.all().order_by('camp_nm', 'subject', 'display_order', 'name', 'lect_grade')
+
+        mylecture_list = mylecture_list.filter(
+            Q(season_nm__icontains=season_nm),  # 학기검색
+            Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
+            Q(name__icontains=name),  # 강사명검색
+            Q(lect_grade__icontains=grade_nm)  # 학년
+
+        ).distinct().values_list('subject', 'name', 'lect_nm', 'lect_time', 'lect_time2')
+
+    context = {'form': form, 'mylecture_list': mylecture_list, 'season_list': season_list, 'teacher_list': teacher_list,
+               'campus_list': campus_list, 'grade_list': grade_list, 'subjects_list': subjects_list}
+    return render(request, 'lecture/lecture_form.html', context)
+
+
 
 
 
