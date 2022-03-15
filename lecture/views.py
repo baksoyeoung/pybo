@@ -15,6 +15,7 @@ from django.core import serializers
 import json
 import re
 from .lecturefunc import lecture_time
+from itertools import chain
 
 
 # Create your views here.
@@ -27,6 +28,8 @@ science_list = science.objects.order_by('num')
 grade_list = grade.objects.order_by('num')
 yoil_list = yoil.objects.order_by('num')
 time_list = time.objects.order_by('num')
+
+
 
 def lecture_home(request):
 
@@ -469,7 +472,7 @@ def lecture_timetable(request):
 
     return render(request, 'lecture/lecture_timetable.html', context)
 
-
+@login_required(login_url='lecture:login')
 def lecture_form(request):
 
     if request.method == "POST":
@@ -484,13 +487,20 @@ def lecture_form(request):
                     'camp_nm': camp_nm,
                     'subject': subject,
                     'name': name,
-                    'grade': grade_nm,
-                    'yoil_nm': yoil_nm,}
+                    'grade': grade_nm,}
 
         f = MylectureListForm(set_data)
         form = f
 
-        mylecture_list = Lectureinfo.objects.all().order_by('camp_nm', 'subject', 'display_order', 'name', 'lect_grade')
+        mylecture_list = Lectureinfo.objects.all().order_by('display_order', 'subject', 'name', 'lect_grade')
+
+        # q1 = Teacher.objects.all()
+        # q2 = Lectureinfo.objects.all()
+        #
+        # report = list(chain(q1, q2))
+        # print(report)
+
+        # Question.objects.prefetch_related('choices')
 
         mylecture_list = mylecture_list.filter(
             Q(season_nm__icontains=season_nm),  # 학기검색
@@ -498,10 +508,30 @@ def lecture_form(request):
             Q(name__icontains=name),  # 강사명검색
             Q(lect_grade__icontains=grade_nm)  # 학년
 
-        ).distinct().values_list('subject', 'name', 'lect_nm', 'lect_time', 'lect_time2')
+        ).distinct().values_list('season_nm', 'camp_nm', 'name', 'subject', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2', 'display_order', 'week_cnt', 'in_cnt', 'lect_fee')
 
-    context = {'form': form, 'mylecture_list': mylecture_list, 'season_list': season_list, 'teacher_list': teacher_list,
-               'campus_list': campus_list, 'grade_list': grade_list, 'subjects_list': subjects_list}
+        mylecture_list_order = []
+        for item in mylecture_list:
+            for member in teacher_list:
+                if member.name == item[2]:
+                    num = []
+                    num.append(member.num)
+                    mylecture_list_order.append(list(item) + num)
+
+        # mylecture_list_order.sort(key=lambda x: x[9])
+        # f = sorted(e, key=lambda x: (x[0], -x[1]))
+
+        mylecture_list = sorted(mylecture_list_order, key=lambda x: (x[13], x[9]))
+
+        # print(mylecture_list)
+
+        context = {'form': form, 'mylecture_list': mylecture_list, 'season_list': season_list, 'teacher_list': teacher_list,
+                        'campus_list': campus_list, 'grade_list': grade_list, 'subjects_list': subjects_list}
+
+    else:
+        context = {'season_list': season_list, 'teacher_list': teacher_list,
+                        'campus_list': campus_list, 'grade_list': grade_list, 'subjects_list': subjects_list}
+
     return render(request, 'lecture/lecture_form.html', context)
 
 

@@ -223,6 +223,16 @@
             </div>
           </div>
         </div>
+
+        <div class="col-sm-4">
+          <label for="lect_bigo" class="form-label">비고</label>
+          <div class="input-group has-validation">
+            <textarea style="font-size:13px; height:100%" class="form-control autosize" id="lect_bigo" name="lect_bigo" placeholder="비고">{{ form.lect_fee_explan.value|default_if_none:'' }}</textarea>
+            <div class="invalid-feedback">
+              Valid last name is required.
+            </div>
+          </div>
+        </div>
         {% endif %}
 
       <hr class="my-4">
