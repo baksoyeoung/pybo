@@ -73,6 +73,7 @@ class Lectureinfo(models.Model):
     create_date = models.DateTimeField()          #생성날짜시간
     modify_date = models.DateTimeField(null=True, blank=True) #수정날짜시간
     display_order = models.IntegerField(null=True, blank=True) #표시순선
+    lect_bigo = models.TextField(null=True, blank=True) #비고
 
     def __str__(self):
         return (self.lect_nm)

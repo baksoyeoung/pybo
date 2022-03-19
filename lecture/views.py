@@ -508,7 +508,7 @@ def lecture_form(request):
             Q(name__icontains=name),  # 강사명검색
             Q(lect_grade__icontains=grade_nm)  # 학년
 
-        ).distinct().values_list('season_nm', 'camp_nm', 'name', 'subject', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2', 'display_order', 'week_cnt', 'in_cnt', 'lect_fee', 'timeselect')
+        ).distinct().values_list('season_nm', 'camp_nm', 'name', 'subject', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2', 'display_order', 'week_cnt', 'in_cnt', 'lect_fee', 'timeselect', 'lect_bigo')
 
         mylecture_list_order = []
         for item in mylecture_list:
@@ -521,7 +521,7 @@ def lecture_form(request):
         # mylecture_list_order.sort(key=lambda x: x[9])
         # f = sorted(e, key=lambda x: (x[0], -x[1]))
 
-        mylecture_list = sorted(mylecture_list_order, key=lambda x: (x[14], x[9]))
+        mylecture_list = sorted(mylecture_list_order, key=lambda x: (x[15], x[9]))
 
         # print(mylecture_list)
 
