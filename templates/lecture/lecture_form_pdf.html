@@ -1,0 +1,95 @@
+{% load lecture_filter %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS 5.1.3-->
+    <link rel="stylesheet" type="text/css" href="{% static 'lecture/bootstrap5.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lecture/bootstrap.min.css.map' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lecture/style.css' %}">
+
+    <title>학기별시간표</title>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+</head>
+
+<body class="bg-light">
+
+<div class="row g-5 justify-content-center">
+    <div class="col-md-12 col-lg-12">
+        <h4 class="mb-3">수강신청서</h4>
+
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-11">
+              <!-- <label for="lect_grade" class="form-label">총 {% if mylecture_list.count  %}{{ mylecture_list.count }}{% else %}0{% endif %}개</label> -->
+              <table id="lecture_table" style="border:1px solid #cccccc;">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-center">과목</th>
+                      <th scope="col" class="text-center">강사명</th>
+                      <th scope="col" class="text-center">강의명</th>
+                      <th scope="col" class="text-center">시간선택</th>
+                      <th scope="col" class="text-center">비고</th>
+                      <th scope="col" class="text-center">수강료(원)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if mylecture_list %}
+                        {% for mylecture in mylecture_list %}
+                    <tr>
+                      <td scope="row" class="align-middle text-center">{{ mylecture|index:3 }}</td>
+                      <td class="align-middle text-center">{{ mylecture|index:2 }}</td>
+                      <td class="align-middle">{{ mylecture|index:4 }}</td>
+                      {% if mylecture|index:13 == True %}
+                      <td class="align-middle text-center">시간협의</td>
+                      {% else %}
+                      <td class="align-middle text-center"> <!-- filter 에 yoil_time 사용 -->
+                          {% yoil_time mylecture|index:6 mylecture|index:7 mylecture|index:8 as timeis %}
+                          {% if timeis %}
+                              {% for time in timeis %}
+                                □&nbsp;{{ time }}<br>
+                              {% endfor %}
+                          {% endif %}
+                      {% endif %}
+                      {% if mylecture|index:13 == False %}
+                      ({{ mylecture|index:10 }}중 택{{ mylecture|index:11 }})
+                      {% endif %}
+                      </td>
+                     <td class="align-middle text-center">{{ mylecture|index:14|default_if_none:''|linebreaksbr }}</td>
+                        <td class="align-middle text-center"><h5><span class="badge bg-danger">{{ mylecture|index:12|comma }}</span></h5></td>
+                    </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr><td class="align-middle text-center" colspan="6">강의가 없습니다.</td></tr>
+                    {% endif %}
+                  </tbody>
+              </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

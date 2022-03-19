@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.template.response import TemplateResponse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages import get_messages
@@ -14,8 +14,13 @@ from django.template import RequestContext
 from django.core import serializers
 import json
 import re
+from .lectureformlist import mylecture_form_list
 from .lecturefunc import lecture_time
-from itertools import chain
+from django.http import HttpResponse
+from django.views.generic import View
+from .process import html_to_pdf
+from django.template.loader import render_to_string
+
 
 
 # Create your views here.
@@ -492,38 +497,7 @@ def lecture_form(request):
         f = MylectureListForm(set_data)
         form = f
 
-        mylecture_list = Lectureinfo.objects.all().order_by('display_order', 'subject', 'name', 'lect_grade')
-
-        # q1 = Teacher.objects.all()
-        # q2 = Lectureinfo.objects.all()
-        #
-        # report = list(chain(q1, q2))
-        # print(report)
-
-        # Question.objects.prefetch_related('choices')
-
-        mylecture_list = mylecture_list.filter(
-            Q(season_nm__icontains=season_nm),  # 학기검색
-            Q(camp_nm__icontains=camp_nm),  # 캠퍼스검색
-            Q(name__icontains=name),  # 강사명검색
-            Q(lect_grade__icontains=grade_nm)  # 학년
-
-        ).distinct().values_list('season_nm', 'camp_nm', 'name', 'subject', 'lect_nm', 'lect_grade', 'lect_yoil', 'lect_time', 'lect_time2', 'display_order', 'week_cnt', 'in_cnt', 'lect_fee', 'timeselect', 'lect_bigo')
-
-        mylecture_list_order = []
-        for item in mylecture_list:
-            for member in teacher_list:
-                if member.name == item[2]:
-                    num = []
-                    num.append(member.num)
-                    mylecture_list_order.append(list(item) + num)
-
-        # mylecture_list_order.sort(key=lambda x: x[9])
-        # f = sorted(e, key=lambda x: (x[0], -x[1]))
-
-        mylecture_list = sorted(mylecture_list_order, key=lambda x: (x[15], x[9]))
-
-        # print(mylecture_list)
+        mylecture_list = mylecture_form_list(season_nm, camp_nm, subject, name, grade_nm)
 
         context = {'form': form, 'mylecture_list': mylecture_list, 'season_list': season_list, 'teacher_list': teacher_list,
                         'campus_list': campus_list, 'grade_list': grade_list, 'subjects_list': subjects_list}
@@ -533,6 +507,29 @@ def lecture_form(request):
                         'campus_list': campus_list, 'grade_list': grade_list, 'subjects_list': subjects_list}
 
     return render(request, 'lecture/lecture_form.html', context)
+
+
+# Creating a class based view
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+
+        season_nm = request.GET['season_nm']
+        camp_nm = request.GET['camp_nm']
+        subject = request.GET['subject']
+        name = request.GET['name']
+        grade_nm = request.GET['grade_nm']
+
+        mylecture_list = mylecture_form_list(season_nm, camp_nm, subject, name, grade_nm)
+        # data = models.Employees.objects.all().order_by('first_name')
+
+        open('templates/temp.html', "w", encoding="UTF-8").write(render_to_string('lecture/lecture_form_pdf.html', {'mylecture_list': mylecture_list}))
+
+        # Converting the HTML template into a PDF file
+        pdf = html_to_pdf('temp.html')
+
+        # rendering the template mimetype="text/html; charset=utf-8"
+        return HttpResponse(pdf, content_type='application/pdf')
+
 
 
 
