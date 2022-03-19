@@ -97,7 +97,7 @@
                       <th scope="col" class="text-center">강의명</th>
                       <th scope="col" class="text-center">시간선택</th>
                       <th scope="col" class="text-center">비고</th>
-                      <th scope="col" class="text-center">수강료</th>
+                      <th scope="col" class="text-center">수강료(원)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -123,7 +123,7 @@
                       {% endif %}
                       </td>
                      <td class="align-middle text-center">{{ mylecture.season_nm }}</td>
-                     <td class="align-middle text-center">{{ mylecture|index:12 }}</td>
+                     <td class="align-middle text-center">{{ mylecture|index:12|comma }}</td>
                     </tr>
                         {% endfor %}
                     {% else %}
