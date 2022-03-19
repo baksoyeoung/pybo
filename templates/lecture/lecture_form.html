@@ -107,7 +107,7 @@
                       <td scope="row" class="align-middle text-center">{{ mylecture|index:3 }}</td>
                       <td class="align-middle text-center">{{ mylecture|index:2 }}</td>
                       <td class="align-middle text-center">{{ mylecture|index:4 }}</td>
-                      {% if mylecture.timeselect == True %}
+                      {% if mylecture|index:13 == True %}
                       <td class="align-middle text-center">시간협의</td>
                       {% else %}
                       <td class="align-middle text-center"> <!-- filter 에 yoil_time 사용 -->
