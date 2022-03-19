@@ -122,7 +122,7 @@
                       ({{ mylecture|index:10 }}중 택{{ mylecture|index:11 }})
                       {% endif %}
                       </td>
-                     <td class="align-middle text-center">{{ mylecture|index:14|linebreaksbr|default_if_none:'' }}</td>
+                     <td class="align-middle text-center">{{ mylecture|index:14|default_if_none:''|linebreaksbr }}</td>
                         <td class="align-middle text-center"><h5><span class="badge bg-danger">{{ mylecture|index:12|comma }}</span></h5></td>
                     </tr>
                         {% endfor %}
