@@ -30,4 +30,6 @@ def mylecture_form_list(season_nm, camp_nm, subject, name, grade_nm):
 
     mylecture_list = sorted(mylecture_list_order, key=lambda x: (x[15], x[9]))
 
+    mylecture_list = mylecture_list
+
     return mylecture_list

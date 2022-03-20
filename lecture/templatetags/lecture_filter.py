@@ -194,3 +194,7 @@ def get_lect_name(value):
     else:
         p = ''
     return p
+
+@register.filter
+def utf8(value):
+    return value

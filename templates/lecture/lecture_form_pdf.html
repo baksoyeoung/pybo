@@ -13,23 +13,32 @@
     <link rel="stylesheet" type="text/css" href="{% static 'lecture/bootstrap.min.css.map' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'lecture/style.css' %}">
 
-    <title>학기별시간표</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet">
+
 
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+      body {
+        font-family: 'Black And White Picture', sans-serif;
+        font-size: 13px;
       }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+      p.a {
+        font-weight: 400;
+      }
+      p.b {
+        font-weight: 700;
+      }
+      p.c {
+        font-weight: 800;
+      }
+      p.d {
+        font-weight: bold;
       }
     </style>
+
+    <title>수강신청서</title>
+
+
 </head>
 
 <body class="bg-light">
@@ -57,7 +66,7 @@
                     {% if mylecture_list %}
                         {% for mylecture in mylecture_list %}
                     <tr>
-                      <td scope="row" class="align-middle text-center">{{ mylecture|index:3 }}</td>
+                      <td scope="row" class="align-middle text-center">{{ mylecture|index:3|utf8 }}</td>
                       <td class="align-middle text-center">{{ mylecture|index:2 }}</td>
                       <td class="align-middle">{{ mylecture|index:4 }}</td>
                       {% if mylecture|index:13 == True %}

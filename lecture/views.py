@@ -522,7 +522,7 @@ class GeneratePdf(View):
         mylecture_list = mylecture_form_list(season_nm, camp_nm, subject, name, grade_nm)
         # data = models.Employees.objects.all().order_by('first_name')
 
-        open('templates/temp.html', "w", encoding="UTF-8").write(render_to_string('lecture/lecture_form_pdf.html', {'mylecture_list': mylecture_list}))
+        open('templates/temp.html', "w", encoding="utf-8").write(render_to_string('lecture/lecture_form_pdf.html', {'mylecture_list': mylecture_list}))
 
         # Converting the HTML template into a PDF file
         pdf = html_to_pdf('temp.html')
