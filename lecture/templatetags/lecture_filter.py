@@ -116,6 +116,10 @@ def list_cnt_range(value):
     a = len(value)
     return range(0,a)
 
+@register.filter
+def list_cnt_range2(value):
+    a = value
+    return range(0,a)
 
 
 @register.filter
