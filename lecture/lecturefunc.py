@@ -134,8 +134,9 @@ def lecture_time(mylecture_list):
         yoil_lect_cnt.append(len(yoil_li[i]))
 
 
-    # print(type(yoil_lect_cnt[0]))
+    #print(type(yoil_lect_cnt[0]))
     # print(yoil_teacher)
+    print(yoil_lect_cnt)
 
 
         # 월_하명래_국어_0830 = '고1\n수능국어'
