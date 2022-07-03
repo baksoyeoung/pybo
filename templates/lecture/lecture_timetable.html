@@ -169,9 +169,8 @@
 
       {% if yoil_info_li %}
         {% for i in yoil_list|list_cnt_range %}
-            {% for j in yoil_lect_cnt|list_cnt_range %}
+            {% for j in yoil_lect_cnt|index:i|list_cnt_range %}
                 $('#timetable{{i|add:1}}').rowspan({{j|add:1}});
-                alert({{j|add:1}});
             {% endfor %}
         {% endfor %}
       {% endif %}
