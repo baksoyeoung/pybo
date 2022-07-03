@@ -510,25 +510,25 @@ def lecture_form(request):
 
 
 # Creating a class based view
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-
-        season_nm = request.GET['season_nm']
-        camp_nm = request.GET['camp_nm']
-        subject = request.GET['subject']
-        name = request.GET['name']
-        grade_nm = request.GET['grade_nm']
-
-        mylecture_list = mylecture_form_list(season_nm, camp_nm, subject, name, grade_nm)
-        # data = models.Employees.objects.all().order_by('first_name')
-
-        open('templates/temp.html', "w", encoding="utf-8").write(render_to_string('lecture/lecture_form_pdf.html', {'mylecture_list': mylecture_list}))
-
-        # Converting the HTML template into a PDF file
-        pdf = html_to_pdf('temp.html')
-
-        # rendering the template mimetype="text/html; charset=utf-8"
-        return HttpResponse(pdf, content_type='application/pdf')
+# class GeneratePdf(View):
+#     def get(self, request, *args, **kwargs):
+#
+#         season_nm = request.GET['season_nm']
+#         camp_nm = request.GET['camp_nm']
+#         subject = request.GET['subject']
+#         name = request.GET['name']
+#         grade_nm = request.GET['grade_nm']
+#
+#         mylecture_list = mylecture_form_list(season_nm, camp_nm, subject, name, grade_nm)
+#         # data = models.Employees.objects.all().order_by('first_name')
+#
+#         open('templates/temp.html', "w", encoding="utf-8").write(render_to_string('lecture/lecture_form_pdf.html', {'mylecture_list': mylecture_list}))
+#
+#         # Converting the HTML template into a PDF file
+#         pdf = html_to_pdf('temp.html')
+#
+#         # rendering the template mimetype="text/html; charset=utf-8"
+#         return HttpResponse(pdf, content_type='application/pdf')
 
 
 
