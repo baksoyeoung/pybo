@@ -112,9 +112,9 @@
                       <th scope="col" class="text-center">대상학년</th>
                       <th scope="col" class="text-center">과목</th>
                       <th scope="col" class="text-center">강의명</th>
-                      {% if staff == True %}
-                        <th scope="col" class="text-center">강사명</th>
-                      {% endif %}
+
+                      <th scope="col" class="text-center">강사명</th>
+
                       <th scope="col" class="text-center">등원요일</th>
                       <th scope="col" class="text-center">등원개수</th>
                       <th scope="col" class="text-center">수강료(원)</th>
@@ -134,9 +134,9 @@
                       </td>
                       <td class="align-middle text-center">{{ mylecture.subject }}</td>
                       <td class="align-middle">{{ mylecture.lect_nm }}<br><small style="color:blue;">수정일:{{ mylecture.modify_date|date:"Y-m-d P" }}</small></td>
-                      {% if staff == True %}
-                        <td class="align-middle text-center">{{ mylecture.name }}</td>
-                      {% endif %}
+
+                      <td class="align-middle text-center">{{ mylecture.name }} {% if mylecture.name2 %}<br>{{ mylecture.name2 }}{% endif %}</td>
+
                       {% if mylecture.timeselect == True %}
                       <td class="align-middle text-center">시간협의</td>
                       {% else %}

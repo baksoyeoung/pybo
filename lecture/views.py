@@ -99,6 +99,7 @@ def lecture_create(request):
                         'subject': lectureinfo.subject,
                         'lect_grade': lectureinfo.lect_grade,
                         'name': lectureinfo.name,
+                        'name2': lectureinfo.name2,
                         'lect_nm': lectureinfo.lect_nm,
                         'lect_explan': lectureinfo.lect_explan,
                         'timeselect': lectureinfo.timeselect,

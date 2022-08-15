@@ -4,7 +4,7 @@ from lecture.models import Lectureinfo
 class LectureCreateForm(forms.ModelForm):
     class Meta:
         model = Lectureinfo #사용할 모델
-        fields = ["season_nm", "camp_nm", "subject", "lect_grade", "name", "lect_nm", "lect_explan", "timeselect", "lect_yoil", "lect_time", "lect_time2", "week_cnt", "in_cnt", "lect_fee", "lect_fee_explan", "science", "display_order", "lect_bigo"]
+        fields = ["season_nm", "camp_nm", "subject", "lect_grade", "name", "name2", "lect_nm", "lect_explan", "timeselect", "lect_yoil", "lect_time", "lect_time2", "week_cnt", "in_cnt", "lect_fee", "lect_fee_explan", "science", "display_order", "lect_bigo"]
         # fields = '__all__'
 
         labels = {
@@ -13,6 +13,7 @@ class LectureCreateForm(forms.ModelForm):
             'subject': '과목',
             'lect_grade': '대상학년',
             'name': '강사명',
+            'name2': '팀수업강사명',
             'lect_nm': '강의명',
             'lect_explan': '강의설명',
             'timeselect': '등원시간협의',
@@ -42,6 +43,7 @@ class Lecture_modify_set(forms.Form):
     subject = forms.CharField(max_length=255)
     lect_grade = forms.CharField(max_length=255)
     name = forms.CharField(max_length=50)
+    name2 = forms.CharField(max_length=50)
     lect_nm = forms.CharField(max_length=255)
     lect_explan = forms.CharField(widget=forms.Textarea, required=False)
     timeselect = forms.BooleanField(required=False)

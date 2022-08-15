@@ -59,6 +59,7 @@ class Lectureinfo(models.Model):
     subject = models.CharField(max_length=255)    #과목
     lect_grade = models.CharField(max_length=255) #수강학년
     name = models.CharField(max_length=50)   #강사명
+    name2 = models.CharField(max_length=50, null=True, blank=True)  # 팀수업강사명
     lect_nm = models.CharField(max_length=255)    #강의명
     lect_explan = models.TextField(null=True, blank=True) #강의설명
     timeselect = models.BooleanField(default=False) #등원시간협의

@@ -136,6 +136,15 @@
         </div>
         {% endif %}
 
+
+        <div class="col-sm-7">
+          <label for="lect_nm" class="form-label">팀수업강사명</label>
+          <input type="text" class="form-control" id="name2" name="name2" placeholder="강사명입력" value="{{ form.name2.value|default_if_none:'' }}">
+          <div class="invalid-feedback">
+            Valid last name is required.
+          </div>
+        </div>
+
         <div class="col-sm-7">
           <label for="lect_nm" class="form-label">강의명</label>
           <input type="text" class="form-control" id="lect_nm" name="lect_nm" placeholder="강의명입력" value="{{ form.lect_nm.value|default_if_none:'' }}" required>
